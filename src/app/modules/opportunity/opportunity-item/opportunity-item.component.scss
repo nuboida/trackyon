@@ -1,0 +1,93 @@
+.sp-card {
+  h6 {
+    font-weight: 500;
+    font-size: 12px;
+  }
+
+  p {
+    font-size: 15px;
+    font-weight: 300;
+  }
+}
+
+h4 {
+  color: #5a5c69;
+}
+
+.badge {
+  display: inline-block;
+  padding: .35rem .375rem;
+  padding-right: 0.375rem;
+  padding-left: 0.375rem;
+  font-size: 66%;
+  font-weight: 600;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: .375rem;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.badge-pill {
+  padding-right: .875em;
+  padding-left: .875em;
+  border-radius: 10rem;
+}
+
+.badge-success {
+  color: #1aae6f;
+  background-color: #b0eed3;
+}
+
+.badge-danger {
+  color: #f80031;
+  background-color: #fdd1da;
+}
+
+
+.badge {
+  text-transform: uppercase;
+  font-size: 10px;
+  font-weight: 300;
+
+  &-status {
+    display: inline-block;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    padding-top: 3px;
+  }
+}
+
+.a-table {
+  td {
+    font-weight: 300;
+  }
+}
+
+.toggle {
+  color: #1aae6f;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.text-blue {
+  color: #3f51b5;
+}
+
+.activity-card {
+
+  &__header {
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  &__schedule {
+    font-size: 12px;
+    font-weight: 300;
+  }
+}

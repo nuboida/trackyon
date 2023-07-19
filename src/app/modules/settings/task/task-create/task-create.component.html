@@ -1,0 +1,80 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <div class="row">
+    <div class="col-xl">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Task</mat-label>
+        <input formControlName="name" required matInput placeholder="Task">
+      </mat-form-field>
+      <div class="row my-2">
+        <div class="col-xl-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Department</mat-label>
+            <mat-select required formControlName="dept">
+              <mat-option *ngFor="let dept of dept$ | async" [value]="dept.departmentId">
+                {{dept.departmentName}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-xl-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Weight</mat-label>
+            <input type="number" formControlName="weight" required matInput placeholder="Weight" />
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row my-2">
+        <div class="col-xl-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Performance Criteria</mat-label>
+            <mat-select formControlName="criteria">
+              <mat-option *ngFor="let criteria of criteriaOptions" [value]="criteria.value">
+                {{ criteria.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-xl-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Dimension</mat-label>
+            <mat-select formControlName="dimension">
+              <mat-option *ngFor="let dimension of dimensionOptions" [value]="dimension.value">
+                {{ dimension.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div>
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Frequency</mat-label>
+          <mat-select formControlName="frequency">
+            <mat-option *ngFor="let frequency of frequencyOptions" [value]="frequency.value">
+              {{ frequency.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Key Result Areas</mat-label>
+          <input type="text" formControlName="kra" matInput />
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Target</mat-label>
+          <textarea rows="3" matInput style="resize: none" formControlName="target"></textarea>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex">
+    <button class="btn btn-block btn-outline-primary" [disabled]="!form.valid">
+      <span *ngIf="!loading"><span *ngIf="!id">Create</span> <span *ngIf="id">Update</span></span>
+      <div *ngIf="loading" class="spinner-border text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </button>
+</div>
+</form>

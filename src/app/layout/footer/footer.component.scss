@@ -1,0 +1,22 @@
+.footer {
+  margin-top: 20px;
+  margin-left: -20px;
+  margin-right: -20px;
+  &__content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+    background-color: #ffffff;
+  }
+
+  &__text {
+    font-size: 15px;
+    font-weight: 300;
+    color: rgb(133, 135, 150);
+  }
+
+  &__img {
+    width: 25px;
+  }
+}

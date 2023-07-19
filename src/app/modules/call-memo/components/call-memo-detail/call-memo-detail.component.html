@@ -1,0 +1,43 @@
+<div class="cover mb-5">
+  <h5>{{data.staff}} Memos for {{data.assignmentDate|date:'mediumDate'}}</h5>
+  <mat-card *ngFor="let item of data.memoActivities" class="shadow my-3">
+    <mat-card-content>
+      <div class="header">
+        <h6>Memo</h6>
+      </div>
+      <div class="row mb-2">
+        <div class="col-xl-2">
+          <span class="head">Project</span>
+        </div>
+        <div class="col-xl">
+          <span class="value font-weight-light">{{item.memoProject}}</span>
+        </div>
+      </div>
+      <div class="row mb-2">
+        <div class="col-xl-2">
+          <span class="head">Task</span>
+        </div>
+        <div class="col-xl">
+          <span class="value font-weight-light">{{item.memoTask}}</span>
+        </div>
+      </div>
+      <div class="row mb-2">
+        <div class="col-xl-2">
+          <span class="head">Duration</span>
+        </div>
+        <div class="col-xl">
+          <span class="value font-weight-light">{{item.duration}}</span>
+        </div>
+      </div>
+      <div class="row mb-2">
+        <div class="col-xl-2">
+          <span class="head">Notes</span>
+        </div>
+        <div class="col-xl">
+          <textarea class="notes" disabled rows="5" [value]="item.assignmentNote" matInput placeholder="Notes"></textarea>
+          <!-- <span class="value font-weight-light">{{item.assignmentNote}}</span> -->
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

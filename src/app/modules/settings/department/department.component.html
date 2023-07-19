@@ -1,0 +1,46 @@
+<olla-page-name [currentPage]="currentPage"></olla-page-name>
+
+<div *ngIf="dataSource.data.length; then thenBlock else elseBlock"></div>
+<ng-template #thenBlock>
+  <div class="row  my-3">
+    <div class="col-xl">
+      <mat-card class="shadow br-20">
+        <olla-loading-spinner [loading]="loading"></olla-loading-spinner>
+          <div class="d-flex justify-content-end my-3">
+            <button (click)="openDialog()" mat-stroked-button color="primary">New Department</button>
+          </div>
+        <div class="sales-table">
+          <table mat-table [dataSource]="dataSource" class="border w-100">
+
+            <!-- Position Column -->
+            <ng-container matColumnDef="position">
+              <th mat-header-cell *matHeaderCellDef> No. </th>
+              <td mat-cell *matCellDef="let element; index as i"> {{i+1}} </td>
+            </ng-container>
+
+            <!-- Client Column -->
+            <ng-container matColumnDef="task">
+              <th mat-header-cell *matHeaderCellDef> Department </th>
+              <td mat-cell *matCellDef="let element"> {{element.departmentName}}</td>
+            </ng-container>
+
+            <!-- Buttons Column -->
+            <ng-container matColumnDef="buttons">
+              <th mat-header-cell *matHeaderCellDef> <span class="invisible">Button</span> </th>
+              <td mat-cell *matCellDef="let element">
+                <button (click)="editDepartment(element.departmentId, element.departmentName)" mat-stroked-button color="accent">Edit</button>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+          <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+</ng-template>
+<ng-template #elseBlock>
+  <olla-blank-page-card [btnText]="btnText" [cardText]="cardText" [imageSrc]="imageSrc" (create)="createDepartment()"></olla-blank-page-card>
+</ng-template>

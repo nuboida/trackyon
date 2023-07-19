@@ -1,0 +1,53 @@
+.layout {
+  background-image: url('../../../assets/business-background-check.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  min-height: 100vh;
+  position: relative;
+
+  &:before {
+    content: "";
+    position: absolute;
+    left: 0; right: 0;
+    top: 0; bottom: 0;
+    height: inherit;
+    background: rgba(0,0,0,.5);
+  }
+}
+
+.login-card {
+  width: 445px;
+
+  &__content {
+    padding: 32px;
+  }
+
+  &__img {
+    height: 50px;
+  }
+
+  &--wide {
+    width: 645px;
+  }
+
+}
+
+@media screen and (max-width: 500px) {
+  .login-card {
+    width: 90%;
+
+    &__content {
+      padding: 10px;
+    }
+
+    &__img {
+      height: 40px;
+    }
+
+    &--wide {
+      width: 93%;
+    }
+
+  }
+}

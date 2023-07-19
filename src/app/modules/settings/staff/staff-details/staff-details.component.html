@@ -1,0 +1,71 @@
+<div class="cover mb-5">
+  <h5>{{data.firstName}} {{data.lastName}}</h5>
+  <mat-card class="shadow my-3">
+    <mat-card-content>
+      <div class="row mb-3">
+        <div class="col-xl-4">
+          <span class="head">Email: </span>
+        </div>
+        <div class="col-xl">
+          <span class="value font-weight-light">{{data.email}}</span>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-xl-4">
+          <span class="head">Phone No: </span>
+        </div>
+        <div class="col-xl">
+          <span class="value font-weight-light">{{data.phone}}</span>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-xl-4">
+          <span class="head">Address: </span>
+        </div>
+        <div class="col-xl">
+          <span class="value font-weight-light">{{data.address}}</span>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-xl-4">
+          <span class="head">Date Of Resumption: </span>
+        </div>
+        <div class="col-xl">
+          <span class="value font-weight-light">{{data.dateOfResumption | date: "mediumDate"}}</span>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-xl-4">
+          <span class="head">Department: </span>
+        </div>
+        <div class="col-xl">
+          <span class="value font-weight-light">{{data.department}}</span>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-xl-4">
+          <span class="head">Position: </span>
+        </div>
+        <div class="col-xl">
+          <span class="value font-weight-light">{{data.officeRole}}</span>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-xl-4">
+          <span class="head">Grade: </span>
+        </div>
+        <div class="col-xl">
+          <span class="value font-weight-light">{{data.grade}}</span>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-xl-4">
+          <span class="head">Target: </span>
+        </div>
+        <div class="col-xl">
+          <span class="value font-weight-light">{{data.target}}</span>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

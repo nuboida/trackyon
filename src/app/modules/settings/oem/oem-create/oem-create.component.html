@@ -1,0 +1,18 @@
+<form [formGroup]="oemForm" (ngSubmit)="addOem()">
+  <div class="row">
+    <div class="col-xl">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>OEM Name</mat-label>
+        <input formControlName="name" required matInput placeholder="OEM">
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="d-flex">
+    <button class="btn btn-block btn-outline-primary" [disabled]="!oemForm.valid">
+      <span *ngIf="!loading">Create</span>
+      <div *ngIf="loading" class="spinner-border text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </button>
+</div>
+</form>

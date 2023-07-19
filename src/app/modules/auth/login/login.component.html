@@ -1,0 +1,37 @@
+
+<form [formGroup]="loginForm" (ngSubmit)="login()">
+  <div class="row">
+    <div class="col-xl">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Email</mat-label>
+        <input formControlName="email" matInput placeholder="Email">
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xl">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Password</mat-label>
+        <input formControlName="password" #password type="password" matInput placeholder="Password" />
+        <button type="button" class="pt-3" *ngIf="password.type=='password'" matSuffix mat-icon-button aria-label="View" (click)="password.type='text'">
+          <mat-icon>visibility</mat-icon>
+        </button>
+        <button type="button" class="pt-3" *ngIf="password.type=='text'" matSuffix mat-icon-button aria-label="Hide" (click)="password.type='password'">
+          <mat-icon>visibility_off</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="d-flex">
+    <button class="btn btn-block btn-outline-primary" [disabled]="!loginForm.valid || loading">
+     Sign In
+     <div  *ngIf="loading" class="spinner-border text-primary ml-1" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+    </button>
+  </div>
+  <div class="mt-3 forget d-flex justify-content-between">
+    <a routerLink="/auth/forgot-password" class="small">Forgot your password?</a>
+    <a routerLink="/auth/verify-company" class="small">Not Your Company</a>
+  </div>
+</form>

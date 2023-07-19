@@ -1,0 +1,202 @@
+<olla-back-button [toolTip]="toolTip" [route]="returnRoute"></olla-back-button>
+<olla-page-name [currentPage]="currentPage"></olla-page-name>
+
+<div class="row">
+  <div class="col-xl">
+    <div class="card mat-elevation-z2 sp-card br-20">
+      <div class="card-header">
+        <div class="d-flex justify-content-between align-items-center">
+          <span class="text-blue">Details</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-xl-3 col-6 mb-3">
+            <h6 class="text-muted">CLIENT:</h6>
+            <p>{{opportunity?.client}}</p>
+            <h6 class="text-muted">CONTACT:</h6>
+            <p>{{opportunity?.clientContact}}</p>
+            <h6 class="text-muted">TYPE:</h6>
+            <p>{{opportunity?.businessType}}</p>
+            <h6 class="text-muted">OEM:</h6>
+            <p>{{opportunity?.oemNames || 'None'}}</p>
+            <h6 class="text-muted">OPENED BY:</h6>
+            <p>{{opportunity?.staff}}</p>
+
+          </div>
+          <div class="col-xl-3 col-6 mb-3">
+            <h6 class="text-muted">SELLING PRICE:</h6>
+            <p>{{opportunity?.sellingPrice |currency}}</p>
+            <h6 class="text-muted">COST PRICE:</h6>
+            <p>{{opportunity?.costPrice |currency}}</p>
+            <h6 class="text-muted">AMOUNT PAID:</h6>
+            <p>{{opportunity?.amountPaid |currency:'₦' }}</p>
+            <h6 class="text-muted">RATE:</h6>
+            <p>{{opportunity?.rate}}</p>
+            <h6 class="text-muted">DATE RECEIVED:</h6>
+            <p>{{(opportunity?.datePaymentReceived |date:'mediumDate') || 'None'}}</p>
+          </div>
+          <div class="col-xl-3 col-6">
+            <h6 class="text-muted">OPENED ON:</h6>
+            <p>{{opportunity?.createdDate |date:'mediumDate'}}</p>
+            <h6 class="text-muted">CLOSURE DATE:</h6>
+            <p>{{(opportunity?.expectedClosingDate |date:'mediumDate') || 'None'}}</p>
+            <h6 class="text-muted">DELIVERY STATUS:</h6>
+            <p>{{opportunity?.deliveryStatus}}</p>
+            <h6 class="text-muted">DELIVERY DATE:</h6>
+            <p>{{(opportunity?.dateOfDelivery |date:'mediumDate') || 'None'}}</p>
+          </div>
+          <div class="col-xl-3 col-6">
+            <h6 class="text-muted">STAGE:</h6>
+            <p>{{opportunity?.stage}}</p>
+            <h6 class="text-muted">PERCENTAGE:</h6>
+            <p>{{opportunity?.stagePercentage}}</p>
+            <h6 class="text-muted">SUPPORT:</h6>
+            <p>{{opportunity?.teamNames || 'None'}}</p>
+            <h6 class="text-muted">DESCRIPTION:</h6>
+            <p class="overview">
+              {{opportunity?.description}}
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row mt-5">
+  <div class="col-xl">
+    <div class="card mat-elevation-z2 br-20">
+      <div class="card-header">
+        <div class="d-flex justify-content-between align-items-center">
+          <span class="text-blue">Documents</span>
+
+          <div class="">
+            <input type="file" #photo class="d-none" id="photo" (change)="addDocument(photo.files)">
+            <button (click)="photo.click()" mat-stroked-button color="primary">Add Document</button>
+          </div>
+        </div>
+      </div>
+      <div class="card-body of-auto">
+        <table mat-table [dataSource]="dataSource" class="border">
+
+          <!-- Position Column -->
+          <ng-container matColumnDef="position">
+            <th mat-header-cell *matHeaderCellDef> No. </th>
+            <td mat-cell *matCellDef="let element; index as i"> {{i+1}} </td>
+          </ng-container>
+
+          <!-- Client Column -->
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Name </th>
+            <td mat-cell *matCellDef="let element">
+              <a class="fw-500 text-decoration-none" href="{{element.url}}" target="blank">{{element.fileName}}</a>
+            </td>
+          </ng-container>
+
+          <!-- Price Column -->
+          <ng-container matColumnDef="uploadedby">
+            <th mat-header-cell *matHeaderCellDef> Uploaded By </th>
+            <td mat-cell *matCellDef="let element"> {{element.staff}} </td>
+          </ng-container>
+
+          <!-- Date Column -->
+          <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef> Date </th>
+            <td mat-cell *matCellDef="let element"> {{element.dateCreated |date:'mediumDate'}} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row mt-5">
+  <div class="col-xl">
+    <div class="card mat-elevation-z2 activity-card br-20">
+      <div class="card-header">
+        <div class="d-flex justify-content-between align-items-center">
+          <span class="text-blue">Activities</span>
+          <div>
+            <button class="mx-2" (click)="createActivity()" mat-stroked-button color="primary">Add Activity</button>
+            <button (click)="exportExcel()" mat-stroked-button color="success">Export</button>
+          </div>
+        </div>
+      </div>
+      <div class="card-body of-auto">
+        <table mat-table [dataSource]="activitiesData" class="a-table border">
+
+          <!-- Position Column -->
+          <ng-container matColumnDef="position">
+            <th mat-header-cell *matHeaderCellDef> No. </th>
+            <td mat-cell *matCellDef="let element; index as i"> {{i+1}} </td>
+          </ng-container>
+
+          <!-- Client Column -->
+          <ng-container matColumnDef="activity">
+            <th mat-header-cell *matHeaderCellDef> Activity </th>
+            <td mat-cell *matCellDef="let element">
+              <span style="display: inline-block; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; max-width: 12rem;" *ngIf="element.isClosed" class="fw-500">{{element.nextAction}}</span>
+              <a style="display: inline-block; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; max-width: 12rem;" *ngIf="!element.isClosed" class="fw-500 text-decoration-none" (click)="editActivity(nextActivity.activityId)">{{nextActivity.nextAction}}</a>
+            </td>
+          </ng-container>
+
+          <!-- Price Column -->
+          <ng-container matColumnDef="staff">
+            <th mat-header-cell *matHeaderCellDef> Staff </th>
+            <td mat-cell *matCellDef="let element"> {{element.staff}} </td>
+          </ng-container>
+
+          <!-- Price Column -->
+          <ng-container matColumnDef="stage">
+            <th mat-header-cell *matHeaderCellDef> Stage </th>
+            <td mat-cell *matCellDef="let element"> {{element.opportunityStage}} </td>
+          </ng-container>
+
+          <!-- Date Column -->
+          <ng-container matColumnDef="scheduled">
+            <th mat-header-cell *matHeaderCellDef> Scheduled </th>
+            <td mat-cell *matCellDef="let element"> {{element.proposedDate |date:'mediumDate'}} </td>
+          </ng-container>
+
+          <!-- Date Column -->
+          <ng-container matColumnDef="created">
+            <th mat-header-cell *matHeaderCellDef> Created </th>
+            <td mat-cell *matCellDef="let element"> {{element.dateCreated |date:'mediumDate'}} </td>
+          </ng-container>
+
+          <!-- Date Column -->
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef> </th>
+            <td mat-cell *matCellDef="let element">
+              <button *ngIf="!element.isClosed" [matTooltip]="tip" matTooltipPosition="before" (click)="closeActivity(element.activityId)" mat-icon-button class="toggle" color="primary" aria-label="Example icon button with a home icon">
+                <mat-icon>check</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <!-- Date Column -->
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef> Status </th>
+            <td mat-cell *matCellDef="let element">
+              <span *ngIf="!element.isClosed" class="mt-2 badge-status badge-danger">
+                <mat-icon>clear</mat-icon>
+              </span>
+              <span *ngIf="element.isClosed" class="badge-status badge-success">
+                <mat-icon>check</mat-icon>
+              </span>
+
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="activitiesColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: activitiesColumns;"></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

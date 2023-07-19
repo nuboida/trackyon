@@ -1,0 +1,32 @@
+<olla-page-name [currentPage]="currentPage"></olla-page-name>
+
+<form [formGroup]="detailForm">
+
+  <div class="row mb-2">
+    <div class="col-xl">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Date</mat-label>
+        <input formControlName="detailsDate" matInput [matDatepicker]="picker" placeholder="Date" [disabled]="editMode">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row mb-2">
+    <div class="col-xl">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Notes</mat-label>
+        <textarea formControlName="notes" style="resize: none" rows="5" matInput placeholder="Notes"></textarea>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-end mb-4">
+    <button type="button" class="mx-3" mat-raised-button color="accent" (click)="handleCancel()">Cancel</button>
+    <button type="submit" mat-raised-button color="primary" (click)="submitTaskDetails()">
+      <span>Save</span>
+    </button>
+  </div>
+</form>
+

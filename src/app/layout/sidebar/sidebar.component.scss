@@ -1,0 +1,152 @@
+.user {
+  padding: 10px;
+  color: #ffffff;
+  display: flex;
+
+  &__img {
+    height: 45px;
+    width: 45px;
+    border-radius: 50%;
+    margin-top: 7px;
+  }
+
+  &__text {
+    padding: 7px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__name {
+    font-weight: 500;
+  }
+
+  &__role {
+    color: #ffffff;
+  }
+}
+
+.sidebar {
+
+  &__item {
+    padding: 10px 0;
+  }
+  &__link {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px 15px;
+    margin: 0 10px;
+    color: #ffffff;
+
+    &:hover {
+      color: #ffffff;
+      font-weight: 500;
+      text-decoration: none;
+
+      > .mat-icon {
+        color: #ffffff;
+      }
+    }
+    .mat-icon {
+      color: #ffffff;
+    }
+    span {
+      padding-left: 15px;
+    }
+
+    &--active {
+      color: #3f51b5;
+      background-color: #ffffff;
+      border-radius: 5px;
+
+      .mat-icon {
+        color: #3f51b5;
+      }
+
+      &:hover {
+        color: #3f51b5;
+
+        > .mat-icon {
+          color: #3f51b5;
+        }
+      }
+    }
+  }
+  &__dropdown {
+    margin-left: auto;
+
+    &--down {
+      display: none;
+    }
+  }
+}
+
+.nested {
+  &__nav {
+    padding: 0 20px;
+    display: none;
+    opacity: 0;
+    -webkit-animation: menu1 ease-in-out forwards;
+    animation: menu1 ease-in-out forwards;
+    -webkit-animation-duration: 500ms;
+    animation-duration: 500ms;
+    -webkit-animation-delay: 0ms;
+    animation-delay: 0ms;
+  }
+  &__list {
+    display: flex;
+    flex-direction: column;
+    padding-left: 42px;
+    border-radius: 10px;
+  }
+  &__item {
+    padding: 5px 0;
+  }
+
+  &__link {
+    color: rgba(255,255,255,.8);
+    font-weight: 300;
+
+    &:hover {
+      color: #ffffff;
+      font-weight: 500;
+      text-decoration: none;
+    }
+
+    &--active {
+      color: #ffffff;
+      font-weight: 700;
+    }
+  }
+
+}
+
+.drop + div {
+  display: block;
+  opacity: 1;
+}
+
+.drop {
+  .sidebar__dropdown--down {
+    display: block;
+  }
+  .sidebar__dropdown--right {
+    display: none;
+  }
+}
+
+@-webkit-keyframes menu1 {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes menu1 {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

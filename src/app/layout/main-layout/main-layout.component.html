@@ -1,0 +1,13 @@
+
+<mat-sidenav-container>
+  <mat-sidenav [mode]="side" [(opened)]="sidenav">
+    <olla-sidebar></olla-sidebar>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <olla-navbar (sidenav)="toggleSidenav()"></olla-navbar>
+    <main class="main d-flex flex-column" [@fadeAnimation]="o.isActivated ? o.activatedRoute : ''">
+      <router-outlet #o="outlet"></router-outlet>
+      <olla-footer class="main__footer"></olla-footer>
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,0 +1,20 @@
+.opportunity-card {
+
+
+  &__header {
+    height: 50px;
+    background-color: #f8f9fc;
+    margin: -16px -16px 16px -16px !important;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    padding: 16px;
+
+    .text-blue {
+      color: #4e73df;
+    }
+  }
+}
+
+table {
+  color: #5a5c69;
+}

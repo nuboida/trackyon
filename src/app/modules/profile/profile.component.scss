@@ -1,0 +1,47 @@
+
+.profile {
+  height: 200px;
+  display: grid;
+  grid-template-columns: 350px repeat(2, 1fr);
+
+  &__img {
+    height: 130px;
+    width: 130px;
+
+    .upload {
+      bottom: 0;
+      right: 0;
+    }
+
+    img {
+      height: inherit;
+      width: inherit;
+      border-radius: 50%;
+    }
+  }
+
+  &__name {
+    font-size: 18px;
+    font-weight: 500;
+  }
+}
+
+.mat-icon {
+  height: 16px;
+  width: 16px;
+  font-size: 16px;
+}
+
+.br {
+  border-right: 1px solid #e2e8f0;
+}
+
+.details {
+  font-weight: 500;
+}
+
+.detail {
+  color: rgb(45, 55, 72);
+  font-weight: 300;
+  font-size: 16px;
+}

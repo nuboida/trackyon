@@ -1,0 +1,59 @@
+<div class="speed">
+  <div class="user mt-1">
+    <img [src]="userImage" alt="User" class="user__img">
+    <p class="user__text">
+      <span class="user__name">{{fullName}}</span>
+      <span class="user__role">{{role}}</span>
+    </p>
+  </div>
+  <nav class="sidebar-nav">
+    <ul class="sidebar__list">
+      <li class="sidebar__item">
+        <a class="sidebar__link" [routerLink]="['/home']" routerLinkActive="sidebar__link--active">
+          <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
+          <span>Home</span>
+        </a>
+      </li>
+      <li class="sidebar__item" routerLinkActive #cmla="routerLinkActive">
+        <a class="sidebar__link" [ngClass]="{'drop': activeDropdown == 'Call Memo', 'sidebar__link--active': cmla.isActive}" (click)="changeDropdown('Call Memo')">
+          <mat-icon aria-hidden="false" aria-label="Example home icon">notes</mat-icon>
+          <span>Timesheets</span>
+          <mat-icon aria-hidden="false" class="sidebar__dropdown sidebar__dropdown--down" aria-label="Example home icon">expand_more</mat-icon>
+          <mat-icon aria-hidden="false" class="sidebar__dropdown sidebar__dropdown--right" aria-label="Example home icon">keyboard_arrow_right</mat-icon>
+        </a>
+        <div class="nested__nav">
+          <ul class="nested__list">
+            <li class="nested__item"><a [routerLink]="['/memo/personal']" routerLinkActive="nested__link--active" class="nested__link">Personal Memo</a></li>
+            <li *ngIf="isAdmin" class="nested__item"><a [routerLink]="['/memo/staff']" routerLinkActive="nested__link--active" class="nested__link">Staff Memos</a></li>
+            <li class="nested__item"><a [routerLink]="['/memo/department']" routerLinkActive="nested__link--active" class="nested__link">Dept Memos</a></li>
+          </ul>
+        </div>
+      </li>
+      <li class="sidebar__item">
+        <a class="sidebar__link" [routerLink]="['/opportunity']" routerLinkActive="sidebar__link--active">
+          <mat-icon aria-hidden="false" aria-label="Example home icon">request_quote</mat-icon>
+          <span>Opportunities</span>
+        </a>
+      </li>
+      <li class="sidebar__item" routerLinkActive #rla="routerLinkActive">
+        <a class="sidebar__link" [ngClass]="{'drop': activeDropdown == 'Settings', 'sidebar__link--active': rla.isActive}" (click)="changeDropdown('Settings')">
+          <mat-icon aria-hidden="false" aria-label="Example home icon">settings</mat-icon>
+          <span>Settings</span>
+          <mat-icon aria-hidden="false" class="sidebar__dropdown sidebar__dropdown--down" aria-label="Example home icon">expand_more</mat-icon>
+          <mat-icon aria-hidden="false" class="sidebar__dropdown sidebar__dropdown--right" aria-label="Example home icon">keyboard_arrow_right</mat-icon>
+        </a>
+        <div class="nested__nav">
+          <ul class="nested__list">
+            <li class="nested__item"><a [routerLink]="['/settings/client']" routerLinkActive="nested__link--active" class="nested__link">Clients</a></li>
+            <li class="nested__item"><a [routerLink]="['/settings/oem']" routerLinkActive="nested__link--active" class="nested__link">OEMs</a></li>
+            <li *ngIf="isAdmin" class="nested__item"><a [routerLink]="['/settings/staff']" routerLinkActive="nested__link--active" class="nested__link">Staff</a></li>
+            <li *ngIf="isAdmin" class="nested__item"><a [routerLink]="['/settings/department']" routerLinkActive="nested__link--active" class="nested__link">Department</a></li>
+            <li *ngIf="isAdmin" class="nested__item"><a [routerLink]="['/settings/classification']" routerLinkActive="nested__link--active" class="nested__link">Classifications</a></li>
+            <li *ngIf="isAdmin" class="nested__item"><a [routerLink]="['/settings/project']" routerLinkActive="nested__link--active" class="nested__link">Projects</a></li>
+            <li *ngIf="isAdmin" class="nested__item"><a [routerLink]="['/settings/task']" routerLinkActive="nested__link--active" class="nested__link">Tasks</a></li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </nav>
+</div>

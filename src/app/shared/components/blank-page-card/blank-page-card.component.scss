@@ -1,0 +1,25 @@
+.blank-card {
+  height: 400px;
+
+  &__img {
+    height: 368px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+      height: 70%;
+    }
+  }
+
+  &__texts {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    p {
+      font-weight: 300;
+    }
+  }
+}

@@ -1,0 +1,72 @@
+<olla-page-name [currentPage]="'Dashboard'"></olla-page-name>
+<olla-stats-cards [stats]="stats$ |async"></olla-stats-cards>
+<div class="row mb-5 my-xl-5 d-non">
+  <div class="col-xl">
+    <olla-sales-barchart [barChartData]="monthlySales$ |async"></olla-sales-barchart>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xl-4 col-md-6 mb-3">
+    <olla-clients-doughnutchart [data]="clients$ |async"></olla-clients-doughnutchart>
+  </div>
+  <!-- <div class="col-xl-4 col-md-6 mb-3">
+    <olla-opportunities-piechart [stages]="stages$ |async"></olla-opportunities-piechart>
+  </div> -->
+  <div class="col-xl-4 col-md-6 mb-3">
+    <olla-opportunities-stages [stages]="stages" [totalStages]="totalStage"></olla-opportunities-stages>
+  </div>
+  <div class="col-xl-4 col-md-6 mb-3">
+    <olla-overallamount-piechart [margin]="closedWonMargin" [target]="overallTarget"></olla-overallamount-piechart>
+  </div>
+  <div class="col-xl-4 mb-5">
+    <olla-opportunities-latest [opportunities]="opportunities$ |async"></olla-opportunities-latest>
+  </div>
+</div>
+<!-- <div class="row m-5">
+  <mat-select [formControl]="chartCtrl">
+    <mat-option *ngFor="let filter of filterOptions" [value]="filter.value">
+      {{ filter.name }}
+    </mat-option>
+  </mat-select>
+</div> -->
+<!-- <div class="row" *ngIf="chartCtrl.value === 0">
+  <div class="col-xl-4 col-md-6 mb-3" *ngFor="let salesStaff of salesStaffs">
+    <olla-individual-piechart [staffId]="salesStaff.staffId" [staffName]="salesStaff.name"></olla-individual-piechart>
+  </div>
+</div>
+<div class="row" *ngIf="chartCtrl.value === 1">
+  <div class="col-xl-4 col-md-6 mb-3" *ngFor="let salesStaff of salesStaffs">
+    <olla-amount-piechart [staffId]="salesStaff.staffId" [staffName]="salesStaff.name"></olla-amount-piechart>
+  </div>
+</div> -->
+
+<div *ngIf="isAdmin">
+  <mat-tab-group animationDuration="0ms" class="m-3">
+    <mat-tab label="Individual Opportunities By Stages">
+      <div class="row">
+        <div class="col-xl-4 col-md-6 my-3" *ngFor="let salesStaff of salesStaffs">
+          <olla-individual-piechart [staffId]="salesStaff.staffId" [staffName]="salesStaff.name"></olla-individual-piechart>
+        </div>
+      </div>
+    </mat-tab>
+    <!-- <mat-tab label="Percentage">
+      <div class="row">
+        <div class="col-xl-4 col-md-6 my-3" *ngFor="let salesStaff of salesStaffs">
+          <olla-amount-piechart [staffId]="salesStaff.staffId" [staffName]="salesStaff.name" [staffTarget]="salesStaff.target" [margin]="closedWonMargin"></olla-amount-piechart>
+        </div>
+      </div>
+    </mat-tab> -->
+    <mat-tab label="Individual Margin">
+      <div class="row">
+        <div class="col-xl-4 col-md-6 my-3" *ngFor="let salesStaff of salesStaffs">
+          <olla-percent-piechart [staffId]="salesStaff.staffId" [staffName]="salesStaff.name" [staffTarget]="salesStaff.target" [margin]="closedWonMargin"></olla-percent-piechart>
+        </div>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>
+<div class="row mb-5">
+  <div class="col-xl">
+    <olla-sales-table [sales]="sales$ |async"></olla-sales-table>
+  </div>
+</div>

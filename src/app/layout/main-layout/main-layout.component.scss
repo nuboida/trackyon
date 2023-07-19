@@ -1,0 +1,14 @@
+.main {
+  padding: 0 20px;
+  height: calc(100vh - 59px);
+  background-color: #f8f9fc;
+
+  &__footer {
+    margin-top: auto;
+  }
+}
+
+.mat-sidenav {
+  width: 220px;
+  background-color: #3f51b5;
+}

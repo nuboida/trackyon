@@ -1,0 +1,123 @@
+/* You can add global styles to this file, and also import other style files */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+a { text-decoration: none; cursor: pointer; }
+ul { list-style: none; margin: 0; padding: 0; }
+button { &:focus { outline: none;}}
+.forget {
+  font-size: 15px;
+
+  a {
+    color: #4e73df;
+
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.spinner-border {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+.mat-card {
+  position: relative;
+
+  .header {
+    height: 50px;
+    background-color: #f8f9fc;
+    margin: -16px -16px 16px -16px !important;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    padding: 16px;
+
+    h6 {
+      color: #4e73df;
+    }
+  }
+
+  .loading-shade {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0px;
+    right: 0;
+    background: rgba(0, 0, 0, 0.15);
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.mat-button.mat-success,
+.mat-button.mat-success,
+.mat-icon-button.mat-success,
+.mat-stroked-button.mat-success {
+  color: #28a745;
+}
+
+.mat-raised-button.mat-success, .mat-flat-button.mat-success{
+  background-color: #28a745;
+  color: white;
+}
+
+.mat-button.mat-success .mat-button-focus-overlay,
+.mat-icon-button.mat-success .mat-button-focus-overlay,
+.mat-stroked-button.mat-success .mat-button-focus-overlay{
+  background-color: #28a745;
+}
+
+.mat-button.mat-info,
+.mat-button.mat-info,
+.mat-icon-button.mat-info,
+.mat-stroked-button.mat-info {
+  color: #17a2b8;
+}
+
+.mat-raised-button.mat-info, .mat-flat-button.mat-info{
+  background-color: #17a2b8;
+  color: white;
+}
+
+.mat-button.mat-info .mat-button-focus-overlay,
+.mat-icon-button.mat-info .mat-button-focus-overlay,
+.mat-stroked-button.mat-info .mat-button-focus-overlay{
+  background-color: #17a2b8;
+}
+
+.mh-400 {
+  min-height: 400px;
+}
+
+.fw-500 {
+  font-weight: 500;
+}
+
+.fw-300 {
+  font-weight: 300;
+}
+
+.of-auto {
+  overflow: auto;
+}
+
+.br-20 {
+  border-radius: 20px !important;
+  overflow: hidden;
+}
+
+table {
+  width: 100%;
+}
+
+@media (max-width: 767.98px) {
+  table {
+    width: 800px;
+  }
+}
+

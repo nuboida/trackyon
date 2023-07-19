@@ -1,0 +1,133 @@
+<olla-page-name [currentPage]="currentPage"></olla-page-name>
+<form [formGroup]="form">
+  <div class="row my-4">
+    <div class="col-xl-5">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Client Cost (&#36;)</mat-label>
+        <input required matInput [formControl]="clientForeignCostCtrl" placeholder="OEM Cost (&#36;)">
+        <mat-error *ngIf="clientForeignCostCtrl.errors?.invalidNumber !== null">Enter a valid number</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col-xl-2">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Rate</mat-label>
+        <input required [formControl]="clientRateCtrl" required matInput placeholder="Rate">
+        <mat-error *ngIf="clientRateCtrl.errors?.invalidNumber !== null">Enter a valid number</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col-xl-5">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Client Cost (&#8358;)</mat-label>
+        <input [formControl]="clientLocalCostCtrl"  matInput placeholder="OEM Cost (&#8358;)">
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row my-4">
+    <div class="col-xl-5">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>OEM Cost (&#36;)</mat-label>
+        <input required matInput [formControl]="oemForeignCostCtrl" placeholder="OEM Actual Cost (Foreign)">
+        <mat-error *ngIf="oemForeignCostCtrl.errors?.invalidNumber !== null">Enter a valid number</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col-xl-2">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Rate</mat-label>
+        <input required [formControl]="oemRateCtrl" required matInput placeholder="Actual Rate">
+        <mat-error *ngIf="oemRateCtrl.errors?.invalidNumber !== null">Enter a valid number</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col-xl-5">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>OEM Cost (&#8358;)</mat-label>
+        <input [formControl]="oemLocalCostCtrl"  matInput placeholder="OEM Actual Cost (&#8358;)">
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row my-4">
+    <div class="col-xl">
+      <div class="radio">
+        <label class="d-block font-weight-bold">Witholding Tax Percentage (%)</label>
+        <mat-radio-group (change)="calculateMargin()" [formControl]="witholdingTaxPercentCtrl" aria-labelledby="margin-radio-group" >
+          <mat-radio-button class="pr-3" [value]="5">5%</mat-radio-button>
+          <mat-radio-button [value]="10">10%</mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </div>
+  </div>
+  <div class="row my-4">
+    <div class="col-xl-5">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Witholding Tax (&#36;)</mat-label>
+        <input [formControl]="witholdingTaxForeignCostCtrl" matInput placeholder="Witholding Tax (&#8358;)">
+        <mat-error *ngIf="witholdingTaxForeignCostCtrl.errors?.invalidNumber !== null">Enter a valid number</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col-xl-2">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Rate</mat-label>
+        <input required [formControl]="witholdingTaxRateCtrl" required matInput placeholder="Actual Rate">
+        <mat-error *ngIf="witholdingTaxRateCtrl.errors?.invalidNumber !== null">Enter a valid number</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col-xl-5">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Witholding Tax (&#8358;)</mat-label>
+        <input [formControl]="witholdingTaxLocalCostCtrl" matInput placeholder="Witholding Tax (&#8358;)">
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row my-4">
+    <div class="col-xl-5">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>PR (&#36;)</mat-label>
+        <input required matInput [formControl]="prForeignCostCtrl" placeholder="OEM Cost (&#36;)">
+        <mat-error *ngIf="prForeignCostCtrl.errors?.invalidNumber !== null">Enter a valid number</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col-xl-2">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Rate</mat-label>
+        <input required [formControl]="prRateCtrl" required matInput placeholder="Rate">
+        <mat-error *ngIf="prRateCtrl.errors?.invalidNumber !== null">Enter a valid number</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col-xl-5">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>PR (&#8358;)</mat-label>
+        <input [formControl]="prLocalCostCtrl"  matInput placeholder="OEM Cost (&#8358;)">
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row my-4">
+    <div class="col-xl-5">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Training (&#36;)</mat-label>
+        <input required matInput [formControl]="trainingForeignCostCtrl" placeholder="OEM Actual Cost (Foreign)">
+        <mat-error *ngIf="trainingForeignCostCtrl.errors?.invalidNumber !== null">Enter a valid number</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col-xl-2">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Rate</mat-label>
+        <input required [formControl]="trainingRateCtrl" required matInput placeholder="Actual Rate">
+        <mat-error *ngIf="trainingRateCtrl.errors?.invalidNumber !== null">Enter a valid number</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col-xl-5">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Training (&#8358;)</mat-label>
+        <input [formControl]="trainingLocalCostCtrl"  matInput placeholder="OEM Actual Cost (&#8358;)">
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row my-4">
+    <div class="col-xl">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Final Margin (&#8358;)</mat-label>
+        <input [formControl]="marginFinalCtrl"  matInput placeholder="Final Margin (&#8358;)">
+      </mat-form-field>
+    </div>
+  </div>
+</form>
+

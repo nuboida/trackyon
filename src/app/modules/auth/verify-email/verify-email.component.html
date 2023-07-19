@@ -1,0 +1,10 @@
+<div *ngIf="!loading" class="row">
+  <div class="col-xl">
+    <div *ngIf="success" class="alert alert-success" role="alert">
+      Email has been verified <a routerLink="/auth/login" class="alert-link">Login</a>.
+    </div>
+    <div *ngIf="!success" class="alert alert-danger" role="alert">
+      {{errorMessage}} <a routerLink="/auth/send-verification" class="alert-link">Resend Email</a>.
+    </div>
+  </div>
+</div>

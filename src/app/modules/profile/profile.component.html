@@ -1,0 +1,133 @@
+<olla-page-name [currentPage]="currentPage"></olla-page-name>
+<div class="row my-4">
+  <div class="col-xl">
+    <mat-card class="br-20">
+      <mat-card-content>
+        <mat-tab-group>
+          <mat-tab label="Details">
+            <div class="profile py-3">
+              <div class="d-flex align-items-center br">
+                <div class="profile__img position-relative">
+                  <img [src]="staff.staffImageUrl" alt="user">
+                  <div class="upload position-absolute">
+                    <input type="file" #photo class="d-none" id="photo" (change)="imageSelected(photo.files)">
+                    <button mat-mini-fab type="button" color="primary" (click)="photo.click()">
+                      <mat-icon>camera_alt</mat-icon>
+                    </button>
+
+                  </div>
+                </div>
+                <div class="ml-3">
+                  <div class="profile__name">{{staff.firstName}} {{staff.lastName}}</div>
+                  <div class="text-muted">{{role}}</div>
+              </div>
+              </div>
+              <div class="br px-3">
+                <span class="details my-2 d-block">Details</span>
+                <div class="main-details">
+                  <div class="detail d-flex align-items-center">
+                    <mat-icon fontSet="material-icons-outlined" aria-hidden="false" aria-label="Example home icon">email</mat-icon>
+                    <span class="ml-3">{{staff.email}}</span>
+                  </div>
+                  <div class="detail mt-2 d-flex align-items-center">
+                    <mat-icon fontSet="material-icons-outlined" aria-hidden="false" aria-label="Example home icon">phone</mat-icon>
+                    <span class="ml-3">{{staff.phoneNumber}}</span>
+                  </div>
+                  <div class="detail mt-2 d-flex align-items-center">
+                    <mat-icon fontSet="material-icons-outlined" aria-hidden="false" aria-label="Example home icon">domain</mat-icon>
+                    <span class="ml-3">{{staff.department}}</span>
+                  </div>
+                  <div class="detail mt-2 d-flex align-items-center">
+                    <mat-icon fontSet="material-icons-outlined" aria-hidden="false" aria-label="Example home icon">person</mat-icon>
+                    <span class="ml-3">{{staff.position}}</span>
+                  </div>
+                  <div class=""></div>
+                  <div class=""></div>
+                </div>
+              </div>
+              <div class="px-3">
+                <span class="details my-2 d-block">Additional Details</span>
+                <div class="main-details">
+                  <div class="detail d-flex align-items-center">
+                    <mat-icon matTooltip="Today's Date" matTooltipPosition="before" fontSet="material-icons-outlined" aria-hidden="false" aria-label="Example home icon">calendar_today</mat-icon>
+                    <span class="ml-3">{{date |date:'mediumDate'}}</span>
+                  </div>
+                  <div class=""></div>
+                  <div class=""></div>
+                </div>
+              </div>
+            </div>
+          </mat-tab>
+          <mat-tab label="Password Change">
+            <div class="change d-flex ml-3 my-4">
+              <form [formGroup]="form" class="w-50" (ngSubmit)="change()">
+
+                <div class="row mb-2">
+                  <div class="col-xl-7">
+                    <mat-form-field class="w-100" appearance="outline">
+                      <mat-label>Current Password</mat-label>
+                      <input formControlName="currentPassword" #currentPassword required matInput type="password" placeholder="Current Password">
+                      <button type="button" class="pt-3" *ngIf="currentPassword.type=='password'" matSuffix mat-icon-button aria-label="View" (click)="currentPassword.type='text'">
+                        <mat-icon>visibility</mat-icon>
+                      </button>
+                      <button type="button" class="pt-3" *ngIf="currentPassword.type=='text'" matSuffix mat-icon-button aria-label="Hide" (click)="currentPassword.type='password'">
+                        <mat-icon>visibility_off</mat-icon>
+                      </button>
+                      <mat-error *ngIf="f.currentPassword.errors?.required">Password is required</mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row mb-2">
+                  <div class="col-xl-7">
+                    <mat-form-field class="w-100" appearance="outline">
+                      <mat-label>New Password</mat-label>
+                      <input formControlName="password" #newPassword required matInput type="password" placeholder="New Password">
+                      <button type="button" class="pt-3" *ngIf="newPassword.type=='password'" matSuffix mat-icon-button aria-label="View" (click)="newPassword.type='text'">
+                        <mat-icon>visibility</mat-icon>
+                      </button>
+                      <button type="button" class="pt-3" *ngIf="newPassword.type=='text'" matSuffix mat-icon-button aria-label="Hide" (click)="newPassword.type='password'">
+                        <mat-icon>visibility_off</mat-icon>
+                      </button>
+                      <mat-error *ngIf="f.password.errors?.required">Password is required</mat-error>
+                      <mat-error *ngIf="f.password.errors?.pattern">Password must be atleast 8 characters having an uppercase,
+                        lowercase, number and special Character</mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xl-7">
+                    <mat-form-field class="w-100" appearance="outline">
+                      <mat-label>Confirm Password</mat-label>
+                      <input formControlName="confirm" #confirmPassword required matInput type="password" placeholder="Confirm Password">
+                      <button type="button" class="pt-3" *ngIf="confirmPassword.type=='password'" matSuffix mat-icon-button aria-label="View" (click)="confirmPassword.type='text'">
+                        <mat-icon>visibility</mat-icon>
+                      </button>
+                      <button type="button" class="pt-3" *ngIf="confirmPassword.type=='text'" matSuffix mat-icon-button aria-label="Hide" (click)="confirmPassword.type='password'">
+                        <mat-icon>visibility_off</mat-icon>
+                      </button>
+                      <mat-error *ngIf="f.confirm.errors?.required">Confirm Password is required</mat-error>
+                      <mat-error *ngIf="f.confirm.errors?.confirmedValidator">Passwords don't match</mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xl-7">
+                    <button type="submit" *ngIf="!loading" class="btn btn-block btn-outline-primary" [disabled]="!form.valid">Update Password</button>
+                    <button *ngIf="loading"  class="btn btn-block btn-outline-primary" disabled>
+                      <div class="spinner-border text-primary" role="status">
+                        <span class="sr-only">Loading...</span>
+                      </div>
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+
+          </mat-tab>
+        </mat-tab-group>
+
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

@@ -1,0 +1,188 @@
+<olla-page-name [currentPage]="currentPage"></olla-page-name>
+
+<div class="row mx-2 justify-content-between">
+  <div class="justify-content-between">
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Department</mat-label>
+      <mat-select [formControl]="deptInput">
+        <mat-option *ngFor="let dept of deptOptions" [value]="dept.departmentId">
+          {{dept.departmentName}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div>
+    <div class="d-flex justify-content-end my-3">
+      <button (click)="openDialog()" mat-stroked-button color="primary">New Task</button>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="kpiDataSource.data.length; then coreTaskTable else elseCoreTaskTable"></div>
+<ng-template #coreTaskTable>
+  <div class="row my-5">
+    <div class="col-xl">
+      <mat-card class="shadow br-20">
+        <olla-loading-spinner [loading]="loading"></olla-loading-spinner>
+        <h3 class="mx-auto">Core Values</h3>
+        <div class="sales-table" *ngIf="deptInput.value !== 0">
+          <table mat-table [dataSource]="coreDataSource" class="border w-100">
+
+            <!-- Core Values - Values -->
+            <ng-container matColumnDef="values">
+              <th mat-header-cell *matHeaderCellDef>Values</th>
+              <td mat-cell *matCellDef="let element">{{element.kra}}</td>
+            </ng-container>
+
+            <!-- Core Values - Key Actions/Behaviours -->
+            <ng-container matColumnDef="keyActions">
+              <th mat-header-cell *matHeaderCellDef>Key Actions/Behaviours</th>
+              <td mat-cell *matCellDef="let element"> {{element.name}}</td>
+            </ng-container>
+
+            <!-- Core Values - Weight -->
+            <ng-container matColumnDef="weight">
+              <th mat-header-cell *matHeaderCellDef>Weight</th>
+              <td mat-cell *matCellDef="let element">{{ element.weight }}</td>
+            </ng-container>
+
+            <!-- Buttons Column -->
+            <ng-container matColumnDef="buttons">
+              <th mat-header-cell *matHeaderCellDef> <span class="invisible">Button</span> </th>
+              <td mat-cell *matCellDef="let element">
+                <button (click)="editTask(element.memoTaskId, element.name, element.departmentId, element.weight, element.criteria, element.dimensions, element.frequency, element.kra, element.target)" mat-stroked-button color="accent">Edit</button>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayCoreColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayCoreColumns;"></tr>
+          </table>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #elseCoreTaskTable>
+  <olla-blank-page-card (create)="createTask()"
+[btnText]="btnText" [cardText]="cardText" [imageSrc]="imageSrc"></olla-blank-page-card>
+</ng-template>
+
+<div class="row mx-2 my-1" *ngIf="deptInput.value > 0">
+  <div class="col-md-3">
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Filter By</mat-label>
+      <mat-select [formControl]="filterInput">
+        <mat-option *ngFor="let filter of filterOptions" [value]="filter.value">
+          {{ filter.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="col-md-3" *ngIf="filterInput.value === 'Dimensions'">
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Dimension</mat-label>
+      <mat-select [formControl]="dimensionInput" (closed)="filterDimension()">
+        <mat-option *ngFor="let dimension of dimensionOptions" [value]="dimension.value">
+          {{ dimension.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="col-md-3" *ngIf="filterInput.value === 'Frequency'">
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Frequency</mat-label>
+      <mat-select [formControl]="frequencyInput" (closed)="filterFrequency()">
+        <mat-option *ngFor="let frequency of frequencyOptions" [value]="frequency.value">
+          {{ frequency.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="col-md-3" *ngIf="filterInput.value === 'kra'">
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Search KRA</mat-label>
+      <input type="text" matInput [formControl]="kraInput" />
+    </mat-form-field>
+  </div>
+</div>
+
+<div *ngIf="kpiDataSource.data.length; then thenTaskTable else elseTaskTable"></div>
+<ng-template #thenTaskTable>
+  <div class="row my-3">
+    <div class="col-xl">
+      <mat-card class="shadow br-20">
+        <olla-loading-spinner [loading]="loading"></olla-loading-spinner>
+        <h3 class="mx-auto">KPIs</h3>
+        <div class="sales-table">
+          <table mat-table [dataSource]="kpiDataSource" class="border w-100">
+
+            <!-- Position Column -->
+            <ng-container matColumnDef="position">
+              <th mat-header-cell *matHeaderCellDef> No. </th>
+              <td mat-cell *matCellDef="let element; index as i"> {{i+1}} </td>
+            </ng-container>
+
+            <!-- Task Column -->
+            <ng-container matColumnDef="task">
+              <th mat-header-cell *matHeaderCellDef> Task </th>
+              <td mat-cell *matCellDef="let element">
+                <span style="display: inline-block; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; max-width: 20rem;">
+                  {{element.name}}
+                </span>
+              </td>
+            </ng-container>
+
+            <!-- Dimension Column -->
+            <ng-container matColumnDef="dimension">
+              <th mat-header-cell *matHeaderCellDef> Dimensions </th>
+              <td mat-cell *matCellDef="let element">
+                <span style="display: inline-block; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; max-width: 15rem;">
+                  {{element.dimensions}}
+                </span>
+              </td>
+            </ng-container>
+
+            <!-- Key Result Areas Column -->
+            <ng-container matColumnDef="kra">
+              <th mat-header-cell *matHeaderCellDef> KRAs </th>
+              <td mat-cell *matCellDef="let element">
+                <span style="display: inline-block; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; max-width: 12rem;">
+                  {{element.kra}}
+                </span>
+              </td>
+            </ng-container>
+
+            <!-- Frequency Column -->
+            <ng-container matColumnDef="frequency">
+              <th mat-header-cell *matHeaderCellDef> Frequency </th>
+              <td mat-cell *matCellDef="let element"> {{element.frequency}}</td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="weight">
+              <th mat-header-cell *matHeaderCellDef> Weight </th>
+              <td mat-cell *matCellDef="let element"> {{element.weight}}</td>
+            </ng-container>
+
+            <!-- Buttons Column -->
+            <ng-container matColumnDef="buttons">
+              <th mat-header-cell *matHeaderCellDef> <span class="invisible">Button</span> </th>
+              <td mat-cell *matCellDef="let element">
+                <button (click)="editTask(element.memoTaskId, element.name, element.departmentId, element.weight, element.criteria, element.dimensions, element.frequency, element.kra, element.target)" mat-stroked-button color="accent">Edit</button>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+          <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+</ng-template>
+<ng-template #elseTaskTable>
+  <olla-blank-page-card (create)="createTask()"
+[btnText]="btnText" [cardText]="cardText" [imageSrc]="imageSrc"></olla-blank-page-card>
+</ng-template>

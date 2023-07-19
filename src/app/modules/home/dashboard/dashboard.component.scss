@@ -1,0 +1,62 @@
+.stat-card {
+  height: 100px;
+  padding: 8px 0;
+
+  .mat-card-content {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .mat-icon {
+    font-size: 32px;
+    color: #dddfeb;
+  }
+
+  &__info {
+    margin-right: 8px;
+
+    h6 {
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    h5 {
+      color: #5a5c69;
+    }
+  }
+
+
+  &--client {
+    border-left: 5px solid #4e73df;
+
+    h6 {
+      color: #4e73df;
+    }
+  }
+
+  &--appointment {
+    border-left: 5px solid#36b9cc;
+
+    h6 {
+      color: #36b9cc;
+    }
+  }
+
+  &--memo {
+    border-left: 5px solid #f6c23e;
+
+    h6 {
+      color: #f6c23e;
+    }
+  }
+
+  &--sale {
+    border-left: 5px solid #1cc88a;
+
+    h6 {
+      color: #1cc88a;
+    }
+  }
+}

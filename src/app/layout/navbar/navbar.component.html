@@ -1,0 +1,21 @@
+<header>
+  <nav class="navbar shadow navbar-light bg-light">
+    <a class="navbar-brand">
+      <img [src]="companyLogo" (click)="sidenav.emit()" alt="Logo" class="logo mr-2">
+      <span class="company">{{companyName}}</span>
+    </a>
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+  </nav>
+  <mat-menu #menu="matMenu">
+    <button (click)="profile()" mat-menu-item>
+      <img class="avatar" [src]="userImage" alt="">
+      <span>Profile</span>
+    </button>
+    <button (click)="logout()" mat-menu-item>
+      <mat-icon>login</mat-icon>
+      <span>Sign Out</span>
+    </button>
+  </mat-menu>
+</header>

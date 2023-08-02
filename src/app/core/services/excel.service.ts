@@ -228,7 +228,10 @@ export class ExcelService {
       worksheet.columns.forEach(col => col.width = 15);
       worksheet.addRow([]);
       if (excelData.coreTotal) {
-        worksheet.addRow(['', '', `Overall Percentage`, excelData.percentageTotal]);
+       const overallPercentage = worksheet.addRow(['', '', '', '', '', '', '', '', '', '', 'Overall Percentage', excelData.percentageTotal]);
+       overallPercentage.font = {
+        bold: true
+       }
       }
 
 

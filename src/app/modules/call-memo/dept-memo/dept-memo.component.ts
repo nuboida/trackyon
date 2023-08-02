@@ -350,26 +350,33 @@ export class DeptMemoComponent implements OnInit, AfterViewInit {
         allScore.push(c.score);
         allWeight.push(c.weight);
 
-        let dataResult = {
+        let dataResult: DataResult = {
           sn: i + 1,
           taskName: c.taskName,
           criteria: c.criteria,
           note: allNotes.join(", ").trim(),
           score: allScore.join(", ").trim(),
           scoreAverage: 0,
+          possibleScore: 3,
           scoreDate: allDates.join(", ").trim(),
           comment: allComments.join(", ").trim(),
           weight: 0,
-          wtSum: 0
+          wtSum: 0,
+          possibleWtSum: 0
         }
 
         let filterScore = allScore.filter((scoreNumber: any) => typeof scoreNumber === 'number' && isFinite(scoreNumber));
+        let everyElementANum = allScore.every((scoreNumber: any) => typeof scoreNumber === 'string');
+        if (everyElementANum) {
+          dataResult.possibleScore = 'N';
+        }
         const sum = filterScore.reduce((a: number, b: number) => a + b, 0);
         let weightScore = allWeight.filter((scoreWeight) => typeof scoreWeight === 'number' && isFinite(scoreWeight) && scoreWeight !== 0);
         const sumWeight = weightScore.reduce((a: number, b: number) => a + b, 0);
-        dataResult.scoreAverage = filterScore.length ? Number((sum / filterScore.length).toFixed(2)) : 0;
+        dataResult.scoreAverage = filterScore.length || !everyElementANum ? Number((sum / filterScore.length).toFixed(2)) : 'N';
         dataResult.weight = weightScore.length ? Number((sumWeight / weightScore.length).toFixed(2)) : 0;
-        dataResult.wtSum = (dataResult.scoreAverage * dataResult.weight) / 100;
+        dataResult.wtSum = typeof dataResult.scoreAverage === 'number' ? (dataResult.scoreAverage * dataResult.weight) : 0;
+        dataResult.possibleWtSum = typeof dataResult.possibleScore === 'number' ? (dataResult.possibleScore * dataResult.weight) : 0;
 
         return dataResult;
       }, {sn: i + 1, weight: 0, score: 0});
@@ -378,36 +385,45 @@ export class DeptMemoComponent implements OnInit, AfterViewInit {
       return itemGroup;
     });
 
-
     let kpiWtSum: number[] = [];
+    let totalKpiWtSum: number[] = [];
     let coreWtSum: number[] = [];
+    let totalCoreWtSum: number[] = [];
 
     data.forEach((c) => {
       if (c.criteria === 'kpi') {
         kpiWtSum.push(c.wtSum);
+        totalKpiWtSum.push(c.possibleWtSum);
       } else if (c.criteria === 'core') {
         coreWtSum.push(c.wtSum);
+        totalCoreWtSum.push(c.possibleWtSum);
       }
     });
 
     const calcTotal = {
       currentTotal: kpiWtSum.reduce((a, n) => a + n, 0),
+      totalWtScore: totalKpiWtSum.reduce((a, n) => a + n, 0),
       expectedTotal: coreWtSum.reduce((a, n) => a + n, 0),
+      coreWtSumTotal: totalCoreWtSum.reduce((a, n) => a + n, 0)
     }
 
-    const overallKpi = Number((((calcTotal.currentTotal * 100)/3)*0.9).toFixed(2));
-    const overallCore = Number((((calcTotal.expectedTotal * 100)/3)*0.1).toFixed(2));
+    const overallKpi = ((calcTotal.currentTotal/calcTotal.totalWtScore)*100).toFixed(2);
+    const overallCore = ((calcTotal.expectedTotal/calcTotal.coreWtSumTotal)*100).toFixed(2);
 
     const request: ExcelRequest<any> = {
       data,
       title: `${this.selectedDept} Tasks Memo`,
       headers: [
-        'S/No', 'Tasks', 'Criteria', 'Notes', 'Score', 'Average Score', 'Appraised Date', "MD's Comment", "Weight", "Wt.X.Score"
+        'S/No', 'Tasks', 'Criteria', 'Notes', 'Score', 'Average Score', 'Max Score', 'Appraised Date', "MD's Comment", "Weight", "Wt.X.Score", "TOTAL Wt.X.Score"
       ],
       deptMemo: `${this.selectedDept} Department`,
-      kpiTotal: `${overallKpi}%`,
-      coreTotal: `${overallCore.toFixed(2)}%`,
-      percentageTotal: `${overallKpi + overallCore}%`,
+      totalWtScore: calcTotal.currentTotal,
+      totalCoreWtSum: calcTotal.coreWtSumTotal,
+      possibleWtScore: calcTotal.totalWtScore,
+      possibleCoreWtScore: calcTotal.expectedTotal,
+      kpiTotal: `${overallKpi}`,
+      coreTotal: `${overallCore}`,
+      percentageTotal: `${((Number(overallKpi)*0.9) + Number(overallCore)*0.1).toFixed(2)}%`,
       startDate: ((this.filter.startTime).toString()).split("-").reverse().join("/"),
       endDate: ((this.filter.endTime).toString()).split("-").reverse().join("/"),
     }
@@ -425,3 +441,18 @@ const Frequency = [
   { name: 'Quarterly', value: 'Quarterly' },
   { name: 'Annually', value: 'Annually' }
 ];
+
+interface DataResult {
+  sn: number;
+  taskName: string;
+  comment: string;
+  criteria: string;
+  note: string;
+  possibleScore: string | number;
+  score: string;
+  scoreAverage: string | number;
+  scoreDate: string;
+  weight: number;
+  wtSum: number;
+  possibleWtSum: number;
+}

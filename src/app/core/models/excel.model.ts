@@ -4,6 +4,10 @@ export interface ExcelRequest<T> {
   headers: string[];
   deptMemo?: string;
   coreTotal?: string;
+  totalWtScore?: number;
+  totalCoreWtSum?: number;
+  possibleWtScore?: number;
+  possibleCoreWtScore?: number;
   kpiTotal?: string;
   percentageTotal?: string;
   startDate?: string;

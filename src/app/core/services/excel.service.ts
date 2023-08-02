@@ -158,10 +158,19 @@ export class ExcelService {
 
 
       worksheet.columns.forEach(col => col.width = 15);
-      worksheet.addRow([]);
-      worksheet.addRow([]);
-      if (excelData.kpiTotal) {
-        worksheet.addRow(['', '', `KPI(E)`, excelData.kpiTotal]);
+      if (excelData.totalWtScore) {
+        const wtSumTotal = worksheet.addRow(['', '', '', '', '', '', '', '', '', '', excelData.totalWtScore, excelData.possibleWtScore]);
+        const percentWtSum = worksheet.addRow(['', '', '', '', '', '', '', '', '', '', '', `${excelData.kpiTotal}%`]);
+        const overallKpiPercent = worksheet.addRow(['', '', '', '', '', '', '', '', '', '', 'KPI(E)', `${(Number(excelData.kpiTotal) * 0.9).toFixed(2)}%`]);
+        wtSumTotal.font = {
+          bold: true
+        }
+        percentWtSum.font = {
+          bold: true
+        }
+        overallKpiPercent.font = {
+          bold: true
+        }
       }
 
       worksheet.addRow([]);
@@ -201,10 +210,19 @@ export class ExcelService {
       });
 
       worksheet.columns.forEach(col => col.width = 15);
-      worksheet.addRow([]);
-      worksheet.addRow([]);
       if (excelData.coreTotal) {
-        worksheet.addRow(['', '', `Core Values(E)`, excelData.coreTotal]);
+        const coreSumTotal = worksheet.addRow(['', '', '', '', '', '', '', '', '', '', excelData.possibleCoreWtScore, excelData.totalCoreWtSum]);
+        const percentWtSum = worksheet.addRow(['', '', '', '', '', '', '', '', '', '', '', `${excelData.coreTotal}%`]);
+        const overallCorePercent = worksheet.addRow(['', '', '', '', '', '', '', '', '', '', 'Core(E)', `${(Number(excelData.coreTotal) * 0.1).toFixed(2)}%`]);
+        coreSumTotal.font = {
+          bold: true
+        }
+        percentWtSum.font = {
+          bold: true
+        }
+        overallCorePercent.font = {
+          bold: true
+        }
       }
 
       worksheet.columns.forEach(col => col.width = 15);

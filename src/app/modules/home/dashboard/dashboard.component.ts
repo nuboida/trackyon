@@ -64,7 +64,7 @@ export class DashboardComponent implements OnInit {
 
     const data = this.route.snapshot.data;
     data.staffs.map((c: any) => {
-      if (c.department === "Sales" && c.active && !c.firstName.includes('Donald')) {
+      if (c.department === "Sales" && c.active && !c.firstName.includes('Donald') && !c.firstName.includes('Isaiah')) {
         let salesStaff = {
           name: `${c.firstName} ${c.lastName}`,
           staffId: c.staffId,

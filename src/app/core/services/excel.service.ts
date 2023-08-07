@@ -159,9 +159,9 @@ export class ExcelService {
 
       worksheet.columns.forEach(col => col.width = 15);
       if (excelData.totalWtScore) {
-        const wtSumTotal = worksheet.addRow(['', '', '', '', '', '', '', '', '', '', excelData.totalWtScore, excelData.possibleWtScore]);
-        const percentWtSum = worksheet.addRow(['', '', '', '', '', '', '', '', '', '', '', `${excelData.kpiTotal}%`]);
-        const overallKpiPercent = worksheet.addRow(['', '', '', '', '', '', '', '', '', '', 'KPI(E)', `${(Number(excelData.kpiTotal) * 0.9).toFixed(2)}%`]);
+        const wtSumTotal = worksheet.addRow(['', '', '', '', '', '', '', '', '', 'Total Wt.X.Score', excelData.totalWtScore, excelData.possibleWtScore]);
+        const percentWtSum = worksheet.addRow(['', '', '', '', '', '', '', '', '', '', 'Percentage', `${excelData.kpiTotal}%`]);
+        const overallKpiPercent = worksheet.addRow(['', '', '', '', '', '', '', '', '', '', 'KPI(E * 90%)', `${(Number(excelData.kpiTotal) * 0.9).toFixed(2)}%`]);
         wtSumTotal.font = {
           bold: true
         }
@@ -211,9 +211,9 @@ export class ExcelService {
 
       worksheet.columns.forEach(col => col.width = 15);
       if (excelData.coreTotal) {
-        const coreSumTotal = worksheet.addRow(['', '', '', '', '', '', '', '', '', '', excelData.possibleCoreWtScore, excelData.totalCoreWtSum]);
-        const percentWtSum = worksheet.addRow(['', '', '', '', '', '', '', '', '', '', '', `${excelData.coreTotal}%`]);
-        const overallCorePercent = worksheet.addRow(['', '', '', '', '', '', '', '', '', '', 'Core(E)', `${(Number(excelData.coreTotal) * 0.1).toFixed(2)}%`]);
+        const coreSumTotal = worksheet.addRow(['', '', '', '', '', '', '', '', '', 'Total Wt.X.Score', excelData.possibleCoreWtScore, excelData.totalCoreWtSum]);
+        const percentWtSum = worksheet.addRow(['', '', '', '', '', '', '', '', '', '', 'Percentage', `${excelData.coreTotal}%`]);
+        const overallCorePercent = worksheet.addRow(['', '', '', '', '', '', '', '', '', '', 'Core(E * 10%)', `${(Number(excelData.coreTotal) * 0.1).toFixed(2)}%`]);
         coreSumTotal.font = {
           bold: true
         }

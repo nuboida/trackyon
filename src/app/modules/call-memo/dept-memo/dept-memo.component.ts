@@ -414,7 +414,7 @@ export class DeptMemoComponent implements OnInit, AfterViewInit {
       data,
       title: `${this.selectedDept} Tasks Memo`,
       headers: [
-        'S/No', 'Tasks', 'Criteria', 'Notes', 'Score', 'Average Score', 'Max Score', 'Appraised Date', "MD's Comment", "Weight", "Wt.X.Score", "TOTAL Wt.X.Score"
+        'S/No', 'Tasks', 'Criteria', 'Notes', 'Score', 'Average Score', 'Max Score', 'Appraised Date', "MD's Comment", "Weight", "Wt.X.Score", "Probable Wt.X.Score"
       ],
       deptMemo: `${this.selectedDept} Department`,
       totalWtScore: calcTotal.currentTotal,

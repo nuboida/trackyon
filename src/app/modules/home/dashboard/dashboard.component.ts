@@ -75,11 +75,12 @@ export class DashboardComponent implements OnInit {
       }
     });
 
+
     data.opportunities.map((c: any) => {
-      if (c.stage === "Closed Won/Loss" && c.fiscalPeriod.includes(new Date().getFullYear())) {
+      if ((c.stage == "Payment Received") && c.fiscalPeriod.includes(new Date().getFullYear())) {
         let staffMargin = {
           name: c.staff,
-          margin: c.margin
+          margin: c.margin,
         }
         this.closedWonMargin.push(staffMargin);
       }

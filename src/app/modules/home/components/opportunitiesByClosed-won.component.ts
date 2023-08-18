@@ -36,6 +36,12 @@ import { OpportunityResponse } from '@app/models/opportunity.model';
             <td mat-cell *matCellDef="let element"> {{element.sellingPrice |currency:'USD':'symbol':'1.0'}} </td>
           </ng-container>
 
+          <!-- Margin Column -->
+          <ng-container matColumnDef="margin">
+            <th mat-header-cell *matHeaderCellDef> Margin </th>
+            <td mat-cell *matCellDef="let element"> {{element.margin |currency:'USD':'symbol':'1.0'}} </td>
+          </ng-container>
+
           <!-- Status Column -->
           <ng-container matColumnDef="status">
             <th mat-header-cell *matHeaderCellDef> Stage </th>
@@ -63,7 +69,7 @@ import { OpportunityResponse } from '@app/models/opportunity.model';
 })
 export class OpportunitiesWonComponent implements OnInit {
   @Input() opportunities: OpportunityResponse[];
-  displayedColumns: string[] = ['position', 'client', 'opportunity', 'price', 'status', 'date', 'staff'];
+  displayedColumns: string[] = ['position', 'client', 'opportunity', 'price', 'margin', 'status', 'date', 'staff'];
   dataSource = new MatTableDataSource<OpportunityResponse>([]);
 
   ngOnInit(): void {

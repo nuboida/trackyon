@@ -93,7 +93,7 @@ export class PercentPiechartComponent implements OnInit {
     if (this.staffTarget < this.overallMargin) {
       this.chartData = [0, totalPercent * 100];
     } else {
-      this.chartData = [Number((totalPercent - this.marginPercent).toFixed(2))* 100, Number(this.marginPercent.toFixed(2)) * 100];
+      this.chartData = [Number(((totalPercent - this.marginPercent)* 100).toFixed(2)), Number((this.marginPercent * 100).toFixed(2))];
     }
     this.chartLabels = ['Outstanding Sales', 'Achieved'];
     this.chartColor = [{backgroundColor: ['#dc3545', '#007bff']}];

@@ -26,6 +26,11 @@ import { OpportunityResponse } from '@app/models/opportunity.model';
             <olla-opportunities-lost-table [opportunities]="closedLostOpportunities"></olla-opportunities-lost-table>
           </div>
         </mat-tab>
+        <mat-tab label="Payment Received">
+          <div class="my-3">
+            <olla-payment-received-table [opportunities]="paymentReceived"></olla-payment-received-table>
+          </div>
+        </mat-tab>
       </mat-tab-group>
     </mat-card>
   `,
@@ -44,6 +49,7 @@ export class SalesTableComponent implements OnInit {
   topOpportunities: OpportunityResponse[] = [];
   closedWonOpportunities: OpportunityResponse[] = [];
   closedLostOpportunities: OpportunityResponse[] = [];
+  paymentReceived: OpportunityResponse[] = []
 
   constructor(private route: ActivatedRoute) {}
 
@@ -56,6 +62,7 @@ export class SalesTableComponent implements OnInit {
     const currentFiscalPeriod = sortDataByValue.filter((c: OpportunityResponse) => c.fiscalPeriod.includes(currentYear));
     const topOpportunitiesData = currentFiscalPeriod.filter((c: OpportunityResponse) => c.stage !== "Closed Won/Loss");
     const closedDataByValue = currentFiscalPeriod.filter((c: OpportunityResponse) => c.stage === "Closed Won/Loss");
+    this.paymentReceived = currentFiscalPeriod.filter((c: OpportunityResponse) => c.stage === 'Payment Received');
     const closedWon = closedDataByValue.filter((c: OpportunityResponse) => c.sellingPrice > 0);
     const closedLost = closedDataByValue.filter((c: OpportunityResponse) => c.amountPaid > 0);
     this.topOpportunities = topOpportunitiesData.slice(0, 5);

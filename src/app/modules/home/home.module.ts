@@ -23,6 +23,7 @@ import { OpportunitiesStagesComponent } from './components/opportunity-stages.co
 import { TopOpportunitiesComponent } from './components/top-opportunities.component';
 import { OpportunitiesLostComponent } from './components/opportunitiesByClosed-lost.component';
 import { OpportunitiesWonComponent } from './components/opportunitiesByClosed-won.component';
+import { PaymentReceivedComponent } from './components/paymentReceievd.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { OpportunitiesWonComponent } from './components/opportunitiesByClosed-wo
     ClientsDoughnutchartComponent, OpportunitiesPiechartComponent,
     OpportunitiesLatestComponent, SalesTableComponent, StatsCardsComponent, IndividualPiechartComponent,
     AmountsPiechartComponent, OverallAmountsPiechartComponent, PercentPiechartComponent,
-    OpportunitiesStagesComponent, TopOpportunitiesComponent, OpportunitiesLostComponent, OpportunitiesWonComponent
+    OpportunitiesStagesComponent, TopOpportunitiesComponent, OpportunitiesLostComponent, OpportunitiesWonComponent,
+    PaymentReceivedComponent
   ],
   imports: [
     CommonModule,

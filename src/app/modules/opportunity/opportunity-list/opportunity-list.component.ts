@@ -34,7 +34,7 @@ import { StaffService } from '@app/services/staff.service';
 })
 export class OpportunityListComponent implements OnInit, AfterViewInit {
 
-  displayedColumns: string[] = ['position', 'client', 'opportunity', 'price', 'status', 'date', 'button'];
+  displayedColumns: string[] = ['position', 'client', 'opportunity', 'price', 'margin', 'status', 'date', 'button'];
   dataSource = new MatTableDataSource<OpportunityResponse>([]);
   AllData: OpportunityResponse[] = []
   toolTip = 'Actions';
@@ -259,7 +259,9 @@ const Years: Option[] = [
 const OpenClosedOptions: Option[] = [
   {name: 'All', value: 1 },
   {name: 'Open', value: 2 },
-  {name: 'Closed', value: 3 },
+  {name: 'Closed (Won)', value: 3 },
+  {name: 'Closed (Lost)', value: 4 },
+  {name: 'Payment Received', value: 5 },
 ];
 
 const Halves: Option[] = [

@@ -137,13 +137,13 @@
           <!-- Price Column -->
           <ng-container matColumnDef="price">
             <th mat-header-cell *matHeaderCellDef> Price </th>
-            <td mat-cell *matCellDef="let element"> {{element.sellingPrice |currency:'USD':'symbol':'1.0'}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.sellingPrice |currency:'USD':'symbol':'1.2-2'}} </td>
           </ng-container>
 
           <!-- Margin Column -->
           <ng-container matColumnDef="margin">
             <th mat-header-cell *matHeaderCellDef> Margin </th>
-            <td mat-cell *matCellDef="let element"> {{element.margin|currency:'USD':'symbol':'1.0'}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.margin|currency:'USD':'symbol':'1.2-2'}} </td>
           </ng-container>
 
           <!-- Status Column -->

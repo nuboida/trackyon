@@ -71,9 +71,9 @@
             <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
             <mat-datepicker #datepicker></mat-datepicker>
           </mat-form-field>
-          <mat-form-field *ngIf="filter.option == 3" appearance="outline" class="w-100">
+          <mat-form-field *ngIf="filter.option == 3 && filterOpenClosed" appearance="outline" class="w-100">
             <mat-label>Status</mat-label>
-            <mat-select [(ngModel)]="filter.openClose">
+            <mat-select [(ngModel)]="filterByOpenClosed.value" (closed)="filterOpportunitiesByOpenClosed()">
               <mat-option *ngFor="let option of openClosedOptions" [value]="option.value">
                 {{option.name}}
               </mat-option>

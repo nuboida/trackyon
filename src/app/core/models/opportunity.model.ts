@@ -132,6 +132,9 @@ export interface OpportunityFilter {
 export interface FilterByOpportunityStage {
   value: number;
 }
+export interface FilterByOpenClosed {
+  value: number;
+}
 
 export interface ActivityResponse {
   activityId: number;

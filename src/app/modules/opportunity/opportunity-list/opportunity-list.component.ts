@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { FilterByOpportunityStage, OpportunityFilter, OpportunityResponse } from '@app/models/opportunity.model';
+import { FilterByOpenClosed, FilterByOpportunityStage, OpportunityFilter, OpportunityResponse } from '@app/models/opportunity.model';
 import { OpportunityCreateComponent } from '../components/opportunity-create/opportunity-create.component';
 import { StageUpdateComponent } from '../components/stage-update/stage-update.component';
 import { ExcelService } from '@app/services/excel.service';
@@ -55,6 +55,10 @@ export class OpportunityListComponent implements OnInit, AfterViewInit {
   quarterOptions = Quarters;
   monthOptions = Months;
   openClosedOptions = OpenClosedOptions;
+  filterOpenClosed = false;
+  filterByOpenClosed: FilterByOpenClosed = {
+    value: 0
+  }
   opportunityStagesOptions = OpportunityStages;
   datePicker!: Date;
   isLoading$ = this.store.select(getOpportunitiesLoading);
@@ -115,13 +119,9 @@ export class OpportunityListComponent implements OnInit, AfterViewInit {
         this.getOpportunitiesByClient();
         break;
       case 3:
-        if (this.filter.openClose === 2) {
-          this.store.dispatch(loadYearOpenOpportunities({year: this.filter.year}));
-        } else if (this.filter.openClose === 3) {
-          this.store.dispatch(loadYearClosedOpportunities({year: this.filter.year}));
-        } else {
-          this.store.dispatch(loadYearOpportunities({year: this.filter.year}));
-        }
+        this.store.dispatch(loadYearOpportunities({year: this.filter.year}));
+        this.filterOpenClosed = true;
+        this.filterByOpenClosed.value = 1;
         break;
       case 4:
         this.store.dispatch(loadHalfYearOpportunities({ year: this.filter.year, half: this.filter.half }));
@@ -151,6 +151,30 @@ export class OpportunityListComponent implements OnInit, AfterViewInit {
       return;
     };
     this.dataSource.data = this.dataSource.data.filter((c) => c.stage === selectedStage);
+  }
+
+  filterOpportunitiesByOpenClosed(): void {
+    let selectedOption = this.openClosedOptions.filter((c) => c.value === this.filterByOpenClosed.value)[0].value;
+    this.dataSource.data = this.AllData;
+
+    switch (selectedOption) {
+      case 1:
+        return;
+      case 2:
+        this.dataSource.data = this.dataSource.data.filter((c) => !c.stage.includes('Closed') && !c.stage.includes('Payment'))
+        break;
+      case 3:
+        this.dataSource.data = this.dataSource.data.filter((c) => c.stage.includes('Closed') && c.margin !== 0);
+        break;
+      case 4:
+        this.dataSource.data = this.dataSource.data.filter((c) => c.stage.includes('Closed') && c.margin < 1);
+        break;
+      case 5:
+        this.dataSource.data = this.dataSource.data.filter((c) => c.stage.includes('Payment'));
+        break;
+      default:
+        break;
+    }
   }
 
   getOpportunitiesByClient(): void {

@@ -29,6 +29,7 @@ export class DashboardComponent implements OnInit {
   individualStages: any[] = [];
   salesStaffs: SalesStaff[] = [];
   closedWonMargin: {name: string; margin: number}[] = [];
+  paymentReceivedMargin: {name: string; margin: number}[] = [];
   overallTarget: number[] = [];
   monthlySales$ = this.store.select(getMonthlySales).pipe(
     map(s => [{ data: s, label: 'Sales By Month' }])
@@ -77,12 +78,19 @@ export class DashboardComponent implements OnInit {
 
 
     data.opportunities.map((c: any) => {
-      if ((c.stage == "Payment Received") && c.fiscalPeriod.includes(new Date().getFullYear())) {
+      if ((c.stage == "Payment Received" || c.stage.includes('Closed')) && c.fiscalPeriod.includes(new Date().getFullYear())) {
         let staffMargin = {
           name: c.staff,
           margin: c.margin,
         }
         this.closedWonMargin.push(staffMargin);
+      }
+      if ((c.stage === "Payment Received") && c.fiscalPeriod.includes(new Date().getFullYear())) {
+        let staffMargin = {
+          name: c.staff,
+          margin: c.margin,
+        }
+        this.paymentReceivedMargin.push(staffMargin);
       }
     });
 

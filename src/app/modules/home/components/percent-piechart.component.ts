@@ -9,7 +9,7 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
   template: `
     <mat-card class="mh-400 shadow br-20">
       <div class="header">
-        <h6>Margin as a percentage of Target <span style="font-size: 14px">({{staffName}})</span></h6>
+        <h6>Margins By Payment Received <span style="font-size: 14px">({{staffName}})</span></h6>
         <h6 style="font-size: 13px">{{marginPercent * 100 | number: '1.0-0'}}%</h6>
       </div>
       <div *ngIf="!loading" style="display: block">

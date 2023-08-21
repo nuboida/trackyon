@@ -10,7 +10,7 @@ import ChartDataLabels from 'chartjs-plugin-datalabels'
   template: `
     <mat-card class="mh-400 shadow br-20">
       <div class="header">
-        <h6>Margins <span style="font-size: 14px">({{staffName}})</span></h6>
+        <h6>Margin By Deals Won <span style="font-size: 14px">({{staffName}})</span></h6>
         <h6 style="font-size: 13px">Target - ({{ staffTarget | currency }})</h6>
       </div>
       <div *ngIf="!loading" style="display: block">
@@ -49,6 +49,8 @@ export class AmountsPiechartComponent implements OnInit {
   chartLabels!: string[];
   chartColor!: any[];
   loading = true;
+  overallMargin = 0;
+  marginPercent = 0;
   chartDataLabels = [ChartDataLabels]
 
   options: ChartOptions = {
@@ -59,11 +61,11 @@ export class AmountsPiechartComponent implements OnInit {
     plugins: {
       datalabels: {
         color: 'white',
-        font:{
+        font: {
           size: 24
         },
         formatter: function (value, context) {
-          return `${Number((value/270000).toFixed(2))*100}%`
+          return `${value}%`;
         }
       }
     }
@@ -72,7 +74,7 @@ export class AmountsPiechartComponent implements OnInit {
   type: ChartType = 'pie';
   legend = true;
   plugins: any[] = [];
-  constructor(private dashboardService: DashboardService) {}
+  constructor() {}
 
   ngOnInit(): void {
     this.margin.map((c) => {
@@ -80,16 +82,19 @@ export class AmountsPiechartComponent implements OnInit {
         this.allMargin.push(c.margin);
       }
     })
+
     this.getChartData();
   }
 
   getChartData(): void {
     this.loading = true;
-    const overallMargin = this.allMargin.reduce((a, n) => a += n, 0);
-    if (this.staffTarget < overallMargin) {
-      this.chartData = [0, overallMargin]
+    this.overallMargin = this.allMargin.reduce((a, n) => a += n, 0);
+    this.marginPercent = this.overallMargin/this.staffTarget;
+    const totalPercent = (this.staffTarget/this.staffTarget) * 1;
+    if (this.staffTarget < this.overallMargin) {
+      this.chartData = [0, totalPercent * 100];
     } else {
-      this.chartData = [Number((this.staffTarget - overallMargin).toFixed(2)), overallMargin]
+      this.chartData = [Number(((totalPercent - this.marginPercent)* 100).toFixed(2)), Number((this.marginPercent * 100).toFixed(2))];
     }
     this.chartLabels = ['Outstanding Sales', 'Achieved'];
     this.chartColor = [{backgroundColor: ['#dc3545', '#007bff']}];

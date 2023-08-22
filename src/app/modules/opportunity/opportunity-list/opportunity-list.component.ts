@@ -25,6 +25,7 @@ import {
 } from '../state/actions/opportunity-list-page.actions';
 import { StaffResponse } from '@app/models/staff.model';
 import { StaffService } from '@app/services/staff.service';
+import { FormControl } from '@angular/forms';
 
 @UntilDestroy()
 @Component({
@@ -36,7 +37,8 @@ export class OpportunityListComponent implements OnInit, AfterViewInit {
 
   displayedColumns: string[] = ['position', 'client', 'opportunity', 'price', 'margin', 'status', 'date', 'button'];
   dataSource = new MatTableDataSource<OpportunityResponse>([]);
-  AllData: OpportunityResponse[] = []
+  AllData: OpportunityResponse[] = [];
+  tempData: OpportunityResponse[] = [];
   toolTip = 'Actions';
   tip = 'Create Opportunity';
   currentPage = 'Opportunities';
@@ -65,6 +67,7 @@ export class OpportunityListComponent implements OnInit, AfterViewInit {
   clients$!: Observable<ClientResponse[]>;
   staff$!: Observable<StaffResponse[]>;
   filterStagesOptions = false;
+  filterOpenClosedByUser: FormControl = new FormControl('');
   filterByStage: FilterByOpportunityStage = {
     value: 0
   };
@@ -154,27 +157,44 @@ export class OpportunityListComponent implements OnInit, AfterViewInit {
   }
 
   filterOpportunitiesByOpenClosed(): void {
+    this.filterOpenClosedByUser.reset();
     let selectedOption = this.openClosedOptions.filter((c) => c.value === this.filterByOpenClosed.value)[0].value;
     this.dataSource.data = this.AllData;
 
     switch (selectedOption) {
       case 1:
-        return;
+        this.tempData = this.AllData;
+        break;
       case 2:
-        this.dataSource.data = this.dataSource.data.filter((c) => !c.stage.includes('Closed') && !c.stage.includes('Payment'))
+        this.dataSource.data = this.dataSource.data.filter((c) => !c.stage.includes('Closed') && !c.stage.includes('Payment'));
+        this.tempData = this.dataSource.data;
         break;
       case 3:
         this.dataSource.data = this.dataSource.data.filter((c) => c.stage.includes('Closed') && c.margin !== 0);
+        this.tempData = this.dataSource.data;
         break;
       case 4:
         this.dataSource.data = this.dataSource.data.filter((c) => c.stage.includes('Closed') && c.margin < 1);
+        this.tempData = this.dataSource.data;
         break;
       case 5:
         this.dataSource.data = this.dataSource.data.filter((c) => c.stage.includes('Payment'));
+        this.tempData = this.dataSource.data;
         break;
       default:
         break;
     }
+  }
+
+  filterByUser(): void {
+    this.dataSource.data = this.tempData;
+    this.staff$.pipe(untilDestroyed(this)).subscribe(
+      data => {
+        const selectedStaff = data.filter((c) => c.staffId === this.filterOpenClosedByUser.value)[0];
+        const selectedStaffName = `${selectedStaff.firstName} ${selectedStaff.lastName}`;
+        this.dataSource.data = this.dataSource.data.filter((c) => c.staff === `${selectedStaffName}`);
+      }
+    )
   }
 
   getOpportunitiesByClient(): void {

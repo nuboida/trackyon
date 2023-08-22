@@ -79,6 +79,14 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
+          <mat-form-field *ngIf="filter.option == 3 && filterOpenClosed" appearance="outline" class="w-100">
+            <mat-label>User</mat-label>
+            <mat-select [formControl]="filterOpenClosedByUser" (closed)="filterByUser()">
+              <mat-option *ngFor="let user of staff$ |async" [value]="user.staffId">
+                {{user.firstName}} {{user.lastName}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
           <mat-form-field *ngIf="filter.option == 4" appearance="outline" class="w-100">
             <mat-label>Half</mat-label>
             <mat-select [(ngModel)]="filter.half">

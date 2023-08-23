@@ -10,7 +10,7 @@ import ChartDataLabels from 'chartjs-plugin-datalabels'
   template: `
     <mat-card class="mh-400 shadow br-20">
       <div class="header">
-        <h6>Margin By Deals Won <span style="font-size: 14px">({{staffName}})</span></h6>
+        <h6>Net Profit By Deals Won <span style="font-size: 14px">({{staffName}})</span></h6>
         <h6 style="font-size: 13px">Target - ({{ staffTarget | currency }})</h6>
       </div>
       <div *ngIf="!loading" style="display: block">
@@ -96,7 +96,7 @@ export class AmountsPiechartComponent implements OnInit {
     } else {
       this.chartData = [Number(((totalPercent - this.marginPercent)* 100).toFixed(2)), Number((this.marginPercent * 100).toFixed(2))];
     }
-    this.chartLabels = ['Outstanding Sales', 'Achieved'];
+    this.chartLabels = ['Target Outstanding', 'Achieved'];
     this.chartColor = [{backgroundColor: ['#dc3545', '#007bff']}];
     this.loading = false;
   }

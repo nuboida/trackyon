@@ -35,7 +35,7 @@ import { FormControl } from '@angular/forms';
 })
 export class OpportunityListComponent implements OnInit, AfterViewInit {
 
-  displayedColumns: string[] = ['position', 'client', 'opportunity', 'price', 'margin', 'status', 'date', 'button'];
+  displayedColumns: string[] = ['position', 'client', 'opportunity', 'price', 'cost', 'margin', 'status', 'date', 'button'];
   dataSource = new MatTableDataSource<OpportunityResponse>([]);
   AllData: OpportunityResponse[] = [];
   tempData: OpportunityResponse[] = [];

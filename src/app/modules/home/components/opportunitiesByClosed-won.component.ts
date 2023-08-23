@@ -33,13 +33,19 @@ import { OpportunityResponse } from '@app/models/opportunity.model';
           <!-- Price Column -->
           <ng-container matColumnDef="price">
             <th mat-header-cell *matHeaderCellDef> Price </th>
-            <td mat-cell *matCellDef="let element"> {{element.sellingPrice |currency:'USD':'symbol':'1.0'}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.sellingPrice |currency:'USD':'symbol':'1.2-2'}} </td>
+          </ng-container>
+
+          <!-- Cost Column -->
+          <ng-container matColumnDef="cost">
+            <th mat-header-cell *matHeaderCellDef> Cost </th>
+            <td mat-cell *matCellDef="let element"> {{element.costPrice |currency:'USD':'symbol':'1.2-2'}} </td>
           </ng-container>
 
           <!-- Margin Column -->
           <ng-container matColumnDef="margin">
             <th mat-header-cell *matHeaderCellDef> Margin </th>
-            <td mat-cell *matCellDef="let element"> {{element.margin |currency:'USD':'symbol':'1.0'}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.margin |currency:'USD':'symbol':'1.2-2'}} </td>
           </ng-container>
 
           <!-- Status Column -->
@@ -69,7 +75,7 @@ import { OpportunityResponse } from '@app/models/opportunity.model';
 })
 export class OpportunitiesWonComponent implements OnInit {
   @Input() opportunities: OpportunityResponse[];
-  displayedColumns: string[] = ['position', 'client', 'opportunity', 'price', 'margin', 'status', 'date', 'staff'];
+  displayedColumns: string[] = ['position', 'client', 'opportunity', 'price', 'cost', 'margin', 'status', 'date', 'staff'];
   dataSource = new MatTableDataSource<OpportunityResponse>([]);
 
   ngOnInit(): void {

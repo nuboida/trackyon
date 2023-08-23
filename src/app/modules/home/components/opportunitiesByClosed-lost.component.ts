@@ -33,7 +33,7 @@ import { OpportunityResponse } from '@app/models/opportunity.model';
           <!-- Price Column -->
           <ng-container matColumnDef="amount lost">
             <th mat-header-cell *matHeaderCellDef> Amount Lost </th>
-            <td mat-cell *matCellDef="let element"> {{element.amountPaid |currency:'USD':'symbol':'1.0'}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.amountPaid |currency:'USD':'symbol':'1.2-2'}} </td>
           </ng-container>
 
           <!-- Status Column -->

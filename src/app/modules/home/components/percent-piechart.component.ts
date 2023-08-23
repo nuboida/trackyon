@@ -43,6 +43,7 @@ export class PercentPiechartComponent implements OnInit {
   @Input() staffName: string;
   @Input() staffTarget: number;
   @Input() margin: {name: string; margin: number}[];
+  @Input() quarter: boolean;
   allMargin: number[] = [];
   chartData: number[];
   chartLabels!: string[];
@@ -88,6 +89,9 @@ export class PercentPiechartComponent implements OnInit {
   getChartData(): void {
     this.loading = true;
     this.overallMargin = this.allMargin.reduce((a, n) => a += n, 0);
+    if (this.quarter) {
+      this.staffTarget = this.staffTarget / 4;
+    }
     this.marginPercent = this.overallMargin/this.staffTarget;
     const totalPercent = (this.staffTarget/this.staffTarget) * 1;
     if (this.staffTarget < this.overallMargin) {

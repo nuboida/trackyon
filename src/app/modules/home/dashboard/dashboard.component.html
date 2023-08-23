@@ -50,16 +50,48 @@
       </div>
     </mat-tab>
     <mat-tab label="Net Profit By Deals Won">
+      <div class="row my-1">
+        <div class="col-md-3">
+          <mat-form-field appearance="outline" class="w-30">
+            <mat-label>Fiscal Period</mat-label>
+            <mat-select [formControl]="selectedQuarter" (selectionChange)="getIndividualDealsWon()">
+              <mat-option *ngFor="let session of quarterOptions" [value]="session.value">
+                {{session.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
       <div class="row">
         <div class="col-xl-4 col-md-6 my-3" *ngFor="let salesStaff of salesStaffs">
-          <olla-amount-piechart [staffId]="salesStaff.staffId" [staffName]="salesStaff.name" [staffTarget]="salesStaff.target" [margin]="closedWonMargin"></olla-amount-piechart>
+          <olla-amount-piechart *ngIf="selectedQuarter.value === 0" [staffId]="salesStaff.staffId" [staffName]="salesStaff.name" [staffTarget]="salesStaff.target" [margin]="closedWonMargin"></olla-amount-piechart>
+          <olla-amount-piechart *ngIf="selectedQuarter.value === 1" [staffId]="salesStaff.staffId" [staffName]="salesStaff.name" [staffTarget]="salesStaff.target" [margin]="closedWonQ1Margin" [quarter]="quarter"></olla-amount-piechart>
+          <olla-amount-piechart *ngIf="selectedQuarter.value === 2" [staffId]="salesStaff.staffId" [staffName]="salesStaff.name" [staffTarget]="salesStaff.target" [margin]="closedWonQ2Margin" [quarter]="quarter"></olla-amount-piechart>
+          <olla-amount-piechart *ngIf="selectedQuarter.value === 3" [staffId]="salesStaff.staffId" [staffName]="salesStaff.name" [staffTarget]="salesStaff.target" [margin]="closedWonQ3Margin" [quarter]="quarter"></olla-amount-piechart>
+          <olla-amount-piechart *ngIf="selectedQuarter.value === 4" [staffId]="salesStaff.staffId" [staffName]="salesStaff.name" [staffTarget]="salesStaff.target" [margin]="closedWonQ4Margin" [quarter]="quarter"></olla-amount-piechart>
         </div>
       </div>
     </mat-tab>
     <mat-tab label="Net Profit By Payments Received">
+      <div class="row my-1">
+        <div class="col-md-3">
+          <mat-form-field appearance="outline" class="w-30">
+            <mat-label>Fiscal Period</mat-label>
+            <mat-select [formControl]="selectReceivedQuarter" (selectionChange)="getIndividualPaymentReceived()">
+              <mat-option *ngFor="let session of quarterOptions" [value]="session.value">
+                {{session.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
       <div class="row">
         <div class="col-xl-4 col-md-6 my-3" *ngFor="let salesStaff of salesStaffs">
-          <olla-percent-piechart [staffId]="salesStaff.staffId" [staffName]="salesStaff.name" [staffTarget]="salesStaff.target" [margin]="paymentReceivedMargin"></olla-percent-piechart>
+          <olla-percent-piechart *ngIf="selectReceivedQuarter.value === 0" [staffId]="salesStaff.staffId" [staffName]="salesStaff.name" [staffTarget]="salesStaff.target" [margin]="paymentReceivedMargin"></olla-percent-piechart>
+          <olla-percent-piechart *ngIf="selectReceivedQuarter.value === 1" [staffId]="salesStaff.staffId" [staffName]="salesStaff.name" [staffTarget]="salesStaff.target" [margin]="paymentReceivedQ1Margin" [quarter]="quarterReceived "></olla-percent-piechart>
+          <olla-percent-piechart *ngIf="selectReceivedQuarter.value === 2" [staffId]="salesStaff.staffId" [staffName]="salesStaff.name" [staffTarget]="salesStaff.target" [margin]="paymentReceivedQ2Margin" [quarter]="quarterReceived"></olla-percent-piechart>
+          <olla-percent-piechart *ngIf="selectReceivedQuarter.value === 3" [staffId]="salesStaff.staffId" [staffName]="salesStaff.name" [staffTarget]="salesStaff.target" [margin]="paymentReceivedQ3Margin" [quarter]="quarterReceived"></olla-percent-piechart>
+          <olla-percent-piechart *ngIf="selectReceivedQuarter.value === 4" [staffId]="salesStaff.staffId" [staffName]="salesStaff.name" [staffTarget]="salesStaff.target" [margin]="paymentReceivedQ4Margin" [quarter]="quarterReceived"></olla-percent-piechart>
         </div>
       </div>
     </mat-tab>

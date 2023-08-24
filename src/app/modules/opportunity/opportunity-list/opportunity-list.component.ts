@@ -71,6 +71,9 @@ export class OpportunityListComponent implements OnInit, AfterViewInit {
   filterByStage: FilterByOpportunityStage = {
     value: 0
   };
+  totalDataSellingPrice!: number;
+  totalDataCostPrice!: number;
+  totalDataMargin!: number;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(public dialog: MatDialog, private excel: ExcelService, private clientService: ClientService,
@@ -81,6 +84,7 @@ export class OpportunityListComponent implements OnInit, AfterViewInit {
       data => {
         this.dataSource.data = data
         this.AllData = data;
+        this.getTotalSellingPrice()
       }
     );
 
@@ -117,32 +121,40 @@ export class OpportunityListComponent implements OnInit, AfterViewInit {
         this.store.dispatch(loadMainStaffOpportunities({staffId: this.filter.staffId}));
         this.filterStagesOptions = true;
         this.filterByStage.value = 0;
+        this.getTotalSellingPrice();
         break;
       case 2:
         this.getOpportunitiesByClient();
+        this.getTotalSellingPrice();
         break;
       case 3:
         this.store.dispatch(loadYearOpportunities({year: this.filter.year}));
         this.filterOpenClosed = true;
         this.filterByOpenClosed.value = 1;
+        this.getTotalSellingPrice();
         break;
       case 4:
         this.store.dispatch(loadHalfYearOpportunities({ year: this.filter.year, half: this.filter.half }));
+        this.getTotalSellingPrice();
         break;
       case 5:
         this.store.dispatch(loadQuarterOpportunities({ year: this.filter.year, quarter: this.filter.quarter }));
+        this.getTotalSellingPrice();
         break;
       case 6:
-        this.store.dispatch(loadMonthOpportunities({year: this.filter.year, month: this.filter.month}))
+        this.store.dispatch(loadMonthOpportunities({year: this.filter.year, month: this.filter.month}));
+        this.getTotalSellingPrice();
         break;
       case 7:
         const startTime = this.formatDate(this.dateFilter.startTime);
         const endTime = this.formatDate(this.dateFilter.endTime);
 
         this.store.dispatch(loadDaterangeOpportunities({request: {...this.dateFilter, startTime: startTime, endTime: endTime}}));
+        this.getTotalSellingPrice();
         break;
       default:
         this.store.dispatch(loadOpportunities());
+        this.getTotalSellingPrice();
         break;
     }
   }
@@ -154,6 +166,7 @@ export class OpportunityListComponent implements OnInit, AfterViewInit {
       return;
     };
     this.dataSource.data = this.dataSource.data.filter((c) => c.stage === selectedStage);
+    this.getTotalSellingPrice();
   }
 
   filterOpportunitiesByOpenClosed(): void {
@@ -168,18 +181,22 @@ export class OpportunityListComponent implements OnInit, AfterViewInit {
       case 2:
         this.dataSource.data = this.dataSource.data.filter((c) => !c.stage.includes('Closed') && !c.stage.includes('Payment'));
         this.tempData = this.dataSource.data;
+        this.getTotalSellingPrice();
         break;
       case 3:
         this.dataSource.data = this.dataSource.data.filter((c) => c.stage.includes('Closed') && c.margin !== 0);
         this.tempData = this.dataSource.data;
+        this.getTotalSellingPrice();
         break;
       case 4:
         this.dataSource.data = this.dataSource.data.filter((c) => c.stage.includes('Closed') && c.margin < 1);
         this.tempData = this.dataSource.data;
+        this.getTotalSellingPrice();
         break;
       case 5:
         this.dataSource.data = this.dataSource.data.filter((c) => c.stage.includes('Payment'));
         this.tempData = this.dataSource.data;
+        this.getTotalSellingPrice();
         break;
       default:
         break;
@@ -193,6 +210,7 @@ export class OpportunityListComponent implements OnInit, AfterViewInit {
         const selectedStaff = data.filter((c) => c.staffId === this.filterOpenClosedByUser.value)[0];
         const selectedStaffName = `${selectedStaff.firstName} ${selectedStaff.lastName}`;
         this.dataSource.data = this.dataSource.data.filter((c) => c.staff === `${selectedStaffName}`);
+        this.getTotalSellingPrice();
       }
     )
   }
@@ -207,6 +225,7 @@ export class OpportunityListComponent implements OnInit, AfterViewInit {
       date: this.formatDate(this.datePicker)
     }
     this.store.dispatch(loadClientOpportunities({request}));
+    this.getTotalSellingPrice();
   }
 
   createOpportunity(): void {
@@ -253,6 +272,12 @@ export class OpportunityListComponent implements OnInit, AfterViewInit {
 
   private numberWithCommas(x: number) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+getTotalSellingPrice(): void {
+  this.totalDataSellingPrice = this.dataSource.data.reduce((a, n) => a += n.sellingPrice, 0);
+  this.totalDataCostPrice = this.dataSource.data.reduce((a, n) => a += n.costPrice, 0);
+  this.totalDataMargin = this.dataSource.data.reduce((a, n) => a += n.margin, 0);
 }
 
   exportExcel(): void {

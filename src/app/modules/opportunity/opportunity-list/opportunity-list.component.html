@@ -201,3 +201,24 @@
     </mat-card>
   </div>
 </div>
+
+<div class="row w-100">
+  <div class="col-md-3">
+    <mat-card>
+      <mat-card-content>
+        <div>
+          <span class="font-weight-bold">Total Selling Price: </span>
+          <p>{{totalDataSellingPrice | currency: 'USD':'symbol':'1.2-2'}}</p>
+        </div>
+        <div>
+          <span class="font-weight-bold">Total Cost Price: </span>
+          <p>{{totalDataCostPrice | currency:'USD':'symbol':'1.2-2'}}</p>
+        </div>
+        <div>
+          <span class="font-weight-bold">Total Margin:</span>
+          <p>{{totalDataMargin | currency: 'USD':'symbol':'1.2-2'}}</p>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

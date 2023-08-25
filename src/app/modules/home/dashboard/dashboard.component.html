@@ -42,7 +42,7 @@
 
 <div *ngIf="isAdmin">
   <mat-tab-group animationDuration="0ms" class="m-3">
-    <mat-tab label="Individual Opportunities By Stages">
+    <mat-tab label="Individual Opportunities By Stages" style="height: 20%">
       <div class="row">
         <div class="col-xl-4 col-md-6 my-3" *ngFor="let salesStaff of salesStaffs">
           <olla-individual-piechart [staffId]="salesStaff.staffId" [staffName]="salesStaff.name"></olla-individual-piechart>
@@ -62,15 +62,17 @@
           </mat-form-field>
         </div>
       </div>
-      <div class="row">
-        <div class="col-xl-4 col-md-6 my-3" *ngFor="let salesStaff of salesStaffs">
-          <olla-amount-piechart *ngIf="selectedQuarter.value === 0" [staffId]="salesStaff.staffId" [staffName]="salesStaff.name" [staffTarget]="salesStaff.target" [margin]="closedWonMargin"></olla-amount-piechart>
-          <olla-amount-piechart *ngIf="selectedQuarter.value === 1" [staffId]="salesStaff.staffId" [staffName]="salesStaff.name" [staffTarget]="salesStaff.target" [margin]="closedWonQ1Margin" [quarter]="quarter"></olla-amount-piechart>
-          <olla-amount-piechart *ngIf="selectedQuarter.value === 2" [staffId]="salesStaff.staffId" [staffName]="salesStaff.name" [staffTarget]="salesStaff.target" [margin]="closedWonQ2Margin" [quarter]="quarter"></olla-amount-piechart>
-          <olla-amount-piechart *ngIf="selectedQuarter.value === 3" [staffId]="salesStaff.staffId" [staffName]="salesStaff.name" [staffTarget]="salesStaff.target" [margin]="closedWonQ3Margin" [quarter]="quarter"></olla-amount-piechart>
-          <olla-amount-piechart *ngIf="selectedQuarter.value === 4" [staffId]="salesStaff.staffId" [staffName]="salesStaff.name" [staffTarget]="salesStaff.target" [margin]="closedWonQ4Margin" [quarter]="quarter"></olla-amount-piechart>
+      <div class="individual">
+        <div class="my-3 d-flex flex-column border-bottom py-2 w-100" *ngFor="let salesStaff of salesStaffs">
+            <div class="col">
+              <olla-amount-piechart *ngIf="selectedQuarter.value === 0" [staffId]="salesStaff.staffId" [staffName]="salesStaff.name" [staffTarget]="salesStaff.target" [margin]="closedWonMargin"></olla-amount-piechart>
+              <olla-amount-piechart *ngIf="selectedQuarter.value === 1" [staffId]="salesStaff.staffId" [staffName]="salesStaff.name" [staffTarget]="salesStaff.target" [margin]="closedWonQ1Margin" [quarter]="quarter"></olla-amount-piechart>
+              <olla-amount-piechart *ngIf="selectedQuarter.value === 2" [staffId]="salesStaff.staffId" [staffName]="salesStaff.name" [staffTarget]="salesStaff.target" [margin]="closedWonQ2Margin" [quarter]="quarter"></olla-amount-piechart>
+              <olla-amount-piechart *ngIf="selectedQuarter.value === 3" [staffId]="salesStaff.staffId" [staffName]="salesStaff.name" [staffTarget]="salesStaff.target" [margin]="closedWonQ3Margin" [quarter]="quarter"></olla-amount-piechart>
+              <olla-amount-piechart *ngIf="selectedQuarter.value === 4" [staffId]="salesStaff.staffId" [staffName]="salesStaff.name" [staffTarget]="salesStaff.target" [margin]="closedWonQ4Margin" [quarter]="quarter"></olla-amount-piechart>
+            </div>
+          </div>
         </div>
-      </div>
     </mat-tab>
     <mat-tab label="Net Profit By Payments Received">
       <div class="row my-1">

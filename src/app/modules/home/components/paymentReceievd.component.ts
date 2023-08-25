@@ -6,9 +6,12 @@ import { OpportunityResponse } from '@app/models/opportunity.model';
   selector: 'olla-payment-received-table',
   template:`
   <mat-card class="shadow br-20">
+    <mat-card-header>
       <div class="header">
         <h6>Payment Received</h6>
       </div>
+    </mat-card-header>
+    <mat-card-content>
       <div class="sales-table of-auto">
         <table mat-table [dataSource]="dataSource" class="border w-10">
 
@@ -70,6 +73,7 @@ import { OpportunityResponse } from '@app/models/opportunity.model';
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
       </div>
+    </mat-card-content>
     </mat-card>
   `,
 })

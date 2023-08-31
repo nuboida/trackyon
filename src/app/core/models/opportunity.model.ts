@@ -21,6 +21,8 @@ export interface OpportunityCreateRequest {
   datePaymentReceived?: Date | string;
   deliveryStatusId?: number;
   dateOfDelivery?: Date | string;
+  active: Boolean;
+  partialPayment: number;
 }
 
 export interface OpportunityUpdateRequest extends OpportunityCreateRequest {

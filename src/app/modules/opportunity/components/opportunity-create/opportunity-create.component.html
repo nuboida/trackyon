@@ -1,4 +1,18 @@
-<olla-page-name [currentPage]="currentPage"></olla-page-name>
+<div class="d-flex align-items-center">
+  <div>
+    <olla-page-name [currentPage]="currentPage"></olla-page-name>
+  </div>
+  <div class="col-md-3" *ngIf="editMode">
+    <span *ngIf="form.controls['active'].value === true" class="badge badge-success">Active</span>
+    <span *ngIf="form.controls['active'].value === false" class="badge badge-danger">Inactive</span>
+  </div>
+</div>
+<div class="row mb-2" *ngIf="editMode">
+  <div class="col-xl-6">
+    <button *ngIf="form.controls['active'].value === true" mat-stroked-button color="warn" (click)="toggleOpportunityStatus()">Deactivate</button>
+    <button *ngIf="form.controls['active'].value === false" mat-stroked-button color="primary" (click)="toggleOpportunityStatus()">Activate</button>
+  </div>
+</div>
 <form [formGroup]="form" (ngSubmit)="submitOpportunity()">
   <div class="row my-2">
     <div class="col-xl-6">
@@ -149,6 +163,12 @@
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Margin</mat-label>
         <input formControlName="margin" matInput placeholder="Margin">
+      </mat-form-field>
+    </div>
+    <div class="col-xl-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Partial Payment</mat-label>
+        <input formControlName="partialPayment" matInput placeholder="Partial Payment">
       </mat-form-field>
     </div>
     <div class="col-xl-6">

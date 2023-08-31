@@ -8,30 +8,69 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
   selector: 'olla-percent-piechart',
   template: `
     <mat-card class="mh-400 shadow br-20">
-      <div class="header">
-        <h6>Net Profit By Payment Received <span style="font-size: 14px">({{staffName}})</span></h6>
-        <h6 style="font-size: 13px">Target - ({{ staffTarget | currency }})</h6>
-      </div>
-      <div *ngIf="!loading" style="display: block">
-        <canvas baseChart height="330"
-        [data]="chartData"
-        [labels]="chartLabels"
-        [chartType]="type"
-        [options]="options"
-        [plugins]="plugins"
-        [colors]="chartColor"
-        [legend]="legend"
-        [plugins]="chartDataLabels"
-        >
-      </canvas>
-      </div>
-      <div *ngIf="loading" class="d-flex justify-content-center">
-        <ngx-skeleton-loader appearance="circle" animation="pulse" [theme]="{'width': '260px', 'height': '260px'}"></ngx-skeleton-loader>
-      </div>
-      <div *ngIf="loading" class="d-flex  justify-content-between">
-        <ngx-skeleton-loader animation="pulse" [theme]="{'width': '100px'}"></ngx-skeleton-loader>
-        <ngx-skeleton-loader animation="pulse" [theme]="{'width': '100px'}"></ngx-skeleton-loader>
-      </div>
+      <mat-card-header class="header">
+        <div>
+          <h6>Net Profit By Deals Won <span style="font-size: 14px">({{staffName}}) - ({{ staffTarget | currency: 'USD':'symbol':'1.2-2'}})</span></h6>
+        </div>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="row">
+          <div class="col-xl-4">
+            <mat-card>
+              <mat-card-content>
+                <div>
+                  <div>
+                    <div *ngIf="!loading" style="display: block">
+                      <canvas baseChart height="330"
+                      [data]="chartData"
+                      [labels]="chartLabels"
+                      [chartType]="type"
+                      [options]="options"
+                      [plugins]="plugins"
+                      [colors]="chartColor"
+                      [legend]="legend"
+                      [plugins]="chartDataLabels"
+                      >
+                    </canvas>
+                    </div>
+                    <div *ngIf="loading" class="d-flex justify-content-center">
+                      <ngx-skeleton-loader appearance="circle" animation="pulse" [theme]="{'width': '260px', 'height': '260px'}"></ngx-skeleton-loader>
+                    </div>
+                    <div *ngIf="loading" class="d-flex  justify-content-between">
+                      <ngx-skeleton-loader animation="pulse" [theme]="{'width': '100px'}"></ngx-skeleton-loader>
+                      <ngx-skeleton-loader animation="pulse" [theme]="{'width': '100px'}"></ngx-skeleton-loader>
+                    </div>
+                  </div>
+                  </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+          <div class="col-xl-4">
+            <mat-card>
+              <mat-card-content>
+                <table>
+                  <tr>
+                    <th>Name</th>
+                    <th>Margin</th>
+                  </tr>
+                  <tr *ngFor="let opportunity of allMargin">
+                    <td>{{opportunity.opportunityName}}</td>
+                    <td>{{opportunity.margin | currency:'USD':'symbol':'1.2-2'}}</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr class="my-2 border-top border-bottom">
+                    <td class="font-weight-bold">Total: </td>
+                    <td>{{overallMargin | currency:'USD':'symbol':'1.2-2'}}</td>
+                  </tr>
+                </table>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+      </mat-card-content>
     </mat-card>
   `,
   styles: [
@@ -42,9 +81,9 @@ export class PercentPiechartComponent implements OnInit {
   @Input() staffId: string;
   @Input() staffName: string;
   @Input() staffTarget: number;
-  @Input() margin: {name: string; margin: number}[];
+  @Input() margin: {name: string; opportunityName: string; margin: number}[];
   @Input() quarter: boolean;
-  allMargin: number[] = [];
+  allMargin: {name: string; opportunityName: string; margin: number}[] = [];
   chartData: number[];
   chartLabels!: string[];
   chartColor!: any[];
@@ -79,7 +118,7 @@ export class PercentPiechartComponent implements OnInit {
   ngOnInit(): void {
     this.margin.map((c) => {
       if (c.name === this.staffName) {
-        this.allMargin.push(c.margin);
+        this.allMargin.push(c);
       }
     })
 
@@ -88,7 +127,7 @@ export class PercentPiechartComponent implements OnInit {
 
   getChartData(): void {
     this.loading = true;
-    this.overallMargin = this.allMargin.reduce((a, n) => a += n, 0);
+    this.overallMargin = this.allMargin.reduce((a, n) => a += n.margin, 0);
     if (this.quarter) {
       this.staffTarget = this.staffTarget / 4;
     }

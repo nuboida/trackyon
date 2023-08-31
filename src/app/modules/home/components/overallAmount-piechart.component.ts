@@ -10,8 +10,7 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
   template: `
     <mat-card class="mh-400 shadow br-20">
       <div class="header">
-        <h6>Margins <span style="font-size: 14px">(Overall)</span></h6>
-        <h6 style="font-size: 13px">{{ marginPercent * 100 | number: '1.0-0'}}%</h6>
+        <h6>Margins <span style="font-size: 14px">(Overall)</span> - Target {{ overallTarget | currency: 'USD':'symbol':'1.2-2' }}</h6>
       </div>
       <div *ngIf="!loading" style="display: block">
         <canvas baseChart height="330"
@@ -32,6 +31,9 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
       <div *ngIf="loading" class="d-flex  justify-content-between">
         <ngx-skeleton-loader animation="pulse" [theme]="{'width': '100px'}"></ngx-skeleton-loader>
         <ngx-skeleton-loader animation="pulse" [theme]="{'width': '100px'}"></ngx-skeleton-loader>
+      </div>
+      <div class="mt-400">
+        <h6>Current Margin: {{ overallMargin | currency: 'USD':'symbol':'1.2-2' }}</h6>
       </div>
     </mat-card>
   `,
@@ -63,7 +65,7 @@ export class OverallAmountsPiechartComponent implements OnInit {
           size: 24
         },
         formatter: function (value, context) {
-          return `${parseInt(value)}%`
+          return `${value}%`
         }
       }
     }
@@ -88,7 +90,7 @@ export class OverallAmountsPiechartComponent implements OnInit {
     if (this.overallTarget < this.overallMargin) {
       this.chartData = [0, totalPercent * 100]
     } else {
-      this.chartData = [Number((totalPercent - this.marginPercent).toFixed(2))* 100, Number(this.marginPercent.toFixed(2)) * 100];
+      this.chartData = [Number(((totalPercent - this.marginPercent) * 100).toFixed(2)), Number((this.marginPercent * 100).toFixed(2))];
     }
     this.chartLabels = ['Outstanding Sales', 'Achieved'];
     this.chartColor = [{backgroundColor: ['#dc3545', '#007bff']}];

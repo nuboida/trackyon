@@ -65,6 +65,8 @@ export class OpportunityCreateComponent implements OnInit {
     datePaymentReceived: null,
     deliveryStatusId: 2,
     dateOfDelivery: null,
+    active: true,
+    partialPayment: 0,
   };
 
   editMode = false;
@@ -112,6 +114,8 @@ export class OpportunityCreateComponent implements OnInit {
             invoiceNumber: data.invoiceNumber,
             deliveryStatusId: data.deliveryStatusId,
             dateOfDelivery: data.dateOfDelivery,
+            active: data.active,
+            partialPayment: data.partialPayment
           });
 
           this.form.enable();
@@ -184,6 +188,8 @@ export class OpportunityCreateComponent implements OnInit {
       invoiceNumber: [this.data.invoiceNumber],
       deliveryStatusId: [this.data.deliveryStatusId],
       dateOfDelivery: [this.data.dateOfDelivery],
+      active: [this.data.active],
+      partialPayment: [this.data.partialPayment]
     });
   }
 
@@ -262,6 +268,15 @@ export class OpportunityCreateComponent implements OnInit {
         this.clientChange(clientId, clientContactId);
       }
     });
+
+  }
+
+  toggleOpportunityStatus(): void {
+    if (this.form.controls['active'].value === true) {
+      this.form.controls['active'].patchValue(false);
+    } else {
+      this.form.controls['active'].patchValue(true);
+    }
   }
 }
 

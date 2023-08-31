@@ -35,11 +35,11 @@ export class DashboardComponent implements OnInit {
   closedWonQ2Margin: {name: string; opportunityName: string; margin: number}[] = [];
   closedWonQ3Margin: {name: string; opportunityName: string; margin: number}[] = [];
   closedWonQ4Margin: {name: string; opportunityName: string; margin: number}[] = [];
-  paymentReceivedMargin: {name: string; margin: number}[] = [];
-  paymentReceivedQ1Margin: {name: string; margin: number}[] = [];
-  paymentReceivedQ2Margin: {name: string; margin: number}[] = [];
-  paymentReceivedQ3Margin: {name: string; margin: number}[] = [];
-  paymentReceivedQ4Margin: {name: string; margin: number}[] = [];
+  paymentReceivedMargin: {name: string; opportunityName: string; margin: number}[] = [];
+  paymentReceivedQ1Margin: {name: string; opportunityName: string; margin: number}[] = [];
+  paymentReceivedQ2Margin: {name: string; opportunityName: string; margin: number}[] = [];
+  paymentReceivedQ3Margin: {name: string; opportunityName: string; margin: number}[] = [];
+  paymentReceivedQ4Margin: {name: string; opportunityName: string; margin: number}[] = [];
   overallTarget: number[] = [];
   monthlySales$ = this.store.select(getMonthlySales).pipe(
     map(s => [{ data: s, label: 'Sales By Month' }])
@@ -186,9 +186,10 @@ export class DashboardComponent implements OnInit {
       case 0:
         this.paymentReceivedMargin = [];
         this.data.opportunities.map((c: any) => {
-          if ((c.stage === "Payment Received") && c.fiscalPeriod.includes(new Date().getFullYear())) {
+          if ((c.stage === "Payment Received") && c.margin > 0 && c.fiscalPeriod.includes(new Date().getFullYear())) {
             let staffMargin = {
               name: c.staff,
+              opportunityName: c.name,
               margin: c.margin,
             }
             this.paymentReceivedMargin.push(staffMargin);
@@ -199,9 +200,10 @@ export class DashboardComponent implements OnInit {
         case 1:
           this.paymentReceivedQ1Margin = [];
           this.data.opportunities.map((c: any) => {
-            if ((c.stage == "Payment Received") && (c.fiscalPeriod.includes(new Date().getFullYear()) && c.fiscalPeriod.includes('Q1'))) {
+            if ((c.stage == "Payment Received") && c.margin > 0 && (c.fiscalPeriod.includes(new Date().getFullYear()) && c.fiscalPeriod.includes('Q1'))) {
               let staffMargin = {
                 name: c.staff,
+                opportunityName: c.name,
                 margin: c.margin,
               }
 
@@ -212,9 +214,10 @@ export class DashboardComponent implements OnInit {
         case 2:
           this.paymentReceivedQ2Margin = [];
           this.data.opportunities.map((c: any) => {
-            if ((c.stage == "Payment Received") && (c.fiscalPeriod.includes(new Date().getFullYear()) && c.fiscalPeriod.includes('Q2'))) {
+            if ((c.stage == "Payment Received") && c.margin > 0 && (c.fiscalPeriod.includes(new Date().getFullYear()) && c.fiscalPeriod.includes('Q2'))) {
               let staffMargin = {
                 name: c.staff,
+                opportunityName: c.name,
                 margin: c.margin,
               }
 
@@ -225,9 +228,10 @@ export class DashboardComponent implements OnInit {
         case 3:
           this.paymentReceivedQ3Margin = [];
           this.data.opportunities.map((c: any) => {
-            if ((c.stage == "Payment Received") && (c.fiscalPeriod.includes(new Date().getFullYear()) && c.fiscalPeriod.includes('Q3'))) {
+            if ((c.stage == "Payment Received") && c.margin > 0 && (c.fiscalPeriod.includes(new Date().getFullYear()) && c.fiscalPeriod.includes('Q3'))) {
               let staffMargin = {
                 name: c.staff,
+                opportunityName: c.name,
                 margin: c.margin,
               }
 
@@ -238,9 +242,10 @@ export class DashboardComponent implements OnInit {
         case 4:
           this.paymentReceivedQ4Margin = [];
           this.data.opportunities.map((c: any) => {
-            if ((c.stage == "Payment Received") && (c.fiscalPeriod.includes(new Date().getFullYear()) && c.fiscalPeriod.includes('Q4'))) {
+            if ((c.stage == "Payment Received") && c.margin > 0 && (c.fiscalPeriod.includes(new Date().getFullYear()) && c.fiscalPeriod.includes('Q4'))) {
               let staffMargin = {
                 name: c.staff,
+                opportunityName: c.name,
                 margin: c.margin,
               }
 

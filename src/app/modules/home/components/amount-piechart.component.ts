@@ -126,7 +126,6 @@ export class AmountsPiechartComponent implements OnInit {
   }
 
   getChartData(): void {
-    console.log(this.allMargin);
     this.loading = true;
     this.overallMargin = this.allMargin.reduce((a, n) => a += n.margin, 0);
     if (this.quarter) {

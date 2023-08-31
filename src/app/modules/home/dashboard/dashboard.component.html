@@ -87,13 +87,15 @@
           </mat-form-field>
         </div>
       </div>
-      <div class="row">
-        <div class="col-xl-4 col-md-6 my-3" *ngFor="let salesStaff of salesStaffs">
-          <olla-percent-piechart *ngIf="selectReceivedQuarter.value === 0" [staffId]="salesStaff.staffId" [staffName]="salesStaff.name" [staffTarget]="salesStaff.target" [margin]="paymentReceivedMargin"></olla-percent-piechart>
-          <olla-percent-piechart *ngIf="selectReceivedQuarter.value === 1" [staffId]="salesStaff.staffId" [staffName]="salesStaff.name" [staffTarget]="salesStaff.target" [margin]="paymentReceivedQ1Margin" [quarter]="quarterReceived "></olla-percent-piechart>
-          <olla-percent-piechart *ngIf="selectReceivedQuarter.value === 2" [staffId]="salesStaff.staffId" [staffName]="salesStaff.name" [staffTarget]="salesStaff.target" [margin]="paymentReceivedQ2Margin" [quarter]="quarterReceived"></olla-percent-piechart>
-          <olla-percent-piechart *ngIf="selectReceivedQuarter.value === 3" [staffId]="salesStaff.staffId" [staffName]="salesStaff.name" [staffTarget]="salesStaff.target" [margin]="paymentReceivedQ3Margin" [quarter]="quarterReceived"></olla-percent-piechart>
-          <olla-percent-piechart *ngIf="selectReceivedQuarter.value === 4" [staffId]="salesStaff.staffId" [staffName]="salesStaff.name" [staffTarget]="salesStaff.target" [margin]="paymentReceivedQ4Margin" [quarter]="quarterReceived"></olla-percent-piechart>
+      <div class="individual">
+        <div class="my-3 d-flex flex-column" *ngFor="let salesStaff of salesStaffs">
+          <div class="col">
+            <olla-percent-piechart *ngIf="selectReceivedQuarter.value === 0" [staffId]="salesStaff.staffId" [staffName]="salesStaff.name" [staffTarget]="salesStaff.target" [margin]="paymentReceivedMargin"></olla-percent-piechart>
+            <olla-percent-piechart *ngIf="selectReceivedQuarter.value === 1" [staffId]="salesStaff.staffId" [staffName]="salesStaff.name" [staffTarget]="salesStaff.target" [margin]="paymentReceivedQ1Margin" [quarter]="quarterReceived "></olla-percent-piechart>
+            <olla-percent-piechart *ngIf="selectReceivedQuarter.value === 2" [staffId]="salesStaff.staffId" [staffName]="salesStaff.name" [staffTarget]="salesStaff.target" [margin]="paymentReceivedQ2Margin" [quarter]="quarterReceived"></olla-percent-piechart>
+            <olla-percent-piechart *ngIf="selectReceivedQuarter.value === 3" [staffId]="salesStaff.staffId" [staffName]="salesStaff.name" [staffTarget]="salesStaff.target" [margin]="paymentReceivedQ3Margin" [quarter]="quarterReceived"></olla-percent-piechart>
+            <olla-percent-piechart *ngIf="selectReceivedQuarter.value === 4" [staffId]="salesStaff.staffId" [staffName]="salesStaff.name" [staffTarget]="salesStaff.target" [margin]="paymentReceivedQ4Margin" [quarter]="quarterReceived"></olla-percent-piechart>
+          </div>
         </div>
       </div>
     </mat-tab>

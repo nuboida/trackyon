@@ -25,7 +25,8 @@
           <ul class="nested__list">
             <li class="nested__item"><a [routerLink]="['/memo/personal']" routerLinkActive="nested__link--active" class="nested__link">Personal Memo</a></li>
             <li *ngIf="isAdmin" class="nested__item"><a [routerLink]="['/memo/staff']" routerLinkActive="nested__link--active" class="nested__link">Staff Memos</a></li>
-            <li class="nested__item"><a [routerLink]="['/memo/department']" routerLinkActive="nested__link--active" class="nested__link">Dept Memos</a></li>
+            <li *ngIf="isAdmin" class="nested__item"><a [routerLink]="['/memo/department']" routerLinkActive="nested__link--active" class="nested__link">Dept Memos</a></li>
+            <li *ngIf="isAdmin" class="nested__item"><a [routerLink]="['/memo/tasks']" routerLinkActive="nested__link--active" class="nested__link">Tasks</a></li>
           </ul>
         </div>
       </li>

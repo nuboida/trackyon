@@ -51,11 +51,11 @@ import ChartDataLabels from 'chartjs-plugin-datalabels'
                 <table>
                   <tr>
                     <th>Name</th>
-                    <th>Margin</th>
+                    <th style="text-align: right;">Margin</th>
                   </tr>
                   <tr *ngFor="let opportunity of allMargin">
                     <td>{{opportunity.opportunityName}}</td>
-                    <td>{{opportunity.margin | currency:'USD':'symbol':'1.2-2'}}</td>
+                    <td style="text-align: right;">{{opportunity.margin | currency:'USD':'symbol':'1.2-2'}}</td>
                   </tr>
                   <tr>
                     <td></td>
@@ -63,7 +63,7 @@ import ChartDataLabels from 'chartjs-plugin-datalabels'
                   </tr>
                   <tr class="my-2 border-top border-bottom">
                     <td class="font-weight-bold">Total: </td>
-                    <td>{{overallMargin | currency:'USD':'symbol':'1.2-2'}}</td>
+                    <td class="font-weight-bold" style="text-align: right;">{{overallMargin | currency:'USD':'symbol':'1.2-2'}}</td>
                   </tr>
                 </table>
               </mat-card-content>

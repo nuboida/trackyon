@@ -15,43 +15,43 @@ import { OpportunityResponse } from '@app/models/opportunity.model';
           <!-- Position Column -->
           <ng-container matColumnDef="position">
             <th mat-header-cell *matHeaderCellDef> No. </th>
-            <td mat-cell *matCellDef="let element; index as i"> {{i+1}} </td>
+            <td mat-cell *matCellDef="let element; index as i" style="font-size: 12px;"> {{i+1}} </td>
           </ng-container>
 
           <!-- Client Column -->
           <ng-container matColumnDef="client">
             <th mat-header-cell *matHeaderCellDef> Client </th>
-            <td mat-cell *matCellDef="let element"> {{element.client}}</td>
+            <td mat-cell *matCellDef="let element" style="font-size: 12px;"> {{element.client}}</td>
           </ng-container>
 
           <!-- Opportunity Column -->
           <ng-container matColumnDef="opportunity">
             <th mat-header-cell *matHeaderCellDef> Opportunity </th>
-            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            <td mat-cell *matCellDef="let element" style="font-size: 12px;"> {{element.name}} </td>
           </ng-container>
 
           <!-- Price Column -->
           <ng-container matColumnDef="amount lost">
             <th mat-header-cell *matHeaderCellDef> Amount Lost </th>
-            <td mat-cell *matCellDef="let element"> {{element.amountPaid |currency:'USD':'symbol':'1.2-2'}} </td>
+            <td mat-cell *matCellDef="let element" style="font-size: 12px;"> {{element.amountPaid |currency:'USD':'symbol':'1.2-2'}} </td>
           </ng-container>
 
           <!-- Status Column -->
           <ng-container matColumnDef="status">
             <th mat-header-cell *matHeaderCellDef> Stage </th>
-            <td mat-cell *matCellDef="let element"> Closed/Lost </td>
+            <td mat-cell *matCellDef="let element" style="font-size: 12px;"> Closed/Lost </td>
           </ng-container>
 
           <!-- Date Column -->
           <ng-container matColumnDef="date">
             <th mat-header-cell *matHeaderCellDef> Created On</th>
-            <td mat-cell *matCellDef="let element"> {{element.createdDate |date:'mediumDate'}} </td>
+            <td mat-cell *matCellDef="let element" style="font-size: 12px;"> {{element.createdDate |date:'mediumDate'}} </td>
           </ng-container>
 
           <!-- Staff Column -->
           <ng-container matColumnDef="staff">
             <th mat-header-cell *matHeaderCellDef> Staff </th>
-            <td mat-cell *matCellDef="let element"> {{(element.staff.split(' ')[0])}} </td>
+            <td mat-cell *matCellDef="let element" style="font-size: 12px;"> {{(element.staff.split(' ')[0])}} </td>
           </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

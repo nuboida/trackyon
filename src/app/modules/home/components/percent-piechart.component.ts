@@ -54,8 +54,8 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
                     <th style="text-align: right;">Margin</th>
                   </tr>
                   <tr *ngFor="let opportunity of allMargin">
-                    <td>{{opportunity.opportunityName}}</td>
-                    <td style="text-align: right;">{{opportunity.margin | currency:'USD':'symbol':'1.2-2'}}</td>
+                    <td style="font-size: 12px">{{opportunity.opportunityName}}</td>
+                    <td style="text-align: right; font-size: 12px">{{opportunity.margin | currency:'USD':'symbol':'1.2-2'}}</td>
                   </tr>
                   <tr>
                     <td></td>

@@ -1,12 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { TaskRequest } from '@app/models/call-memo.model';
 import { DepartmentResponse } from '@app/models/department.model';
 import { ErrorResponse } from '@app/models/error.model';
-import { GlobalEdit } from '@app/models/response.model';
+import { StaffResponse } from '@app/models/staff.model';
 import { CallMemoService } from '@app/services/call-memo.service';
 import { DepartmentService } from '@app/services/department.service';
+import { StaffService } from '@app/services/staff.service';
 import { HotToastService } from '@ngneat/hot-toast';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Observable } from 'rxjs';
@@ -23,6 +23,7 @@ export class TaskCreateComponent implements OnInit {
   form!: FormGroup;
   id: number;
   dept$!: Observable<DepartmentResponse[]>;
+  staff$!: Observable<StaffResponse[]>;
 
   dimensionOptions = Dimensions;
   criteriaOptions = Criteria;
@@ -30,6 +31,7 @@ export class TaskCreateComponent implements OnInit {
 
   nameCtrl = new FormControl('', Validators.required);
   deptCtr = new FormControl('', Validators.required);
+  staffIdCtrl = new FormControl([], Validators.required);
   weightCtrl = new FormControl(0, Validators.required);
   dimensionCtrl = new FormControl('');
   kraCtrl = new FormControl('');
@@ -41,12 +43,14 @@ export class TaskCreateComponent implements OnInit {
   constructor(private fb: FormBuilder, private memoService: CallMemoService,
               private toast: HotToastService, private deptService: DepartmentService,
               @Inject(MAT_DIALOG_DATA) public data: {id: number, name: string, deptId: string, weight: number, criteria: string, dimension: string, frequency: string, kra: string, target: string},
-              public dialogRef: MatDialogRef<TaskCreateComponent>) {}
+              public dialogRef: MatDialogRef<TaskCreateComponent>, private staffService: StaffService) {}
 
   ngOnInit(): void {
+    this.staff$ = this.staffService.getStaffs();
     this.form = this.fb.group({
       name: this.nameCtrl,
       dept: this.deptCtr,
+      staffIds: this.staffIdCtrl,
       weight: this.weightCtrl,
       criteria: this.criteriaCtrl,
       dimension: this.dimensionCtrl,
@@ -70,6 +74,7 @@ export class TaskCreateComponent implements OnInit {
   }
 
   submit(): void {
+
     this.loading = true;
 
     if (this.id) {
@@ -77,6 +82,7 @@ export class TaskCreateComponent implements OnInit {
         id: this.id,
         name: this.nameCtrl.value,
         departmentId: this.deptCtr.value,
+        staffId: this.staffIdCtrl.value,
         weight: this.weightCtrl.value,
         frequency: this.frequencyCtrl.value as string,
         criteria: this.criteriaCtrl.value as string,
@@ -103,6 +109,7 @@ export class TaskCreateComponent implements OnInit {
       const request = {
         name: this.nameCtrl.value as string,
         departmentId: this.deptCtr.value as number,
+        staffId: this.staffIdCtrl.value,
         weight: this.weightCtrl.value as number,
         frequency: this.frequencyCtrl.value as string,
         criteria: this.criteriaCtrl.value as string,

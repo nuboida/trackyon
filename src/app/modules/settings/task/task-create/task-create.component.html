@@ -18,6 +18,16 @@
         </div>
         <div class="col-xl-6">
           <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Staff Assigned</mat-label>
+            <mat-select required formControlName="staffIds" multiple>
+              <mat-option *ngFor="let staff of staff$ | async" [value]="staff.staffId">
+                {{staff.firstName}} {{staff.lastName}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-xl-6">
+          <mat-form-field appearance="outline" class="w-100">
             <mat-label>Weight</mat-label>
             <input type="number" formControlName="weight" required matInput placeholder="Weight" />
           </mat-form-field>
@@ -27,7 +37,7 @@
         <div class="col-xl-6">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>Performance Criteria</mat-label>
-            <mat-select formControlName="criteria">
+            <mat-select formControlName="criteria" required>
               <mat-option *ngFor="let criteria of criteriaOptions" [value]="criteria.value">
                 {{ criteria.name }}
               </mat-option>

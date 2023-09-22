@@ -77,6 +77,7 @@ export class CallMemoRoutes {
   static EditProject = 'callmemo/project/edit';
   // static ListTask = 'callmemo/tasks/companyId';
   static ListTask = 'callmemo/tasks/companyId/departmentId';
+  static ListTaskByStaff = 'callmemo/tasks/staff/staffId';
   static CreateTask = 'callmemo/task/create';
   static EditTask = 'callmemo/task/edit';
   static UpdateCallMemoActivity = 'callmemo/memo/activity/edit';

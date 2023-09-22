@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { StaffService } from '@app/services/staff.service';
@@ -26,19 +26,24 @@ export class StaffComponent implements OnInit, AfterViewInit {
   toolTip= 'Actions';
 
   displayedColumns = ['position', 'staff', 'phone', 'email', 'department', 'role', 'status', 'buttons', 'moreButtons'];
-  dataSource = new MatTableDataSource<StaffResponse>([]);
+  activeDataSource = new MatTableDataSource<StaffResponse>([]);
+  inactiveDataSource = new MatTableDataSource<StaffResponse>([]);
   loading = false;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChildren(MatPaginator) paginator = new QueryList<MatPaginator>();
 
   constructor(private staffService: StaffService, public dialog: MatDialog,
               private toast: HotToastService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.route.data.pipe(untilDestroyed(this)).subscribe(result => this.dataSource.data = result.data);
+    this.route.data.pipe(untilDestroyed(this)).subscribe(result => {
+      this.activeDataSource.data = result.data.filter((c: StaffResponse) => c.active);
+      this.inactiveDataSource.data = result.data.filter((c: StaffResponse) => !c.active);
+    });
   }
 
   ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
+    this.activeDataSource.paginator = this.paginator.toArray()[0];
+    this.inactiveDataSource.paginator = this.paginator.toArray()[1];
   }
 
   createStaff(): void {
@@ -47,7 +52,10 @@ export class StaffComponent implements OnInit, AfterViewInit {
 
   getStaffs(): void {
     this.staffService.getStaffs().pipe(untilDestroyed(this)).subscribe(
-      data => this.dataSource.data = data,
+      data => {
+        this.activeDataSource.data = data.filter((c: StaffResponse) => c.active)
+        this.inactiveDataSource.data = data.filter((c: StaffResponse) => !c.active)
+      },
       () => this.toast.error('Error retrieving staffs'),
       () => this.loading = false
     );
@@ -90,7 +98,7 @@ export class StaffComponent implements OnInit, AfterViewInit {
   }
 
   viewStaff(staffId: string): void {
-    const staff = {...this.dataSource.data.find(x => x.staffId === staffId)};
+    const staff = {...this.activeDataSource.data.find(x => x.staffId === staffId)};
 
     this.dialog.open(StaffDetailsComponent, {
       width: '600px',

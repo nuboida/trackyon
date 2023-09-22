@@ -7,9 +7,9 @@
         <div class="col-xl-4">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>Staff</mat-label>
-            <mat-select>
-              <mat-option>
-                {{ ' ' }}
+            <mat-select [formControl]="staffTask" (selectionChange)="getStaffTask()">
+              <mat-option *ngFor="let staff of staff$ | async" [value]="staff.staffId">
+                {{ staff.firstName }} {{ staff.lastName }}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -34,7 +34,7 @@
       <div class="opportunity-table of-auto">
         <div class="my-5">
           <h5>Core Values</h5>
-          <table mat-table class="border">
+          <table mat-table class="border" [dataSource]="coreDataSource">
 
             <!-- Position Column -->
             <ng-container matColumnDef="position">
@@ -115,20 +115,9 @@
         </div>
       </div>
 
-      <div class="mx-2 my-1">
-        <mat-form-field appearance="outline">
-          <mat-label>Frequency</mat-label>
-          <mat-select>
-            <mat-option>
-              {{ ' ' }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-
       <div class="opportunity-table of-auto">
         <h5>KPIs</h5>
-        <table mat-table class="border">
+        <table mat-table class="border" [dataSource]="kpiDataSource">
 
           <!-- Position Column -->
           <ng-container matColumnDef="position">

@@ -83,6 +83,10 @@ export class CallMemoService {
     .replace('departmentId', departmentId));
   }
 
+  getTaskByStaff(staffId: string): Observable<TaskResponse[]> {
+    return this.api.get<TaskResponse[]>(CallMemoRoutes.ListTaskByStaff.replace('staffId', staffId))
+  }
+
   createTask(request: TaskRequest): Observable<GlobalResponse> {
     const requestTask: CreateNewTaskRequest = {
       ...request,

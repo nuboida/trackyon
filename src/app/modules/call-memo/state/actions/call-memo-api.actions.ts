@@ -1,6 +1,6 @@
 import { CallMemoDisplay, CallMemoResponse } from '@app/models/call-memo.model';
 import { CallMemoCalendar } from '@modules/call-memo/models/call-memo-display.model';
-import { MemoTaskDetailsResponse } from '@modules/call-memo/models/call-memo-response.model';
+import { MemoTaskDetailsResponse, MemoTaskStaffDetailsResponse } from '@modules/call-memo/models/call-memo-response.model';
 import { createAction, props } from '@ngrx/store';
 
 export const loadCallMemosSuccess = createAction(
@@ -55,4 +55,12 @@ export const getMemoTasksSuccess = createAction(
 
 export const getMemoTasksFailure = createAction(
   '[Call Memo Tasks Details API] Load Memo Tasks Details Failure'
+)
+export const getMemoTaskStaffSuccess = createAction(
+  '[Call Memo Staff Tasks Details API] Load Memo Staff Tasks Details Success',
+  props<{ memoDetails: MemoTaskStaffDetailsResponse[] }>()
+)
+
+export const getMemoTaskStaffFailure = createAction(
+  '[Call Memo Staff Tasks Details API] Load Memo Staff Tasks Details Failure'
 )

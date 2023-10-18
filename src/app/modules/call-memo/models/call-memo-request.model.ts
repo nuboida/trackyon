@@ -18,6 +18,17 @@ interface CallDeptMemoFilterRequest {
   startTime: string | Date;
   endTime: string | Date;
 }
+interface CallStaffMemoFilterRequest {
+  staffId: string;
+  startTime: string | Date;
+  endTime: string | Date;
+}
+
+interface CallStaffMemoDetailFilterRequest {
+  staffId: string;
+  startTime: string | Date;
+  endTime: string | Date;
+}
 
 interface TaskDeptMemoFilterRequest {
   staffId: string;
@@ -25,4 +36,4 @@ interface TaskDeptMemoFilterRequest {
   endTime: string | Date;
 }
 
-export { CallMemoFilterRequest, CallMemoPersonalFilterRequest, CallDeptMemoFilterRequest, TaskDeptMemoFilterRequest };
+export { CallMemoFilterRequest, CallMemoPersonalFilterRequest, CallDeptMemoFilterRequest, CallStaffMemoFilterRequest, CallStaffMemoDetailFilterRequest, TaskDeptMemoFilterRequest };

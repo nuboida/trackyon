@@ -41,6 +41,29 @@ interface MemoTaskDetailRequest {
   companyId: string;
 }
 
+interface MemoTaskStaffDetailsResponse {
+  weight: number;
+  id: number;
+  score: number;
+  scoreDate: string;
+  comment: string;
+  notes: string;
+  detailsDate: string;
+  memoTaskId: number;
+  staffId: number;
+  companyId: string;
+}
+
+interface MemoTaskStaffDetailRequest {
+  score: number;
+  comment: string;
+  notes: string;
+  detailsDate: string | Date;
+  memoTaskId: number,
+  staffId: string;
+  companyId: string;
+}
+
 interface UpdateScoreRequest {
   id: number;
   score: number;
@@ -55,6 +78,12 @@ interface EditTaskDetailRequest {
   comment: string;
   notes: string;
 }
+interface EditTaskStaffDetailRequest {
+  id: number;
+  score: number;
+  comment: string;
+  notes: string;
+}
 
 interface DetailSubmitResponse {
   message: string;
@@ -64,9 +93,12 @@ interface DetailSubmitResponse {
 export {
   CallMemoResponse,
   CallMemoActivity,
-  MemoTaskDetailsResponse,
   MemoTaskDetailRequest,
+  MemoTaskStaffDetailRequest,
+  MemoTaskStaffDetailsResponse,
+  MemoTaskDetailsResponse,
   DetailSubmitResponse,
   EditTaskDetailRequest,
+  EditTaskStaffDetailRequest,
   UpdateScoreRequest
 };

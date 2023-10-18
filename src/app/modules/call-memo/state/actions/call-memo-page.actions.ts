@@ -1,5 +1,5 @@
 import { CallMemoFilterRequest, CallMemoPersonalFilterRequest } from '@app/models/call-memo.model';
-import { CallDeptMemoFilterRequest } from '@modules/call-memo/models/call-memo-request.model';
+import { CallDeptMemoFilterRequest, CallStaffMemoFilterRequest } from '@modules/call-memo/models/call-memo-request.model';
 import { createAction, props } from '@ngrx/store';
 
 export const loadCallMemos = createAction('[Call Memo Personal Page] Load Call Memos');
@@ -17,4 +17,8 @@ props<{ request: CallDeptMemoFilterRequest }>());
 
 export const loadMemoTasksDetails = createAction('[Call Memo Dept Page] Load Memo Tasks Details',
 props<{request: CallDeptMemoFilterRequest }>()
+);
+
+export const loadMemoTaskStaffDetails = createAction('[Call Memo Staff Page] Load Memo Tasks Details',
+props<{request: CallStaffMemoFilterRequest }>()
 );

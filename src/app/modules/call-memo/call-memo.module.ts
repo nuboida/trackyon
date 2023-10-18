@@ -16,6 +16,8 @@ import interactionPlugin from '@fullcalendar/interaction';
 import bootstrapPlugin from '@fullcalendar/bootstrap';
 import { DeptMemoEditComponent } from './components/dept-memo-edit/dept-memo-edit.component';
 import { AppraisalDialogComponent } from './components/appraisalDialog/appraisalDialog.component';
+import { StaffMemoEditComponent } from './components/staff-memo-edit/staff-memo-edit.component';
+import { StaffAppraisalDialogComponent } from './components/staffAppraisalDialog/staffAppraisalDialog.component';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -25,7 +27,7 @@ FullCalendarModule.registerPlugins([
 
 
 @NgModule({
-  declarations: [CallMemoRoutingModule.components, CallMemoCreateComponent, CallMemoDetailComponent, DeptMemoEditComponent, AppraisalDialogComponent],
+  declarations: [CallMemoRoutingModule.components, CallMemoCreateComponent, CallMemoDetailComponent, DeptMemoEditComponent, AppraisalDialogComponent, StaffMemoEditComponent, StaffAppraisalDialogComponent],
   imports: [
     CommonModule,
     CallMemoRoutingModule,

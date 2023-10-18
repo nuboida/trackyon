@@ -8,7 +8,7 @@
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>Staff</mat-label>
             <mat-select [formControl]="staffTask" (selectionChange)="getStaffTask()">
-              <mat-option *ngFor="let staff of staff$ | async" [value]="staff.staffId">
+              <mat-option *ngFor="let staff of activeStaffs" [value]="staff.staffId">
                 {{ staff.firstName }} {{ staff.lastName }}
               </mat-option>
             </mat-select>
@@ -26,7 +26,7 @@
           </mat-form-field>
         </div>
         <div class="col-xl-4 d-flex align-items-center justify-content-between">
-          <button class="mb-2"  mat-stroked-button color="primary">Update</button>
+          <button class="mb-2"  mat-stroked-button color="primary" (click)="filterMemos()">Update</button>
           <button class="mb-2"  mat-stroked-button color="success">Export</button>
         </div>
       </div>
@@ -96,11 +96,11 @@
                   <mat-icon>more_vert</mat-icon>
                 </button>
                 <mat-menu #menu="matMenu">
-                  <button mat-menu-item>
+                  <button mat-menu-item (click)="editTaskDetail(element.memoTaskId, element.name, getTaskDetailId(element.memoTaskId), getTaskDate(element.memoTaskId), getTaskNote(element.memoTaskId), getTaskScore(element.memoTaskId), getTaskComment(element.memoTaskId))">
                     <mat-icon>edit</mat-icon>
                     <span>Note</span>
                   </button>
-                  <button mat-menu-item>
+                  <button mat-menu-item (click)="openAppraisalDialog(element.name, element.weight, getTaskDetailId(element.memoTaskId), getTaskScore(element.memoTaskId), getTaskComment(element.memoTaskId))">
                     <mat-icon>comment</mat-icon>
                     <span>Appraise</span>
                   </button>
@@ -197,11 +197,11 @@
                 <mat-icon>more_vert</mat-icon>
               </button>
               <mat-menu #menu="matMenu">
-                <button mat-menu-item>
+                <button mat-menu-item (click)="editTaskDetail(element.memoTaskId, element.name, getTaskDetailId(element.memoTaskId), getTaskDate(element.memoTaskId), getTaskNote(element.memoTaskId), getTaskScore(element.memoTaskId), getTaskComment(element.memoTaskId))">
                   <mat-icon>edit</mat-icon>
                   <span>Note</span>
                 </button>
-                <button mat-menu-item>
+                <button mat-menu-item (click)="openAppraisalDialog(element.name, element.weight, getTaskDetailId(element.memoTaskId), getTaskScore(element.memoTaskId), getTaskComment(element.memoTaskId))">
                   <mat-icon>comment</mat-icon>
                   <span>Appraise</span>
                 </button>

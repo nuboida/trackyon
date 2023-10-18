@@ -91,4 +91,17 @@ export class CallMemoEffects {
       );
   });
 
+  loadMemoTaskStaffDetailsMemos$ = createEffect(() => {
+    return this.actions$
+      .pipe(
+        ofType(CallMemoPageActions.loadMemoTaskStaffDetails),
+        mergeMap((action) => this.callMemoService.getMemoTaskStaffDetails(action.request)
+          .pipe(
+            map((memoDetails) => CallMemoApiActions.getMemoTaskStaffSuccess({memoDetails})),
+            catchError(() => of(CallMemoApiActions.getMemoTaskStaffFailure()))
+          )
+        )
+      );
+  });
+
 }

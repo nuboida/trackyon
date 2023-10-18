@@ -1,7 +1,7 @@
 import { CallMemoDisplay, CallMemoResponse } from '@app/models/call-memo.model';
 import { Action, createReducer, on } from '@ngrx/store';
 import { CallMemoCalendar } from '../models/call-memo-display.model';
-import { MemoTaskDetailsResponse } from '../models/call-memo-response.model';
+import { MemoTaskDetailsResponse, MemoTaskStaffDetailsResponse } from '../models/call-memo-response.model';
 import {  CallMemoApiActions, CallMemoPageActions } from './actions';
 
 const defaultData: CallMemoDisplay[] = [
@@ -36,7 +36,9 @@ export interface CallMemoState {
   staffMemosLoading: boolean;
   deptMemosLoading: boolean;
   memoTaskDetailsLoading: boolean;
+  memoTaskStaffDetailsLoading: boolean;
   memoTaskDetails: MemoTaskDetailsResponse[];
+  memoTaskStaffDetails: MemoTaskStaffDetailsResponse[];
 }
 
 const initialState: CallMemoState = {
@@ -47,7 +49,9 @@ const initialState: CallMemoState = {
   staffMemosLoading: false,
   deptMemosLoading: false,
   memoTaskDetailsLoading: false,
-  memoTaskDetails: []
+  memoTaskStaffDetailsLoading: false,
+  memoTaskDetails: [],
+  memoTaskStaffDetails: []
 };
 
 export const featureKey = 'callMemo';
@@ -96,6 +100,14 @@ const callMemoReducer = createReducer(
 
   on(CallMemoApiActions.getMemoTasksFailure, state => (
     {...state, memoTaskDetails: [], memoTaskDetailsLoading: false}
+  )),
+  on(CallMemoPageActions.loadMemoTaskStaffDetails, state => ({...state, memoTaskDetailsLoading: true})),
+
+  on(CallMemoApiActions.getMemoTaskStaffSuccess, (state, action) =>
+    ({...state, memoTaskStaffDetails: action.memoDetails, memoTaskStaffDetailsLoading: false})),
+
+  on(CallMemoApiActions.getMemoTaskStaffFailure, state => (
+    {...state, memoTaskStaffDetails: [], memoTaskStaffDetailsLoading: false}
   ))
 );
 

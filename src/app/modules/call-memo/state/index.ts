@@ -44,3 +44,8 @@ export const getMemoTaskDetails = createSelector(
   getCallMemoFeatureState,
   state => state.memoTaskDetails
 );
+
+export const getMemoTaskStaffDetails = createSelector(
+  getCallMemoFeatureState,
+  state => state.memoTaskStaffDetails
+);

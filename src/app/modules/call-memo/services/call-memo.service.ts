@@ -5,8 +5,8 @@ import { AuthService } from '@app/services/auth.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CallMemoCalendar } from '../models/call-memo-display.model';
-import { CallDeptMemoFilterRequest, CallMemoFilterRequest, CallMemoPersonalFilterRequest } from '../models/call-memo-request.model';
-import { CallMemoResponse, DetailSubmitResponse, EditTaskDetailRequest, MemoTaskDetailRequest, MemoTaskDetailsResponse, UpdateScoreRequest } from '../models/call-memo-response.model';
+import { CallDeptMemoFilterRequest, CallMemoFilterRequest, CallMemoPersonalFilterRequest, CallStaffMemoDetailFilterRequest } from '../models/call-memo-request.model';
+import { CallMemoResponse, DetailSubmitResponse, EditTaskDetailRequest, MemoTaskDetailRequest, MemoTaskDetailsResponse, MemoTaskStaffDetailRequest, MemoTaskStaffDetailsResponse, UpdateScoreRequest } from '../models/call-memo-response.model';
 import { GlobalResponse } from '@app/models/response.model';
 
 @Injectable({
@@ -82,8 +82,21 @@ export class CallMemoService {
     return this.api.get<MemoTaskDetailsResponse[]>(`memotasksdetails/taskdetails/${this.companyId}/${filter.departmentId}/${filter.startTime}/${filter.endTime}`);
   }
 
+  getMemoTaskStaffDetails(filter: CallStaffMemoDetailFilterRequest): Observable<MemoTaskStaffDetailsResponse[]> {
+    return this.api.get<MemoTaskStaffDetailsResponse[]>(`memotaskstaffdetail/taskstaffdetails/${this.companyId}/${filter.staffId}/${filter.startTime}/${filter.endTime}`);
+  }
+
   addTaskDetail(request: MemoTaskDetailRequest): Observable<DetailSubmitResponse> {
     const queryRequest: MemoTaskDetailRequest = {
+      ...request,
+      detailsDate: formatAPIDate(new Date(request.detailsDate)),
+      companyId: this.companyId
+    }
+    return this.api.post<DetailSubmitResponse>(`memotasksdetails/taskdetails/create`, queryRequest);
+  }
+
+  addStaffTaskDetail(request: MemoTaskStaffDetailRequest): Observable<DetailSubmitResponse> {
+    const queryRequest: MemoTaskStaffDetailRequest = {
       ...request,
       detailsDate: formatAPIDate(new Date(request.detailsDate)),
       companyId: this.companyId
@@ -99,11 +112,26 @@ export class CallMemoService {
     return this.api.post<DetailSubmitResponse>(`memotasksdetails/taskdetails/update-score`, queryRequest);
   }
 
+  addStaffAppraisal(request: UpdateScoreRequest): Observable<DetailSubmitResponse> {
+    const queryRequest: UpdateScoreRequest = {
+      ...request,
+      scoreDate: formatAPIDate(new Date(request.scoreDate)),
+    };
+    return this.api.post<DetailSubmitResponse>(`memotaskstaffdetail/taskstaffdetails/update-score`, queryRequest);
+  }
+
   deleteAppraisal(id: number): Observable<GlobalResponse> {
     return this.api.post<GlobalResponse>(`memoTasksDetails/taskDetails/delete/${id}`)
   }
 
+  deleteStaffAppraisal(id: number): Observable<GlobalResponse> {
+    return this.api.post<GlobalResponse>(`memoTaskstaffDetail/taskstaffDetails/delete/${id}`)
+  }
+
   editTaskDetails(request: EditTaskDetailRequest): Observable<DetailSubmitResponse> {
     return this.api.post<DetailSubmitResponse>(`memotasksdetails/taskdetails/edit`, request)
+  }
+  editTaskStaffDetails(request: EditTaskDetailRequest): Observable<DetailSubmitResponse> {
+    return this.api.post<DetailSubmitResponse>(`memotaskstaffdetail/taskstaffdetails/edit`, request)
   }
 }

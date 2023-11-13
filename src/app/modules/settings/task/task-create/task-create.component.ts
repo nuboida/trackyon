@@ -42,10 +42,11 @@ export class TaskCreateComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private memoService: CallMemoService,
               private toast: HotToastService, private deptService: DepartmentService,
-              @Inject(MAT_DIALOG_DATA) public data: {id: number, name: string, deptId: string, weight: number, criteria: string, dimension: string, frequency: string, kra: string, target: string},
+              @Inject(MAT_DIALOG_DATA) public data: {id: number, name: string, deptId: string, weight: number, criteria: string, dimension: string, staffId: string[], frequency: string, kra: string, target: string},
               public dialogRef: MatDialogRef<TaskCreateComponent>, private staffService: StaffService) {}
 
   ngOnInit(): void {
+    console.log(this.data);
     this.staff$ = this.staffService.getStaffs();
     this.form = this.fb.group({
       name: this.nameCtrl,
@@ -67,6 +68,7 @@ export class TaskCreateComponent implements OnInit {
       this.criteriaCtrl.setValue(this.data.criteria),
       this.dimensionCtrl.setValue(this.data.dimension),
       this.frequencyCtrl.setValue(this.data.frequency),
+      this.staffIdCtrl.setValue(this.data.staffId),
       this.kraCtrl.setValue(this.data.kra),
       this.targetCtrl.setValue(this.data.target)
     }
@@ -90,7 +92,6 @@ export class TaskCreateComponent implements OnInit {
         kra: this.kraCtrl.value as string,
         target: this.targetCtrl.value as string
       };
-
 
       this.memoService.editTask(request).pipe(untilDestroyed(this))
       .subscribe(
@@ -117,6 +118,7 @@ export class TaskCreateComponent implements OnInit {
         kra: this.kraCtrl.value as string,
         target: this.targetCtrl.value as string,
       };
+
       this.memoService.createTask(request).pipe(untilDestroyed(this))
         .subscribe(
           () => {

@@ -140,12 +140,12 @@ export class TaskComponent implements OnInit, AfterViewInit {
     this.openDialog();
   }
 
-  editTask(id: number, name: string, deptId: string, weight: number, criteria: string, dimension: string, frequency: string, kra: string, target: string): void {
-    this.openDialog(id, name, deptId, weight, criteria, dimension, frequency, kra, target);
+  editTask(id: number, name: string, deptId: string, weight: number, criteria: string, dimension: string, staffId: string[], frequency: string, kra: string, target: string): void {
+    this.openDialog(id, name, deptId, weight, criteria, dimension, staffId, frequency, kra, target);
   }
 
-  openDialog(id?: number, name?: string, deptId?: string, weight?: number, criteria?: string, dimension?: string, frequency?: string, kra?: string, target?: string): void {
-    const dialogRef = this.dialog.open(TaskCreateComponent, { height: '600px', width: '600px', data: { id, name, deptId, weight, criteria, dimension, frequency, kra, target } });
+  openDialog(id?: number, name?: string, deptId?: string, weight?: number, criteria?: string, dimension?: string, staffId?: string[], frequency?: string, kra?: string, target?: string): void {
+    const dialogRef = this.dialog.open(TaskCreateComponent, { height: '600px', width: '600px', data: { id, name, deptId, weight, criteria, dimension, staffId, frequency, kra, target } });
 
     dialogRef.afterClosed().pipe(untilDestroyed(this)).subscribe(result => {
       if (result) {

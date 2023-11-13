@@ -9,6 +9,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { StaffResponse } from '@app/models/staff.model';
 import { StaffDetailsComponent } from './staff-details/staff-details.component';
+import { TerminateDateComponent } from './terminateDate/terminateDate.component';
 
 @UntilDestroy()
 @Component({
@@ -74,16 +75,25 @@ export class StaffComponent implements OnInit, AfterViewInit {
       }
     });
   }
+  openTermiationDialog(staffId: string): void {
+    const dialogRef = this.dialog.open(TerminateDateComponent, {width: '400px', data: {staffId}});
+
+    dialogRef.afterClosed().pipe(untilDestroyed(this)).subscribe(result => {
+      if (result) {
+        this.staffService.deactivateStaff(staffId).pipe(untilDestroyed(this))
+        .subscribe(
+          () => {
+            this.toast.success('Deactivated');
+            this.getStaffs();
+          },
+          () => this.toast.error("Failed to deactivate")
+        )
+      }
+    });
+  }
 
   deactivateStaff(staffId: string): void {
-    this.staffService.deactivateStaff(staffId).pipe(untilDestroyed(this))
-    .subscribe(
-      () => {
-        this.toast.success('Deactivated');
-        this.getStaffs();
-      },
-      () => this.toast.error('Failed to deactivate')
-    );
+    this.openTermiationDialog(staffId);
   }
 
   activateStaff(staffId: string): void {

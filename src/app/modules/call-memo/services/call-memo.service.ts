@@ -101,7 +101,7 @@ export class CallMemoService {
       detailsDate: formatAPIDate(new Date(request.detailsDate)),
       companyId: this.companyId
     }
-    return this.api.post<DetailSubmitResponse>(`memotasksdetails/taskdetails/create`, queryRequest);
+    return this.api.post<DetailSubmitResponse>(`memotaskstaffdetail/taskstaffdetails/create`, queryRequest);
   }
 
   addAppraisal(request: UpdateScoreRequest): Observable<DetailSubmitResponse> {

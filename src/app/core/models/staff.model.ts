@@ -11,6 +11,7 @@ export interface StaffCreateRequest {
   target: number;
   birthDate: string;
   dateOfResumption: string;
+  dateOfTermination?: string;
   grade: string;
 }
 
@@ -34,6 +35,7 @@ export interface StaffResponse {
   target: number;
   birthDate: string;
   dateOfResumption: string;
+  dateOfTermination?: string,
   grade: string;
 }
 

@@ -11,6 +11,7 @@ import { TaskCreateComponent } from './task/task-create/task-create.component';
 import { ProjectCreateComponent } from './project/project-create/project-create.component';
 import { DepartmentCreateComponent } from './department/department-create/department-create.component';
 import { StaffDetailsComponent } from './staff/staff-details/staff-details.component';
+import { TerminateDateComponent } from './staff/terminateDate/terminateDate.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { StaffDetailsComponent } from './staff/staff-details/staff-details.compo
     TaskCreateComponent,
     ProjectCreateComponent,
     DepartmentCreateComponent,
-    StaffDetailsComponent
+    StaffDetailsComponent,
+    TerminateDateComponent
   ],
   imports: [
     CommonModule,

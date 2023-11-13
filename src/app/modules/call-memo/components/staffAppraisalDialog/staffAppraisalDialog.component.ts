@@ -7,6 +7,7 @@ import { UpdateScoreRequest } from '@modules/call-memo/models/call-memo-response
 import { CallMemoService } from '@modules/call-memo/services/call-memo.service';
 import { HotToastService } from '@ngneat/hot-toast';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { Store } from '@ngrx/store';
 
 @UntilDestroy()
 @Component({
@@ -32,7 +33,8 @@ export class StaffAppraisalDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: {taskName: string, taskWeight: number, taskDetailId: number, taskScore: number, taskComment: string },
     public dialogRef: MatDialogRef<StaffAppraisalDialogComponent>,
     private toast: HotToastService,
-    private callMemoService: CallMemoService
+    private callMemoService: CallMemoService,
+    private store: Store
   ) { }
 
   ngOnInit() {
@@ -45,7 +47,7 @@ export class StaffAppraisalDialogComponent implements OnInit {
       ...this.appraisalData,
     }
 
-    this.callMemoService.addAppraisal(request).pipe(untilDestroyed(this))
+    this.callMemoService.addStaffAppraisal(request).pipe(untilDestroyed(this))
       .subscribe(
         (res) => {
           this.toast.success(res.message)

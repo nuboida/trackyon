@@ -67,13 +67,13 @@ export class ExcelService {
   }
 
   // Dept Memo Print
-  exportDeptMemoExcel(excelData: ExcelRequest<any>): void {
+  exportDeptMemoExcel(excelData: ExcelRequest<any>, staff?: string): void {
 
     // Title, Header & Data
     const title = excelData.title;
     const header = excelData.headers;
     const kpiData: any[] = [];
-    const coreData: any[] = []
+    const coreData: any[] = [];
     excelData.data.map((row: any) => {
       if (row.criteria === 'kpi') {
         kpiData.push(Object.values(row));
@@ -103,13 +103,20 @@ export class ExcelService {
 
     worksheet.addRow([]);
     worksheet.mergeCells('A4', 'J4');
-    worksheet.getCell('D4').value = 'Department Information'
+    if (staff) {
+      worksheet.getCell('D4').value = 'Staff Information'
+    } else {
+      worksheet.getCell('D4').value = 'Department Information'
+    }
     worksheet.getCell('C4').alignment = { vertical: 'middle', horizontal: 'center' }
     worksheet.getCell('C4').font = {
       bold: true
     }
-
-    worksheet.getCell('B5').value = 'Department: ';
+    if (staff) {
+      worksheet.getCell('B5').value = 'Staff: ';
+    } else {
+      worksheet.getCell('B5').value = 'Department: ';
+    }
     worksheet.getCell('B5').font = {
       bold: true
     }

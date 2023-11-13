@@ -49,12 +49,12 @@ export class StaffMemoEditComponent implements OnInit {
     this.loading = true;
 
     if (!this.editMode) {
-      const request: MemoTaskDetailRequest = {
+      const request: MemoTaskStaffDetailRequest = {
        ...this.detailForm.value,
        staffId: this.data.staffId,
        memoTaskId: this.data.taskId
       }
-      this.callMemoService.addTaskDetail(request).pipe(untilDestroyed(this))
+      this.callMemoService.addStaffTaskDetail(request).pipe(untilDestroyed(this))
        .subscribe(
          () => {
            this.toast.success('Comment added')
@@ -75,7 +75,7 @@ export class StaffMemoEditComponent implements OnInit {
         id: this.data.taskDetailId
       }
 
-      this.callMemoService.editTaskDetails(request).pipe(untilDestroyed(this))
+      this.callMemoService.editTaskStaffDetails(request).pipe(untilDestroyed(this))
         .subscribe(
           () => {
             this.toast.success('Details updated')

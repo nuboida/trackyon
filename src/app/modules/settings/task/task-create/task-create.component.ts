@@ -40,13 +40,15 @@ export class TaskCreateComponent implements OnInit {
   targetCtrl = new FormControl('');
 
 
-  constructor(private fb: FormBuilder, private memoService: CallMemoService,
-              private toast: HotToastService, private deptService: DepartmentService,
-              @Inject(MAT_DIALOG_DATA) public data: {id: number, name: string, deptId: string, weight: number, criteria: string, dimension: string, staffId: string[], frequency: string, kra: string, target: string},
-              public dialogRef: MatDialogRef<TaskCreateComponent>, private staffService: StaffService) {}
+  constructor(
+    private fb: FormBuilder,
+    private memoService: CallMemoService,
+    private toast: HotToastService, private deptService: DepartmentService,
+    @Inject(MAT_DIALOG_DATA) public data: {id: number, name: string, deptId: string, weight: number, criteria: string, dimension: string, staffId: string[], frequency: string, kra: string, target: string},
+    public dialogRef: MatDialogRef<TaskCreateComponent>, private staffService: StaffService
+    ) {}
 
   ngOnInit(): void {
-    console.log(this.data);
     this.staff$ = this.staffService.getStaffs();
     this.form = this.fb.group({
       name: this.nameCtrl,

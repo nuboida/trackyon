@@ -113,4 +113,5 @@ export interface TaskResponse {
   dimensions: string;
   frequency: string;
   kra: string;
+  weight: number;
 }

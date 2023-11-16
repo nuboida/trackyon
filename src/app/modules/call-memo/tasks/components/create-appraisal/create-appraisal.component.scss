@@ -1,0 +1,21 @@
+:host {
+  display: block;
+  background: #fff;
+  padding: 16px;
+  min-height: 100vh;
+  max-width: 500px;
+  min-width: 500px;
+  position: fixed;
+  right: 0;
+  top: 0;
+  animation: custom-dialog-enter 0.5s ease;
+}
+
+@keyframes custom-dialog-enter {
+  from {
+    transform: translate(1000px)
+  }
+  to {
+    transform: translate(0)
+  }
+}

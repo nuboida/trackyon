@@ -18,6 +18,8 @@ import { DeptMemoEditComponent } from './components/dept-memo-edit/dept-memo-edi
 import { AppraisalDialogComponent } from './components/appraisalDialog/appraisalDialog.component';
 import { StaffMemoEditComponent } from './components/staff-memo-edit/staff-memo-edit.component';
 import { StaffAppraisalDialogComponent } from './components/staffAppraisalDialog/staffAppraisalDialog.component';
+import { TaskAppraisalsComponent } from './tasks/taskAppraisals/taskAppraisals.component';
+import { CreateAppraisalComponent } from './tasks/components/create-appraisal/create-appraisal.component';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -27,7 +29,17 @@ FullCalendarModule.registerPlugins([
 
 
 @NgModule({
-  declarations: [CallMemoRoutingModule.components, CallMemoCreateComponent, CallMemoDetailComponent, DeptMemoEditComponent, AppraisalDialogComponent, StaffMemoEditComponent, StaffAppraisalDialogComponent],
+  declarations: [
+    CallMemoRoutingModule.components,
+    CallMemoCreateComponent,
+    CallMemoDetailComponent,
+    DeptMemoEditComponent,
+    AppraisalDialogComponent,
+    StaffMemoEditComponent,
+    StaffAppraisalDialogComponent,
+    TaskAppraisalsComponent,
+    CreateAppraisalComponent
+  ],
   imports: [
     CommonModule,
     CallMemoRoutingModule,

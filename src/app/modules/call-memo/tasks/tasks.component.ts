@@ -20,6 +20,7 @@ import { StaffMemoEditComponent } from '../components/staff-memo-edit/staff-memo
 import { StaffAppraisalDialogComponent } from '../components/staffAppraisalDialog/staffAppraisalDialog.component';
 import { ExcelService } from '@app/services/excel.service';
 import { ExcelRequest } from '@app/models/excel.model';
+import { ActivatedRoute } from '@angular/router';
 
 @UntilDestroy()
 @Component({
@@ -33,9 +34,10 @@ export class TasksComponent implements OnInit, AfterViewInit {
   toolTip = 'Actions';
   filter: TaskDeptMemoFilterRequest = {
     staffId: '',
-    startTime: new Date(),
-    endTime: new Date()
-  }
+    startTime: formatAPIDate(new Date()).split('T')[0],
+    endTime: formatAPIDate(new Date()).split('T')[0]
+  };
+
   dataSource = new MatTableDataSource<TaskResponse>([]);
   kpiDataSource = new MatTableDataSource<TaskResponse>([]);
   coreDataSource = new MatTableDataSource<TaskResponse>([]);
@@ -45,7 +47,6 @@ export class TasksComponent implements OnInit, AfterViewInit {
   staffTask: FormControl = new FormControl('');
   memoTaskDetails: MemoTaskStaffDetailsResponse[] = [];
   selectedStaff!: string;
-
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
@@ -54,11 +55,11 @@ export class TasksComponent implements OnInit, AfterViewInit {
     private toast: HotToastService,
     private store: Store<State>,
     private dialog: MatDialog,
-    private excel: ExcelService
+    private excel: ExcelService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
-    this.staff$ = this.staffService.getStaffs();
     this.staffService.getStaffs().pipe(untilDestroyed(this)).subscribe((staff) => {
       this.activeStaffs = staff.filter((data) => data.active);
     });
@@ -67,9 +68,7 @@ export class TasksComponent implements OnInit, AfterViewInit {
         this.memoTaskDetails = x;
       }
     );
-    this.staff$.pipe(untilDestroyed(this)).subscribe((res) => {
-      this.staffOptions = res.map((c) => ({staffId: c.staffId, staffName: `${c.firstName} ${c.lastName}`}));
-    })
+
     this.staffTask.valueChanges.pipe(untilDestroyed(this))
       .subscribe(() => {
         this.staffOptions.forEach((c) => {
@@ -78,7 +77,6 @@ export class TasksComponent implements OnInit, AfterViewInit {
           }
         })
       });
-      this.getTasks(this.staffTask.value.toString());
   }
 
   ngAfterViewInit(): void {

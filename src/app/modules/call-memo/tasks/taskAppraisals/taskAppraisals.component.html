@@ -1,0 +1,50 @@
+<olla-back-button [toolTip]="toolTip" [route]="returnRoute"></olla-back-button>
+<olla-page-name [currentPage]="currentPage"></olla-page-name>
+
+<div class="row mb-3">
+  <div class="col-xl">
+    <div class="card mat-elevation-z2 sp-card br-20">
+      <div class="card-header">
+        <div class="d-flex justify-content-between align-items-center">
+          <span class="text-blue">Notes (Appraised)</span>
+          <button mat-stroked-button color="primary" (click)="openDialog(null, true, false)">New Note </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-3 mb-3" *ngFor="let detail of memoTaskDetails">
+            <h6>
+              <a (click)="openDialog(detail, true, false)">
+                {{detail.detailsDate | date }} ({{detail.scoreDate | date}})
+              </a>
+            </h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="row mt-5">
+  <div class="col-xl">
+    <div class="card mat-elevation-z2 sp-card br-20">
+      <div class="card-header">
+        <div class="d-flex justify-content-between align-items-center">
+          <span class="text-blue">Appraisals</span>
+          <button mat-stroked-button color="primary" (click)="openDialog(null, false, true)">New Appraisal </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-3 mb-3" *ngFor="let detail of memoTaskDetails">
+            <h6>
+              <a (click)="openDialog(detail, false, true)">
+                {{detail.scoreDate | date }}
+              </a>
+            </h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->

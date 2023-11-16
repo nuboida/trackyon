@@ -50,7 +50,7 @@ interface MemoTaskStaffDetailsResponse {
   notes: string;
   detailsDate: string;
   memoTaskId: number;
-  staffId: number;
+  staffId: string;
   companyId: string;
 }
 
@@ -62,6 +62,7 @@ interface MemoTaskStaffDetailRequest {
   memoTaskId: number,
   staffId: string;
   companyId: string;
+  weight: number
 }
 
 interface UpdateScoreRequest {

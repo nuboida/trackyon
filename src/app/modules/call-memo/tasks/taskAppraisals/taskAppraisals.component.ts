@@ -33,7 +33,6 @@ export class TaskAppraisalsComponent implements OnInit {
 
   ngOnInit() {
     this.memoTaskDetails = this.data.data.filter((task: any) => task.memoTaskId === Number(this.memoTaskId));
-    console.log(this.router.url);
     this.memoService.getTaskByStaff(this.staffId).pipe(untilDestroyed(this))
       .subscribe(
         data => {

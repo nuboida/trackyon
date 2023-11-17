@@ -29,8 +29,8 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class TasksComponent implements OnInit, AfterViewInit {
   currentPage = 'Tasks Call Memo';
-  displayCoreColumns: string[] = ['position', 'task', 'weight', 'detailsDate', 'score', 'button'];
-  displayedColumns: string[] = ['position', 'task', 'weight', 'staffComment', 'detailsDate', 'score', 'mdComment', 'button'];
+  displayCoreColumns: string[] = ['position', 'task', 'weight'];
+  displayedColumns: string[] = ['position', 'task', 'weight'];
   toolTip = 'Actions';
   filter: TaskDeptMemoFilterRequest = {
     staffId: '',

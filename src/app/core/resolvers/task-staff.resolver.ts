@@ -16,8 +16,7 @@ export class TaskStaffResolver implements Resolve<any> {
     const staff = route.paramMap.get("staffId");
     const startDate = route.paramMap.get("startDate");
     const endDate = route.paramMap.get("endDate");
-    const task = this.callMemoService.getMemoTaskStaffDetails({staffId: staff, startTime: startDate, endTime: endDate})
 
-    return task;
+    return {staff, startDate, endDate}
   }
 }

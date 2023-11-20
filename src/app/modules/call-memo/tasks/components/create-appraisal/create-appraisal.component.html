@@ -1,5 +1,3 @@
-<olla-page-name [currentPage]="currentPage"></olla-page-name>
-
 <form [formGroup]="detailForm" class="mb-5">
   <div class="mb-4">
     <!-- Note Input -->
@@ -55,7 +53,7 @@
           </div>
         </div>
         <div class="col-xl">
-          <div class="w-100 border p-4">
+          <div class="w-100 border p-3" style="font-size: 12px; overflow-y: scroll; max-height: 135px;">
             {{ data.details.notes }}
           </div>
         </div>
@@ -135,7 +133,7 @@
             </div>
           </div>
           <div class="col-xl">
-            <div class="w-100 border p-4" style="font-size: 14px;">
+            <div class="w-100 border p-3" style="font-size: 12px; max-height: 135px; overflow-y: scroll;">
               {{ data.details.comment }}
             </div>
           </div>

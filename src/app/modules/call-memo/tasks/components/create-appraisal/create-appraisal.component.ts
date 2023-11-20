@@ -60,7 +60,7 @@ export class CreateAppraisalComponent implements OnInit {
         notes: [this.data.details.notes],
         score: [this.data.details.score],
         comment: [this.data.details.comment],
-        scoreDate: [this.data.details.scoreDate]
+        scoreDate: this.data.details.scoreDate.includes("0001") ? new Date() : this.data.details.scoreDate
       })
     }
   }

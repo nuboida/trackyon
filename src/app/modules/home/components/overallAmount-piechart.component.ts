@@ -1,6 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { ChartOptions, ChartType } from 'chart.js';
+import { ChartData, ChartOptions, ChartType } from 'chart.js';
 import { DashboardService } from '../dashboard.service';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 
@@ -14,13 +14,9 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
       </div>
       <div *ngIf="!loading" style="display: block">
         <canvas baseChart height="330"
-        [data]="chartData"
-        [labels]="chartLabels"
-        [chartType]="type"
+        [data]="pieChartData"
+        [type]="type"
         [options]="options"
-        [plugins]="plugins"
-        [colors]="chartColor"
-        [legend]="legend"
         [plugins]="chartDataLabels"
         >
       </canvas>
@@ -42,11 +38,12 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 })
 export class OverallAmountsPiechartComponent implements OnInit {
 
-  @Input() margin: {name: string; margin: number}[];
-  @Input() target: number[];
+  @Input() margin!: {name: string; margin: number}[];
+  @Input() target!: number[];
   overallTarget = 0;
   overallMargin = 0;
-  chartData: number[];
+  data: number[] = [];
+  pieChartData!: ChartData<'pie'>
   chartLabels!: string[];
   chartColor!: any[];
   loading = true;
@@ -55,10 +52,10 @@ export class OverallAmountsPiechartComponent implements OnInit {
 
   options: ChartOptions = {
     responsive: true,
-    legend: {
-      position: 'bottom'
-    },
     plugins: {
+      legend: {
+        position: 'bottom'
+      },
       datalabels: {
         color: 'white',
         font: {
@@ -73,7 +70,6 @@ export class OverallAmountsPiechartComponent implements OnInit {
 
   type: ChartType = 'pie';
   legend = true;
-  plugins: any[] = [];
   constructor(private dashboardService: DashboardService) {}
 
   ngOnInit(): void {
@@ -88,12 +84,22 @@ export class OverallAmountsPiechartComponent implements OnInit {
     const totalPercent = (this.overallTarget/this.overallTarget) * 1;
 
     if (this.overallTarget < this.overallMargin) {
-      this.chartData = [0, totalPercent * 100]
+      this.data = [0, totalPercent * 100]
     } else {
-      this.chartData = [Number(((totalPercent - this.marginPercent) * 100).toFixed(2)), Number((this.marginPercent * 100).toFixed(2))];
+      this.data = [Number(((totalPercent - this.marginPercent) * 100).toFixed(2)), Number((this.marginPercent * 100).toFixed(2))];
     }
     this.chartLabels = ['Outstanding Sales', 'Achieved'];
     this.chartColor = [{backgroundColor: ['#dc3545', '#007bff']}];
     this.loading = false;
+
+    this.pieChartData = {
+      labels: this.chartLabels,
+      datasets: [
+        {
+          data: this.data,
+          backgroundColor: ['#dc3545', '#007bff']
+        }
+      ]
+    }
   }
 }

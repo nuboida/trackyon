@@ -17,7 +17,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 })
 export class AddButtonComponent {
 
-  @Input() toolTip: string;
+  @Input() toolTip!: string;
   @Input() color = 'primary';
   @Input() icon = 'add';
   @Input() disabled = false;

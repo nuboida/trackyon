@@ -62,7 +62,7 @@ import { OpportunityResponse } from '@app/models/opportunity.model';
   `,
 })
 export class OpportunitiesLostComponent implements OnInit {
-  @Input() opportunities: OpportunityResponse[];
+  @Input() opportunities!: OpportunityResponse[];
   displayedColumns: string[] = ['position', 'client', 'opportunity', 'amount lost', 'status', 'date', 'staff'];
   dataSource = new MatTableDataSource<OpportunityResponse>([]);
 

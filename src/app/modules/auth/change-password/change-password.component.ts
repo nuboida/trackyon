@@ -21,7 +21,7 @@ export class ChangePasswordComponent implements OnInit {
     currentPassword: '',
     newPassword: ''
   };
-  form: FormGroup;
+  form!: FormGroup;
   constructor(private fb: FormBuilder, private auth: AuthService, private router: Router,
               private toast: HotToastService, private route: ActivatedRoute ) { }
 
@@ -29,12 +29,12 @@ export class ChangePasswordComponent implements OnInit {
 
     this.route.queryParams.pipe(untilDestroyed(this)).subscribe(
       params => {
-        if (!params.email) {
+        if (!params['email']) {
           this.toast.warning('Invalid Request');
           this.router.navigate(['/auth/verify-company']);
           return;
         }
-        this.request.email = params.email;
+        this.request.email = params['email'];
       }
     );
 
@@ -52,8 +52,8 @@ export class ChangePasswordComponent implements OnInit {
   change(): void {
 
     this.loading = true;
-    this.request.currentPassword = this.form.get('currentPassword').value;
-    this.request.newPassword = this.form.get('password').value;
+    this.request.currentPassword = this.form.get('currentPassword')?.value;
+    this.request.newPassword = this.form.get('password')?.value;
     this.auth.changePassword(this.request).pipe(untilDestroyed(this))
     .subscribe(
       () => {

@@ -44,12 +44,12 @@ export class DeptMemoComponent implements OnInit, AfterViewInit {
   expectedArr: number[] = [];
   frequencyOptions = Frequency;
   frequencyInput = new FormControl('All');
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   filter: CallDeptMemoFilterRequest = {
     departmentId: '',
-    startTime: new Date(),
-    endTime: new Date()
+    startTime: formatAPIDate(new Date()).split('T')[0],
+    endTime: formatAPIDate(new Date()).split('T')[0]
   }
 
   constructor(
@@ -79,7 +79,7 @@ export class DeptMemoComponent implements OnInit, AfterViewInit {
           }
         });
         this.frequencyInput.setValue('All');
-        this.getTasks(this.deptInput.value.toString());
+        this.getTasks(this.deptInput.value!.toString());
       });
   }
 
@@ -94,7 +94,7 @@ export class DeptMemoComponent implements OnInit, AfterViewInit {
     }
 
     this.filter = {
-      departmentId: this.deptInput.value,
+      departmentId: this.deptInput.value!.toString(),
       startTime: formatAPIDate(new Date(this.filter.startTime)).split('T')[0],
       endTime: formatAPIDate(new Date(this.filter.endTime)).split('T')[0],
     }

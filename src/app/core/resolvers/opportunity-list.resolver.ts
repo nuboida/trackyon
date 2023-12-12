@@ -1,14 +1,15 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {
   Router, Resolve,
   RouterStateSnapshot,
-  ActivatedRouteSnapshot
+  ActivatedRouteSnapshot,
+  ResolveFn
 } from '@angular/router';
 import { OpportunityResponse } from '@app/models/opportunity.model';
 import { OpportunityService } from '@app/services/opportunity.service';
 import { Observable, of } from 'rxjs';
 
-@Injectable({
+/* @Injectable({
   providedIn: 'root'
 })
 export class OpportunityListResolver implements Resolve<OpportunityResponse[]> {
@@ -18,4 +19,11 @@ export class OpportunityListResolver implements Resolve<OpportunityResponse[]> {
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<OpportunityResponse[]> {
     return this.opptService.getOpportunities();
   }
+} */
+
+export const OpportunityListResolver: ResolveFn<Observable<OpportunityResponse[]>> = (
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot
+) => {
+  return inject(OpportunityService).getOpportunities()
 }

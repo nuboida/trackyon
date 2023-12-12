@@ -1,0 +1,43 @@
+<olla-back-button [toolTip]="toolTip" [route]="returnRoute"></olla-back-button>
+<olla-page-name [currentPage]="currentPage"></olla-page-name>
+
+<div class="row align-items-center w-20" style="width: 40%">
+  <div class="col w-20">
+    <mat-form-field appearance="outline">
+      <mat-label>Date Range</mat-label>
+      <mat-date-range-input [rangePicker]="picker">
+        <input matStartDate [(ngModel)]="filter.startTime"  placeholder="Start date">
+        <input matEndDate [(ngModel)]="filter.endTime" placeholder="End date">
+      </mat-date-range-input>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field>
+  </div>
+  <div class="col">
+    <button class="mb-2" mat-stroked-button color="primary" (click)="filterTaskByDate()">Update</button>
+  </div>
+</div>
+
+<div class="row mb-3">
+  <div class="col-xl">
+    <div class="card mat-elevation-z2 sp-card br-20">
+      <div class="card-header">
+        <div class="d-flex justify-content-between align-items-center">
+          <span class="text-blue">Notes (Appraised)</span>
+          <button mat-stroked-button color="primary" (click)="openDialog(undefined, true, false)">New Note </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-3 mb-3" *ngFor="let detail of memoTaskDetails">
+            <h6>
+              <a (click)="openDialog(detail, true, false)" class="link-primary">
+                {{detail.detailsDate | date }} ({{detail.scoreDate.includes("0001") ? "Not Appraised Yet" : detail.scoreDate | date}})
+              </a>
+            </h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

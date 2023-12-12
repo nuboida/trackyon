@@ -29,10 +29,48 @@ export const initialState: OpportunityState = {
   opportunities: [],
   opportunitiesLoading: false,
   opportunitiesFilter: {...initialFilter},
-  opportunity: null,
+  opportunity: {
+    id: '',
+    sellingPrice: 0,
+    createdDate: new Date(),
+    name: '',
+    stage: '',
+    stagePercentage: 0,
+    stageId: 0,
+    client: '',
+    staff: '',
+    description: '',
+    expectedClosingDate: new Date(),
+    businessType: '',
+    clientContact: '',
+    quantity: 0,
+    costPrice: 0,
+    otherFees: 0,
+    margin: 0,
+    rate: 0,
+    amountPaid: 0,
+    datePaymentReceived: new Date(),
+    invoiceNumber: '',
+    dateOfDelivery: new Date(),
+    deliveryStatus: '',
+    saleTeam: [{name: ''}],
+    oems: [{name: ''}],
+    training: '',
+    oemNames: '',
+    teamNames: ''
+  },
   activities: [],
   files: [],
-  activity: null,
+  activity: {
+    activityId: 0,
+    dateCreated: new Date(),
+    isClosed: false,
+    nextAction: '',
+    opportunity: '',
+    proposedDate: new Date(),
+    opportunityStage: '',
+    staff: ''
+  },
   activityMessage: ''
 };
 
@@ -56,14 +94,14 @@ const opportunityReducer = createReducer(
   on(OpportunityListPageActions.resetFilter, state => ({...state, opportunitiesFilter: { ...initialFilter}})),
   on(OpportunityItemApiActions.loadOpportunitySuccess, (state, action) => (
     { ...state, opportunity: action.opportunity})),
-  on(OpportunityItemApiActions.loadOpportunityFailure, state => ({...state, opportunity: null})),
+  on(OpportunityItemApiActions.loadOpportunityFailure, state => ({...state, opportunity: state.opportunity})),
   on(OpportunityItemApiActions.loadActivitiesSuccess, (state, action) => (
     { ...state, activities: action.activities, activityMessage: ''})),
   on(OpportunityItemApiActions.loadActivitiesFailure, state => ({...state, activities: [], activityMessage: ''})),
   on(OpportunityItemApiActions.loadActivitySuccess, (state, action) => (
     { ...state, activity: action.activity, activityMessage: ''})),
-  on(OpportunityItemApiActions.loadActivityFailure, state => ({...state, activity: null, activityMessage: ''})),
-  on(OpportunityItemPageActions.clearActivity, state => ({...state, activity: null, activityMessage: ''})),
+  on(OpportunityItemApiActions.loadActivityFailure, state => ({...state, activity: state.activity, activityMessage: ''})),
+  on(OpportunityItemPageActions.clearActivity, state => ({...state, activity: state.activity, activityMessage: ''})),
   on(OpportunityItemApiActions.createUpdateActivitySuccess, state => (
     { ...state, activityMessage: 'Success'})),
   on(OpportunityItemApiActions.createUpdateActivityFailure, state => ({...state, activityMessage: 'Failed'})),

@@ -71,19 +71,19 @@ export class MarginCalculatorComponent implements OnInit {
 
   calculateMargin(): void {
     const otherCosts = this.otherCosts.value as any[];
-    const witholdingTaxPercent = this.witholdingTaxPercentCtrl.value;
+    const witholdingTaxPercent = this.witholdingTaxPercentCtrl.value!;
 
-    const clientForeignCost = this.clientForeignCostCtrl.value;
-    const clientRate = this.clientRateCtrl.value;
+    const clientForeignCost = this.clientForeignCostCtrl.value!;
+    const clientRate = this.clientRateCtrl.value!;
 
-    const oemForeignCost = this.oemForeignCostCtrl.value;
-    const oemRate = this.oemRateCtrl.value;
+    const oemForeignCost = this.oemForeignCostCtrl.value!;
+    const oemRate = this.oemRateCtrl.value!;
 
-    const prForeignCost = this.prForeignCostCtrl.value;
-    const prRate = this.prRateCtrl.value;
+    const prForeignCost = this.prForeignCostCtrl.value!;
+    const prRate = this.prRateCtrl.value!;
 
-    const trainingForeignCost = this.trainingForeignCostCtrl.value;
-    const trainingRate = this.trainingRateCtrl.value;
+    const trainingForeignCost = this.trainingForeignCostCtrl.value!;
+    const trainingRate = this.trainingRateCtrl.value!;
 
     const invalidEntry = isNaN(clientForeignCost) || isNaN(clientRate) || isNaN(oemForeignCost)
     || isNaN(oemRate) || isNaN(witholdingTaxPercent)
@@ -105,14 +105,14 @@ export class MarginCalculatorComponent implements OnInit {
     const traingLocalCost = trainingForeignCost * trainingRate;
     const marginFinal = clientLocalCost - (oemLocalCost + witholdingTaxLocalCost + prLocalCost + traingLocalCost);
 
-    this.witholdingTaxForeignCostCtrl.setValue(witholdingTaxForeignCost.toFixed(2));
+    this.witholdingTaxForeignCostCtrl.setValue(Number(witholdingTaxForeignCost.toFixed(2)));
     this.witholdingTaxRateCtrl.setValue(witholdingTaxRate);
-    this.clientLocalCostCtrl.setValue(clientLocalCost.toFixed(2));
-    this.oemLocalCostCtrl.setValue(oemLocalCost.toFixed(2));
-    this.witholdingTaxLocalCostCtrl.setValue(witholdingTaxLocalCost.toFixed(2));
-    this.prLocalCostCtrl.setValue(prLocalCost.toFixed(2));
-    this.trainingLocalCostCtrl.setValue(traingLocalCost.toFixed(2));
-    this.marginFinalCtrl.setValue(marginFinal.toFixed(2));
+    this.clientLocalCostCtrl.setValue(Number(clientLocalCost.toFixed(2)));
+    this.oemLocalCostCtrl.setValue(Number(oemLocalCost.toFixed(2)));
+    this.witholdingTaxLocalCostCtrl.setValue(Number(witholdingTaxLocalCost.toFixed(2)));
+    this.prLocalCostCtrl.setValue(Number(prLocalCost.toFixed(2)));
+    this.trainingLocalCostCtrl.setValue(Number(traingLocalCost.toFixed(2)));
+    this.marginFinalCtrl.setValue(Number(marginFinal.toFixed(2)));
   }
 
   addOtherControl(): void {

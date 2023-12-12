@@ -24,14 +24,14 @@ export class ClassificationComponent implements OnInit, AfterViewInit {
   displayedColumns = ['position', 'classification', 'buttons'];
   dataSource = new MatTableDataSource<ClassificationResponse>([]);
   loading = false;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
   addToolTip = 'New Classification';
 
   constructor(private opptService: OpportunityService, public dialog: MatDialog,
               private toast: HotToastService, private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.route.data.pipe(untilDestroyed(this)).subscribe(result => this.dataSource.data = result.data);
+    this.route.data.pipe(untilDestroyed(this)).subscribe(result => this.dataSource.data = result['data']);
   }
 
   ngAfterViewInit(): void {

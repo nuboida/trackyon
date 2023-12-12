@@ -5,14 +5,14 @@
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Client Cost (&#36;)</mat-label>
         <input required matInput [formControl]="clientForeignCostCtrl" placeholder="OEM Cost (&#36;)">
-        <mat-error *ngIf="clientForeignCostCtrl.errors?.invalidNumber !== null">Enter a valid number</mat-error>
+        <mat-error *ngIf="clientForeignCostCtrl.errors?.['invalidNumber'] !== null">Enter a valid number</mat-error>
       </mat-form-field>
     </div>
     <div class="col-xl-2">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Rate</mat-label>
         <input required [formControl]="clientRateCtrl" required matInput placeholder="Rate">
-        <mat-error *ngIf="clientRateCtrl.errors?.invalidNumber !== null">Enter a valid number</mat-error>
+        <mat-error *ngIf="clientRateCtrl.errors?.['invalidNumber'] !== null">Enter a valid number</mat-error>
       </mat-form-field>
     </div>
     <div class="col-xl-5">
@@ -27,14 +27,14 @@
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>OEM Cost (&#36;)</mat-label>
         <input required matInput [formControl]="oemForeignCostCtrl" placeholder="OEM Actual Cost (Foreign)">
-        <mat-error *ngIf="oemForeignCostCtrl.errors?.invalidNumber !== null">Enter a valid number</mat-error>
+        <mat-error *ngIf="oemForeignCostCtrl.errors?.['invalidNumber'] !== null">Enter a valid number</mat-error>
       </mat-form-field>
     </div>
     <div class="col-xl-2">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Rate</mat-label>
         <input required [formControl]="oemRateCtrl" required matInput placeholder="Actual Rate">
-        <mat-error *ngIf="oemRateCtrl.errors?.invalidNumber !== null">Enter a valid number</mat-error>
+        <mat-error *ngIf="oemRateCtrl.errors?.['invalidNumber'] !== null">Enter a valid number</mat-error>
       </mat-form-field>
     </div>
     <div class="col-xl-5">
@@ -60,14 +60,14 @@
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Witholding Tax (&#36;)</mat-label>
         <input [formControl]="witholdingTaxForeignCostCtrl" matInput placeholder="Witholding Tax (&#8358;)">
-        <mat-error *ngIf="witholdingTaxForeignCostCtrl.errors?.invalidNumber !== null">Enter a valid number</mat-error>
+        <mat-error *ngIf="witholdingTaxForeignCostCtrl.errors?.['invalidNumber'] !== null">Enter a valid number</mat-error>
       </mat-form-field>
     </div>
     <div class="col-xl-2">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Rate</mat-label>
         <input required [formControl]="witholdingTaxRateCtrl" required matInput placeholder="Actual Rate">
-        <mat-error *ngIf="witholdingTaxRateCtrl.errors?.invalidNumber !== null">Enter a valid number</mat-error>
+        <mat-error *ngIf="witholdingTaxRateCtrl.errors?.['invalidNumber'] !== null">Enter a valid number</mat-error>
       </mat-form-field>
     </div>
     <div class="col-xl-5">
@@ -82,14 +82,14 @@
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>PR (&#36;)</mat-label>
         <input required matInput [formControl]="prForeignCostCtrl" placeholder="OEM Cost (&#36;)">
-        <mat-error *ngIf="prForeignCostCtrl.errors?.invalidNumber !== null">Enter a valid number</mat-error>
+        <mat-error *ngIf="prForeignCostCtrl.errors?.['invalidNumber']!== null">Enter a valid number</mat-error>
       </mat-form-field>
     </div>
     <div class="col-xl-2">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Rate</mat-label>
         <input required [formControl]="prRateCtrl" required matInput placeholder="Rate">
-        <mat-error *ngIf="prRateCtrl.errors?.invalidNumber !== null">Enter a valid number</mat-error>
+        <mat-error *ngIf="prRateCtrl.errors?.['invalidNumber'] !== null">Enter a valid number</mat-error>
       </mat-form-field>
     </div>
     <div class="col-xl-5">
@@ -104,14 +104,14 @@
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Training (&#36;)</mat-label>
         <input required matInput [formControl]="trainingForeignCostCtrl" placeholder="OEM Actual Cost (Foreign)">
-        <mat-error *ngIf="trainingForeignCostCtrl.errors?.invalidNumber !== null">Enter a valid number</mat-error>
+        <mat-error *ngIf="trainingForeignCostCtrl.errors?.['invalidNumber'] !== null">Enter a valid number</mat-error>
       </mat-form-field>
     </div>
     <div class="col-xl-2">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Rate</mat-label>
         <input required [formControl]="trainingRateCtrl" required matInput placeholder="Actual Rate">
-        <mat-error *ngIf="trainingRateCtrl.errors?.invalidNumber !== null">Enter a valid number</mat-error>
+        <mat-error *ngIf="trainingRateCtrl.errors?.['invalidNumber'] !== null">Enter a valid number</mat-error>
       </mat-form-field>
     </div>
     <div class="col-xl-5">

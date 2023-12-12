@@ -15,7 +15,7 @@ import { ValidatePasswordMatch } from '@shared/validators/confirmed.validator';
 })
 export class ResetPasswordComponent implements OnInit {
 
-  form: FormGroup;
+  form!: FormGroup;
   request: ResetPasswordRequest = {
     email: '',
     password: '',
@@ -30,13 +30,13 @@ export class ResetPasswordComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParams.pipe(untilDestroyed(this)).subscribe(
       params => {
-        if (!params.token || !params.email) {
+        if (!params['token'] || !params['email']) {
           this.toast.warning('Invalid Request');
           this.router.navigate(['/auth/verify-company']);
           return;
         }
-        this.request.token = params.token;
-        this.request.email = params.email;
+        this.request.token = params['token'];
+        this.request.email = params['email'];
       }
     );
 
@@ -52,8 +52,8 @@ export class ResetPasswordComponent implements OnInit {
 
   update(): void {
 
-    this.request.password = this.form.get('password').value;
-    this.request.confirmPassword = this.form.get('confirm').value;
+    this.request.password = this.form.get('password')?.value;
+    this.request.confirmPassword = this.form.get('confirm')?.value;
 
     this.auth.resetPassword(this.request).pipe(
       this.toast.observe(

@@ -21,7 +21,7 @@ export class TaskCreateComponent implements OnInit {
 
   loading = false;
   form!: FormGroup;
-  id: number;
+  id!: number;
   dept$!: Observable<DepartmentResponse[]>;
   staff$!: Observable<StaffResponse[]>;
 
@@ -31,7 +31,7 @@ export class TaskCreateComponent implements OnInit {
 
   nameCtrl = new FormControl('', Validators.required);
   deptCtr = new FormControl('', Validators.required);
-  staffIdCtrl = new FormControl([], Validators.required);
+  staffIdCtrl = new FormControl([''], Validators.required);
   weightCtrl = new FormControl(0, Validators.required);
   dimensionCtrl = new FormControl('');
   kraCtrl = new FormControl('');
@@ -111,7 +111,7 @@ export class TaskCreateComponent implements OnInit {
     if (!this.id) {
       const request = {
         name: this.nameCtrl.value as string,
-        departmentId: this.deptCtr.value as number,
+        departmentId: Number(this.deptCtr.value),
         staffId: this.staffIdCtrl.value,
         weight: this.weightCtrl.value as number,
         frequency: this.frequencyCtrl.value as string,

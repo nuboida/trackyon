@@ -1,14 +1,15 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {
   Router, Resolve,
   RouterStateSnapshot,
-  ActivatedRouteSnapshot
+  ActivatedRouteSnapshot,
+  ResolveFn
 } from '@angular/router';
 import { ActivityResponse, OpportunityItemResponse } from '@app/models/opportunity.model';
 import { OpportunityService } from '@app/services/opportunity.service';
 import {  forkJoin, Observable } from 'rxjs';
 
-@Injectable({
+/* @Injectable({
   providedIn: 'root'
 })
 export class OpportunityItemResolver implements Resolve<[OpportunityItemResponse, ActivityResponse[]]> {
@@ -20,4 +21,13 @@ export class OpportunityItemResolver implements Resolve<[OpportunityItemResponse
     const activities = this.opptService.getOpportunityActivities(id);
     return forkJoin([opportunity, activities]);
   }
+} */
+
+export const OpportunityItemResolver: ResolveFn<Observable<[OpportunityItemResponse, ActivityResponse[]]>> = (
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot
+) => {
+  const opportunity = inject(OpportunityService).getOpportunity(route.paramMap.get('id')!);
+  const activities = inject(OpportunityService).getOpportunityActivities(route.paramMap.get('id')!);
+  return forkJoin([opportunity, activities]);
 }

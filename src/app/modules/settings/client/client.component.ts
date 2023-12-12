@@ -3,13 +3,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClientResponse } from '@app/models/client.model';
 import { ClientService } from '@app/services/client.service';
-import { ExcelService } from '@app/services/excel.service';
+// import { ExcelService } from '@app/services/excel.service';
 import { HotToastService } from '@ngneat/hot-toast';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { CreateClientComponent } from '@shared/components/create-client.component';
-import { getClients } from '@modules/home/state';
 
 @UntilDestroy()
 @Component({
@@ -27,13 +26,14 @@ export class ClientComponent implements OnInit, AfterViewInit {
   addToolTip = 'New Client';
   dataSource = new MatTableDataSource<ClientResponse>([]);
   loading = false;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private clientService: ClientService, public dialog: MatDialog, public ete: ExcelService,
-              private toast: HotToastService, private router: Router, private route: ActivatedRoute) {}
+  constructor(private clientService: ClientService, public dialog: MatDialog,
+    //public ete: ExcelService,
+    private toast: HotToastService, private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.route.data.pipe(untilDestroyed(this)).subscribe(result => this.dataSource.data = result.data);
+    this.route.data.pipe(untilDestroyed(this)).subscribe(result => this.dataSource.data = result['data']);
   }
 
   ngAfterViewInit(): void {

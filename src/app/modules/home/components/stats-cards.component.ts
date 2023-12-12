@@ -120,5 +120,5 @@ import { DashboardStat } from '../dashboard.model';
 })
 export class StatsCardsComponent {
 
-  @Input() stats: DashboardStat;
+  @Input() stats!: DashboardStat | null;
 }

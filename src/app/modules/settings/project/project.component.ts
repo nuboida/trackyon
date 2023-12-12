@@ -25,13 +25,13 @@ export class ProjectComponent implements OnInit, AfterViewInit {
   displayedColumns = ['position', 'project', 'buttons'];
   dataSource = new MatTableDataSource<ProjectResponse>([]);
   loading = false;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(public dialog: MatDialog, private toast: HotToastService, private memoService: CallMemoService,
               private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.route.data.pipe(untilDestroyed(this)).subscribe(result => this.dataSource.data = result.data);
+    this.route.data.pipe(untilDestroyed(this)).subscribe(result => this.dataSource.data = result['data']);
   }
 
   ngAfterViewInit(): void {

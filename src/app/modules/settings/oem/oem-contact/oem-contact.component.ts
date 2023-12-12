@@ -28,15 +28,15 @@ export class OemContactComponent implements OnInit, AfterViewInit {
   addToolTip = 'New Contact';
   dataSource = new  MatTableDataSource<OemContactResponse>([]);
   loading = false;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(private oemService: OemService, public dialog: MatDialog,
               private toast: HotToastService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.route.data.pipe(untilDestroyed(this)).subscribe(result => this.dataSource.data = result.data);
+    this.route.data.pipe(untilDestroyed(this)).subscribe(result => this.dataSource.data = result['data']);
     this.route.params.subscribe(params => {
-      this.oemId = params.id as string;
+      this.oemId = params['id'] as string;
       this.getOemInfo();
     });
   }

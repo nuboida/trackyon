@@ -21,7 +21,7 @@ export class CallMemoCreateComponent implements OnInit, AfterViewInit {
 
   displayedColumns: string[] = ['position', 'project', 'task', 'start', 'end', 'hour', 'button'];
   dataSource = new MatTableDataSource<CallMemoActivityTable>([]);
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   addToolTip = 'Add Assignment';
   cancelToolTip = 'Close';
@@ -34,9 +34,9 @@ export class CallMemoCreateComponent implements OnInit, AfterViewInit {
 
   duration = '08:00';
   date: Date;
-  form: FormGroup;
+  form!: FormGroup;
 
-  projects$: Observable<ProjectResponse[]>;
+  projects$!: Observable<ProjectResponse[]>;
   tasks: TaskResponse[] = [];
   deptId!: string;
 
@@ -44,8 +44,8 @@ export class CallMemoCreateComponent implements OnInit, AfterViewInit {
   formMode = false;
   editMode = false;
 
-  callMemoId: string;
-  callMemoActivityId: number;
+  callMemoId!: string;
+  callMemoActivityId!: number;
 
   startHourCtrl = new FormControl('', [Validators.required, Validators.min(0), Validators.max(23), onlyNumberValidator]);
   startMinuteCtrl = new FormControl('', [Validators.required, Validators.min(0), Validators.max(59), onlyNumberValidator]);
@@ -151,18 +151,18 @@ export class CallMemoCreateComponent implements OnInit, AfterViewInit {
     if (this.isClosed) {
       this.form.disable();
     }
-    const start = data.starttime.split(':');
-    const end = data.endtime.split(':');
+    const start = data?.starttime.split(':') || '';
+    const end = data?.endtime.split(':') || '';
 
     this.form.setValue({
-      projectId: data.projectId,
-      taskId: data.taskId,
+      projectId: data?.projectId,
+      taskId: data?.taskId,
       startHour: start[0],
       startMinute: start[1],
       endHour: end[0],
       endMinute: end[1],
-      duration: data.duration,
-      notes: data.notes
+      duration: data?.duration,
+      notes: data?.notes
     });
   }
 
@@ -180,7 +180,7 @@ export class CallMemoCreateComponent implements OnInit, AfterViewInit {
     const year = this.date.getFullYear();
     const month = this.date.getMonth();
     const day = this.date.getDate();
-    const [start, end] = [new Date(year, month, day, startHour, startMinute), new Date(year, month, day, endHour, endMinute)];
+    const [start, end] = [new Date(year, month, day, Number(startHour), Number(startMinute)), new Date(year, month, day, Number(endHour), Number(endMinute))];
     const assignmentStartTime = start;
     const assignmentEndTime = end;
 
@@ -253,20 +253,20 @@ export class CallMemoCreateComponent implements OnInit, AfterViewInit {
     const endHour = this.endHourCtrl.value;
     const endMinute = this.endMinuteCtrl.value;
 
-    const startValid = !isNaN(startHour) && !isNaN(startMinute)
-                      && Math.abs(startHour) < 24 && Math.abs(startMinute) < 60;
+    const startValid = !isNaN(Number(startHour)) && !isNaN(Number(startMinute))
+                      && Math.abs(Number(startHour)) < 24 && Math.abs(Number(startMinute)) < 60;
 
-    const endValid = !isNaN(endHour) && !isNaN(endMinute)
-    && Math.abs(+endHour) < 24 && Math.abs(+endMinute) < 60
-    && (+endHour > +startHour || (+endHour === +startHour && +endMinute > +startMinute));
+    const endValid = !isNaN(Number(endHour)) && !isNaN(Number(endMinute))
+    && Math.abs(+endHour!) < 24 && Math.abs(+endMinute!) < 60
+    && (+endHour! > +startHour! || (+endHour! === +startHour! && +endMinute! > +startMinute!));
 
     if (!startValid || !endValid) {
       this.durationCtrl.setValue('');
       return;
     }
 
-    const endDate = new Date(2020, 1, 1, +endHour, +endMinute);
-    const startDate = new Date(2020, 1, 1, +startHour, +startMinute);
+    const endDate = new Date(2020, 1, 1, +endHour!, +endMinute!);
+    const startDate = new Date(2020, 1, 1, +startHour!, +startMinute!);
 
     const difference = this.timeDiffCalc(endDate, startDate);
     this.durationCtrl.setValue(difference);

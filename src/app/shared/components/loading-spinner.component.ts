@@ -52,5 +52,5 @@ import { Component, Input, OnInit } from '@angular/core';
   `]
 })
 export class LoadingSpinnerComponent {
-  @Input() loading: boolean;
+  @Input() loading!: boolean | null;
 }

@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { fadeAnimation, sliderAnimation } from '@shared/animations/animation';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
@@ -12,13 +12,13 @@ import { takeUntil } from 'rxjs/operators';
   styleUrls: ['./main-layout.component.scss'],
   animations: [fadeAnimation, sliderAnimation]
 })
-export class MainLayoutComponent implements OnDestroy {
+export class MainLayoutComponent implements OnDestroy , AfterViewInit{
 
   side: MatDrawerMode = 'side';
   sidenav = true;
   protected stop$ = new Subject<void>();
 
-  constructor(brkptObs: BreakpointObserver) {
+  constructor(brkptObs: BreakpointObserver, private ref: ChangeDetectorRef) {
     brkptObs.observe([Breakpoints.Large, Breakpoints.XLarge]).pipe(takeUntil(this.stop$))
     .subscribe(
       result => {
@@ -31,6 +31,9 @@ export class MainLayoutComponent implements OnDestroy {
         }
       }
     );
+  }
+  ngAfterViewInit(): void {
+    this.ref.detectChanges();
   }
 
   ngOnDestroy(): void {

@@ -69,7 +69,7 @@ interface UpdateScoreRequest {
   id: number;
   score: number;
   weight: number;
-  scoreDate?: string | Date;
+  scoreDate?: string;
   comment: string;
 }
 

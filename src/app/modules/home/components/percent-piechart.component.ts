@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { ChartOptions, ChartType } from 'chart.js';
+import { ChartData, ChartOptions, ChartType } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 @UntilDestroy()
@@ -24,10 +24,9 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
                       <canvas baseChart height="330"
                       [data]="chartData"
                       [labels]="chartLabels"
-                      [chartType]="type"
+                      [type]="type"
                       [options]="options"
                       [plugins]="plugins"
-                      [colors]="chartColor"
                       [legend]="legend"
                       [plugins]="chartDataLabels"
                       >
@@ -78,15 +77,15 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 })
 export class PercentPiechartComponent implements OnInit {
 
-  @Input() staffId: string;
-  @Input() staffName: string;
-  @Input() staffTarget: number;
-  @Input() margin: {name: string; opportunityName: string; margin: number}[];
-  @Input() quarter: boolean;
+  @Input() staffId!: string;
+  @Input() staffName!: string;
+  @Input() staffTarget!: number;
+  @Input() margin!: {name: string; opportunityName: string; margin: number}[];
+  @Input() quarter!: boolean;
   allMargin: {name: string; opportunityName: string; margin: number}[] = [];
-  chartData: number[];
+  data!: number[];
+  chartData!: ChartData<'pie'>;
   chartLabels!: string[];
-  chartColor!: any[];
   loading = true;
   overallMargin = 0;
   marginPercent = 0;
@@ -94,16 +93,16 @@ export class PercentPiechartComponent implements OnInit {
 
   options: ChartOptions = {
     responsive: true,
-    legend: {
-      position: 'bottom'
-    },
     plugins: {
+      legend: {
+        position: 'bottom'
+      },
       datalabels: {
         color: 'white',
         font: {
           size: 24
         },
-        formatter: function (value, context) {
+        formatter: function (value: any, ctx: any) {
           return `${value}%`;
         }
       }
@@ -134,12 +133,21 @@ export class PercentPiechartComponent implements OnInit {
     this.marginPercent = this.overallMargin/this.staffTarget;
     const totalPercent = (this.staffTarget/this.staffTarget) * 1;
     if (this.staffTarget < this.overallMargin) {
-      this.chartData = [0, totalPercent * 100];
+      this.data = [0, totalPercent * 100];
     } else {
-      this.chartData = [Number(((totalPercent - this.marginPercent)* 100).toFixed(2)), Number((this.marginPercent * 100).toFixed(2))];
+      this.data = [Number(((totalPercent - this.marginPercent)* 100).toFixed(2)), Number((this.marginPercent * 100).toFixed(2))];
     }
     this.chartLabels = ['Target Outstanding', 'Achieved'];
-    this.chartColor = [{backgroundColor: ['#dc3545', '#007bff']}];
     this.loading = false;
+
+    this.chartData = {
+      labels: this.chartLabels,
+      datasets: [
+        {
+          data: this.data,
+          backgroundColor: ['#dc3545', '#007bff']
+        }
+      ]
+    }
   }
 }

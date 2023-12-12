@@ -17,7 +17,7 @@ export class DepartmentCreateComponent implements OnInit {
 
   loading = false;
   form!: FormGroup;
-  id: number;
+  id!: number;
 
   departmentNameCtrl = new FormControl('', Validators.required);
   constructor(

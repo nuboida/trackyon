@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { CallMemoRoutingModule } from './call-memo-routing.module';
-import { SharedModule } from '@shared/index';
+
 import { CallMemoCreateComponent } from './call-memo-create/call-memo-create.component';
-import { StoreModule } from '@ngrx/store';
+import { StoreModule, StoreRootModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { featureKey, reducer } from './state/call-memo.reducer';
 import { CallMemoEffects } from './state/call-memo.effects';
@@ -20,12 +20,11 @@ import { StaffMemoEditComponent } from './components/staff-memo-edit/staff-memo-
 import { StaffAppraisalDialogComponent } from './components/staffAppraisalDialog/staffAppraisalDialog.component';
 import { TaskAppraisalsComponent } from './tasks/taskAppraisals/taskAppraisals.component';
 import { CreateAppraisalComponent } from './tasks/components/create-appraisal/create-appraisal.component';
+import { DeptAppraisalComponent } from './dept-memo/deptAppraisal/deptAppraisal.component';
+import { CreateDeptAppraisalComponent } from './dept-memo/createDeptAppraisal/createDeptAppraisal.component';
+import { SharedModule } from '@shared/shared.module';
+import { CoreModule } from '@app/core.module';
 
-FullCalendarModule.registerPlugins([
-  dayGridPlugin,
-  interactionPlugin,
-  bootstrapPlugin
-]);
 
 
 @NgModule({
@@ -38,10 +37,14 @@ FullCalendarModule.registerPlugins([
     StaffMemoEditComponent,
     StaffAppraisalDialogComponent,
     TaskAppraisalsComponent,
-    CreateAppraisalComponent
+    CreateAppraisalComponent,
+    DeptAppraisalComponent,
+    CreateDeptAppraisalComponent
   ],
   imports: [
     CommonModule,
+    CoreModule,
+    StoreRootModule,
     CallMemoRoutingModule,
     FullCalendarModule,
     StoreModule.forFeature(featureKey, reducer),

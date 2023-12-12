@@ -36,7 +36,7 @@ export class OpportunityCreateComponent implements OnInit {
   businessTypes$!: Observable<BusinessType[]>;
   classifications$!: Observable<ClassificationResponse[]>;
   staffs$!: Observable<StaffResponse[]>;
-  deliveryStatuses$: Observable<DeliveryStatusResponse[]>;
+  deliveryStatuses$!: Observable<DeliveryStatusResponse[]>;
   form!: FormGroup;
   minDate = new Date();
   nullValue: null = null;
@@ -62,9 +62,9 @@ export class OpportunityCreateComponent implements OnInit {
     amountPaid: 0,
     rate: 0,
     invoiceNumber: '',
-    datePaymentReceived: null,
+    datePaymentReceived: '',
     deliveryStatusId: 2,
-    dateOfDelivery: null,
+    dateOfDelivery: '',
     active: true,
     partialPayment: 0,
   };
@@ -123,16 +123,16 @@ export class OpportunityCreateComponent implements OnInit {
       );
     }
 
-    this.form.get('costPrice').valueChanges.pipe(untilDestroyed(this)).subscribe(() => this.calculateMargin());
-    this.form.get('sellingPrice').valueChanges.pipe(untilDestroyed(this)).subscribe(() => this.calculateMargin());
-    this.form.get('training').valueChanges.pipe(untilDestroyed(this)).subscribe(() => this.calculateMargin());
-    this.form.get('otherFees').valueChanges.pipe(untilDestroyed(this)).subscribe(() => this.calculateMargin());
+    this.form.get('costPrice')?.valueChanges.pipe(untilDestroyed(this)).subscribe(() => this.calculateMargin());
+    this.form.get('sellingPrice')?.valueChanges.pipe(untilDestroyed(this)).subscribe(() => this.calculateMargin());
+    this.form.get('training')?.valueChanges.pipe(untilDestroyed(this)).subscribe(() => this.calculateMargin());
+    this.form.get('otherFees')?.valueChanges.pipe(untilDestroyed(this)).subscribe(() => this.calculateMargin());
   }
   calculateMargin(): void {
-    const costPrice = this.form.get('costPrice').value;
-    const sellingPrice = this.form.get('sellingPrice').value;
-    const training = this.form.get('training').value;
-    const otherFees = this.form.get('otherFees').value;
+    const costPrice = this.form.get('costPrice')?.value;
+    const sellingPrice = this.form.get('sellingPrice')?.value;
+    const training = this.form.get('training')?.value;
+    const otherFees = this.form.get('otherFees')?.value;
 
     const invalidEntry = isNaN(costPrice) || isNaN(sellingPrice) || isNaN(training)
     || isNaN(otherFees);
@@ -252,7 +252,7 @@ export class OpportunityCreateComponent implements OnInit {
   }
 
   addClientContact(): void {
-    const clientId = this.form.get('clientId').value;
+    const clientId = this.form.get('clientId')?.value;
     if (!clientId) {
       this.toast.warning('Select a Client');
       return;

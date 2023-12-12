@@ -46,7 +46,7 @@ export class OpportunityListComponent implements OnInit, AfterViewInit {
   cardText = 'opportunity';
   imageSrc = 'assets/business_deal.svg';
 
-  filter: OpportunityFilter;
+  filter!: OpportunityFilter;
   dateFilter = {
     startTime: new Date(),
     endTime: new Date,
@@ -74,9 +74,11 @@ export class OpportunityListComponent implements OnInit, AfterViewInit {
   totalDataSellingPrice!: number;
   totalDataCostPrice!: number;
   totalDataMargin!: number;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(public dialog: MatDialog, private excel: ExcelService, private clientService: ClientService,
+  constructor(public dialog: MatDialog,
+    private excel: ExcelService,
+     private clientService: ClientService,
               private toast: HotToastService, private store: Store<State>, private staffService: StaffService) { }
 
   ngOnInit(): void {

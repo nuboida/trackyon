@@ -15,8 +15,8 @@ export class DashboardService {
   protected stats = 'dashboard/stats/';
   protected sales = 'dashboard/top-sales/';
   protected monthlySales = 'dashBoard/year-monthly-sales/';
-  companyId: string;
-  staffId: string;
+  companyId!: string;
+  staffId!: string;
 
   constructor(private api: ApiService, private auth: AuthService) {
     this.auth.user$.subscribe(user => {

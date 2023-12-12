@@ -1,0 +1,148 @@
+<form [formGroup]="detailForm" class="mb-5">
+  <div class="mb-4">
+    <!-- Note Input -->
+    <div *ngIf="!data.details || editNote">
+      <div *ngIf="data.note">
+        <div class="card-header">
+          <div class="d-flex justify-content-between align-items-center">
+            <span class="text-blue">
+              Note
+            </span>
+            <div class="row">
+              <div class="col">
+                <button mat-raised-button color="primary" (click)="handleSaveNote()">Save</button>
+              </div>
+              <div class="col">
+                <button mat-raised-button color="accent" (click)="handleCancelNote()">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xl">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Date</mat-label>
+              <input formControlName="detailsDate" matInput [matDatepicker]="picker" placeholder="date">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="col-xl">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Notes</mat-label>
+              <textarea formControlName="notes" style="resize: none;" rows="5" matInput placeholder="Notes"></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- NOTE -->
+    <div *ngIf="data.details && !editNote">
+      <div class="card-header mb-3">
+        <div class="d-flex justify-content-between align-items-center">
+          <span class="text-blue">
+            Note
+          </span>
+          <button mat-raised-button color="primary" (click)="toggleEditNote()" *ngIf="!editNote">Edit</button>
+        </div>
+      </div>
+      <div>
+        <div class="col-xl mb-2">
+          <div class="w-100">
+            {{ data.details.detailsDate | date }}
+          </div>
+        </div>
+        <div class="col-xl">
+          <div class="w-100 border p-3" style="font-size: 12px; overflow-y: scroll; max-height: 135px;">
+            {{ data.details.notes }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- Appraisal Input -->
+  <div class="mt-4">
+    <div *ngIf=" data.details">
+      <div *ngIf="editAppraisal">
+        <div class="card-header mb-3">
+          <div class="d-flex justify-content-between align-items-center">
+            <span class="text-blue">
+              Appraise
+            </span>
+            <div class="row">
+              <div class="col">
+                <button mat-raised-button color="primary" (click)="handleSaveAppraisal()">Save</button>
+              </div>
+              <div class="col">
+                <button mat-raised-button color="accent" (click)="handleCancelNote()">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xl row">
+            <div class="col-xl-6">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Appraisal Date</mat-label>
+                <input formControlName="scoreDate" matInput [matDatepicker]="scoreDatePicker" placeholder="Appraisal Date">
+                <mat-datepicker-toggle matSuffix [for]="scoreDatePicker"></mat-datepicker-toggle>
+                <mat-datepicker #scoreDatePicker></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div class="col-xl-6">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Score</mat-label>
+                <mat-select formControlName="score">
+                  <mat-option *ngFor="let score of scoreOptions" [value]="score.value">
+                    {{ score.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-xl">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Appraisal Comment</mat-label>
+              <textarea formControlName="comment" style="resize: none;" rows="5" matInput placeholder="Notes"></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Appraisal -->
+      <div *ngIf="!editAppraisal">
+        <div class="card-header mb-3">
+          <div class="d-flex justify-content-between align-items-center">
+            <span class="text-blue">
+              Appraisal
+            </span>
+            <button mat-raised-button color="primary" (click)="toggleEditAppraisal()">Edit</button>
+          </div>
+        </div>
+        <div>
+          <div class="col-xl mb-2 row">
+            <div class="col-xl-6">
+              {{ data.details.scoreDate! | date }}
+            </div>
+            <div class="col-xl-6">
+              Score: {{ data.details.score }}
+            </div>
+          </div>
+          <div class="col-xl">
+            <div class="w-100 border p-3" style="font-size: 12px; max-height: 135px; overflow-y: scroll;">
+              {{ data.details.comment }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<div class="d-flex justify-content-end mt-5" *ngIf="data.details && !editNote && !editAppraisal">
+  <button class="mx-3 w-100 col-xl" mat-raised-button color="accent" (click)="handleDelete()">Delete Note/Appraisal</button>
+</div>

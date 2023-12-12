@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { AuthGuard } from '@app/guards/auth.guard';
-import { NoAuthGuard } from '@app/guards/no-auth.guard';
+import { RouterModule, Routes } from '@angular/router';
 import { AuthLayoutComponent, MainLayoutComponent } from './layout';
+import { NoAuthGuard } from '@app/guards/no-auth.guard';
+import { AuthGuard } from '@app/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -26,10 +26,8 @@ const routes: Routes = [
       {
         path: 'home',
         canActivate: [AuthGuard],
-        canLoad: [AuthGuard],
-        loadChildren: () =>
-          import('@modules/home/home.module')
-          .then(m => m.HomeModule)
+        canMatch: [AuthGuard],
+        loadChildren: () => import("@modules/home/home.module").then(m => m.HomeModule)
       },
       {
         path: 'memo',

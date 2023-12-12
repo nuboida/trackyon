@@ -25,7 +25,7 @@ export class DepartmentComponent implements OnInit, AfterViewInit {
   displayedColumns = ['position', 'task', 'buttons'];
   dataSource = new MatTableDataSource<DepartmentResponse>([]);
   loading = false;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(
     private dialog: MatDialog,
@@ -35,7 +35,7 @@ export class DepartmentComponent implements OnInit, AfterViewInit {
     ) { }
 
   ngOnInit() {
-    this.route.data.pipe(untilDestroyed(this)).subscribe(result => this.dataSource.data = result.data);
+    this.route.data.pipe(untilDestroyed(this)).subscribe(result => this.dataSource.data = result['data']);
   }
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;

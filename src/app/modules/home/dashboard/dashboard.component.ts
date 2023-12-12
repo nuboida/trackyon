@@ -41,9 +41,7 @@ export class DashboardComponent implements OnInit {
   paymentReceivedQ3Margin: {name: string; opportunityName: string; margin: number}[] = [];
   paymentReceivedQ4Margin: {name: string; opportunityName: string; margin: number}[] = [];
   overallTarget: number[] = [];
-  monthlySales$ = this.store.select(getMonthlySales).pipe(
-    map(s => [{ data: s, label: 'Sales By Month' }])
-  );
+  monthlySales$ = this.store.select(getMonthlySales);
   role = '';
   protected stop$ = new Subject<void>();
   data = this.route.snapshot.data;
@@ -58,7 +56,9 @@ export class DashboardComponent implements OnInit {
     private route: ActivatedRoute,
     private authService: AuthService,
     private dashboardService: DashboardService
-    ) {}
+    ) {
+
+    }
 
   ngOnInit(): void {
     this.authService.user$.pipe(takeUntil(this.stop$)).subscribe(
@@ -78,7 +78,7 @@ export class DashboardComponent implements OnInit {
     this.store.dispatch(DashboardPageActions.loadSales());
 
 
-    this.data.staffs.map((c: any) => {
+    this.data['staffs'].map((c: any) => {
       if (c.department === "Sales" && c.active && !c.firstName.includes('Donald') && !c.firstName.includes('Isaiah')) {
         let salesStaff = {
           name: `${c.firstName} ${c.lastName}`,
@@ -106,7 +106,7 @@ export class DashboardComponent implements OnInit {
     switch (this.selectedQuarter.value) {
       case 0:
         this.closedWonMargin = [];
-        this.data.opportunities.map((c: any) => {
+        this.data['opportunities'].map((c: any) => {
           if ((c.stage == "Payment Received" || c.stage.includes('Closed')) && c.margin > 0 && c.fiscalPeriod.includes(new Date().getFullYear())) {
             let staffMargin = {
               name: c.staff,
@@ -120,7 +120,7 @@ export class DashboardComponent implements OnInit {
 
         case 1:
           this.closedWonQ1Margin = [];
-          this.data.opportunities.map((c: any) => {
+          this.data['opportunities'].map((c: any) => {
             if ((c.stage == "Payment Received" || c.stage.includes('Closed')) && c.margin > 0 && (c.fiscalPeriod.includes(new Date().getFullYear()) && c.fiscalPeriod.includes('Q1'))) {
               let staffMargin = {
                 name: c.staff,
@@ -135,7 +135,7 @@ export class DashboardComponent implements OnInit {
 
         case 2:
           this.closedWonQ2Margin = [];
-          this.data.opportunities.map((c: any) => {
+          this.data['opportunities'].map((c: any) => {
             if ((c.stage == "Payment Received" || c.stage.includes('Closed'))&& c.margin > 0 && (c.fiscalPeriod.includes(new Date().getFullYear()) && c.fiscalPeriod.includes('Q2'))) {
               let staffMargin = {
                 name: c.staff,
@@ -149,7 +149,7 @@ export class DashboardComponent implements OnInit {
           break;
         case 3:
           this.closedWonQ3Margin = [];
-          this.data.opportunities.map((c: any) => {
+          this.data['opportunities'].map((c: any) => {
             if ((c.stage == "Payment Received" || c.stage.includes('Closed')) && c.margin > 0 && (c.fiscalPeriod.includes(new Date().getFullYear()) && c.fiscalPeriod.includes('Q3'))) {
               let staffMargin = {
                 name: c.staff,
@@ -163,7 +163,7 @@ export class DashboardComponent implements OnInit {
           break;
         case 4:
           this.closedWonQ4Margin = [];
-          this.data.opportunities.map((c: any) => {
+          this.data['opportunities'].map((c: any) => {
             if ((c.stage == "Payment Received" || c.stage.includes('Closed')) && c.margin > 0 && (c.fiscalPeriod.includes(new Date().getFullYear()) && c.fiscalPeriod.includes('Q4'))) {
               let staffMargin = {
                 name: c.staff,
@@ -185,7 +185,7 @@ export class DashboardComponent implements OnInit {
     switch (this.selectReceivedQuarter.value) {
       case 0:
         this.paymentReceivedMargin = [];
-        this.data.opportunities.map((c: any) => {
+        this.data['opportunities'].map((c: any) => {
           if ((c.stage === "Payment Received") && c.margin > 0 && c.fiscalPeriod.includes(new Date().getFullYear())) {
             let staffMargin = {
               name: c.staff,
@@ -199,7 +199,7 @@ export class DashboardComponent implements OnInit {
 
         case 1:
           this.paymentReceivedQ1Margin = [];
-          this.data.opportunities.map((c: any) => {
+          this.data['opportunities'].map((c: any) => {
             if ((c.stage == "Payment Received") && c.margin > 0 && (c.fiscalPeriod.includes(new Date().getFullYear()) && c.fiscalPeriod.includes('Q1'))) {
               let staffMargin = {
                 name: c.staff,
@@ -213,7 +213,7 @@ export class DashboardComponent implements OnInit {
           break;
         case 2:
           this.paymentReceivedQ2Margin = [];
-          this.data.opportunities.map((c: any) => {
+          this.data['opportunities'].map((c: any) => {
             if ((c.stage == "Payment Received") && c.margin > 0 && (c.fiscalPeriod.includes(new Date().getFullYear()) && c.fiscalPeriod.includes('Q2'))) {
               let staffMargin = {
                 name: c.staff,
@@ -227,7 +227,7 @@ export class DashboardComponent implements OnInit {
           break;
         case 3:
           this.paymentReceivedQ3Margin = [];
-          this.data.opportunities.map((c: any) => {
+          this.data['opportunities'].map((c: any) => {
             if ((c.stage == "Payment Received") && c.margin > 0 && (c.fiscalPeriod.includes(new Date().getFullYear()) && c.fiscalPeriod.includes('Q3'))) {
               let staffMargin = {
                 name: c.staff,
@@ -241,7 +241,7 @@ export class DashboardComponent implements OnInit {
           break;
         case 4:
           this.paymentReceivedQ4Margin = [];
-          this.data.opportunities.map((c: any) => {
+          this.data['opportunities'].map((c: any) => {
             if ((c.stage == "Payment Received") && c.margin > 0 && (c.fiscalPeriod.includes(new Date().getFullYear()) && c.fiscalPeriod.includes('Q4'))) {
               let staffMargin = {
                 name: c.staff,
@@ -271,3 +271,4 @@ const sessions: Option[] = [
   { name: 'Q3', value: 3 },
   { name: 'Q4', value: 4 },
 ]
+

@@ -45,7 +45,7 @@ import { OpportunityResponse } from '@app/models/opportunity.model';
 export class SalesTableComponent implements OnInit {
 
   displayedColumns: string[] = ['position', 'client', 'product', 'price', 'date'];
-  @Input() sales: DashboardSale[] = [];
+  @Input() sales!: DashboardSale[] | null;
   topOpportunities: OpportunityResponse[] = [];
   closedWonOpportunities: OpportunityResponse[] = [];
   closedLostOpportunities: OpportunityResponse[] = [];
@@ -55,7 +55,7 @@ export class SalesTableComponent implements OnInit {
 
   ngOnInit(): void {
     const data = this.route.snapshot.data;
-    const sortDataByValue = data.opportunities.sort((a: any, b: any) => {
+    const sortDataByValue = data['opportunities'].sort((a: any, b: any) => {
       return b.sellingPrice < a.sellingPrice ? -1 : 1;
     });
     const currentYear = (new Date().getFullYear().toString());

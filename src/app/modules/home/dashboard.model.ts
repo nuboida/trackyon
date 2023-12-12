@@ -1,5 +1,3 @@
-import { Color } from 'ng2-charts';
-
 export interface DashboardStage {
   stageName: string;
   stageColor: string;
@@ -8,7 +6,7 @@ export interface DashboardStage {
 
 export interface DashboardStageVM {
   data: number[];
-  colors: Color[];
+  colors: {backgroundColor: string[]}[];
   labels: string[];
 }
 

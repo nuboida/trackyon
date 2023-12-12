@@ -1,6 +1,5 @@
-import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
-import { ChartType, ChartOptions } from 'chart.js';
-import { Label, Color } from 'ng2-charts';
+import { Component, ChangeDetectionStrategy, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { ChartType, ChartOptions, ChartData } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 @Component({
@@ -12,9 +11,11 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
       </div>
       <div *ngIf="data" style="display: block">
         <canvas baseChart height="310"
-          [data]="data" [colors]="colors"
-          [labels]="labels" [options]="options"
-          [chartType]="type" [plugins]="chartDataLabels">
+          [data]="doughnutChartData"
+          [options]="options"
+          [type]="doughnutChartType"
+          [plugins]="chartDataLabels"
+          >
         </canvas>
       </div>
       <div *ngIf="!data" class="d-flex justify-content-center">
@@ -30,27 +31,40 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ClientsDoughnutchartComponent {
+export class ClientsDoughnutchartComponent implements OnChanges {
 
-  @Input() data: number[];
-
-  labels: Label[] = ['Actual Clients', 'Potential Clients'];
-  type: ChartType = 'doughnut';
-  colors: Color[] = [{ backgroundColor: ['#4e73df', '#1cc88a'] }];
-  chartDataLabels = [ChartDataLabels]
-  options: ChartOptions = {
+  @Input() data!: number[] | null;
+  public options: ChartOptions = {
     responsive: true,
-    legend: {
-      position: 'bottom'
-    },
     plugins: {
       datalabels: {
         color: 'white',
         font: {
           size: 24
         }
+      },
+      legend: {
+        position: 'bottom'
       }
     }
-  };
+  }
+  public doughnutChartType: ChartType = 'doughnut';
+  public label: string[] = [
+    'Actual Clients',
+    'Potential Clients'
+  ];
+  public doughnutChartData!: ChartData<'doughnut'>;
+  public chartDataLabels = [ChartDataLabels]
 
+  ngOnChanges(changes: SimpleChanges): void {
+    this.doughnutChartData = {
+      labels: this.label,
+      datasets: [
+        {
+          data: this.data || [],
+          backgroundColor: ['#4e73df', '#1cc88a'],
+        }
+      ]
+    }
+  }
 }

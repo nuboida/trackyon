@@ -103,6 +103,8 @@ export interface EditTask {
   criteria: string;
   dimensions: string;
   kra: string;
+  staffId: string[],
+  target: string
 }
 
 export interface TaskResponse {

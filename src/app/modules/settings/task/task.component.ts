@@ -44,13 +44,13 @@ export class TaskComponent implements OnInit, AfterViewInit {
   frequencyInput = new FormControl('');
   kraInput = new FormControl('');
   deptInput = new FormControl(0);
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(private memoService: CallMemoService, public dialog: MatDialog, private toast: HotToastService,
               private route: ActivatedRoute, private deptService: DepartmentService) {}
 
   ngOnInit(): void {
-    this.route.data.pipe(untilDestroyed(this)).subscribe(result => this.kpiDataSource.data = result.data);
+    this.route.data.pipe(untilDestroyed(this)).subscribe(result => this.kpiDataSource.data = result['data']);
     this.dept$ = this.deptService.getDepartments();
     this.dept$.pipe(untilDestroyed(this)).subscribe((res) => {
       const deptoptions = res.map(c => ({departmentId: c.departmentId, departmentName: c.departmentName }));
@@ -64,7 +64,7 @@ export class TaskComponent implements OnInit, AfterViewInit {
       this.filterInput.setValue(0);
       this.dimensionInput.setValue('All');
       this.frequencyInput.setValue('All');
-      this.getTasks(this.deptInput.value.toString());
+      this.getTasks(this.deptInput.value!.toString());
     });
 
     this.kraInput.valueChanges.pipe(debounceTime(500), untilDestroyed(this))
@@ -149,7 +149,7 @@ export class TaskComponent implements OnInit, AfterViewInit {
 
     dialogRef.afterClosed().pipe(untilDestroyed(this)).subscribe(result => {
       if (result) {
-        this.getTasks(this.deptInput.value.toString());
+        this.getTasks(this.deptInput.value!.toString());
       }
     });
   }

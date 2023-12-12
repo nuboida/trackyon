@@ -14,7 +14,7 @@
           <span>Home</span>
         </a>
       </li>
-      <li class="sidebar__item" routerLinkActive #cmla="routerLinkActive">
+      <!-- <li class="sidebar__item" routerLinkActive #cmla="routerLinkActive">
         <a class="sidebar__link" [ngClass]="{'drop': activeDropdown == 'Call Memo', 'sidebar__link--active': cmla.isActive}" (click)="changeDropdown('Call Memo')">
           <mat-icon aria-hidden="false" aria-label="Example home icon">notes</mat-icon>
           <span>Timesheets</span>
@@ -27,6 +27,7 @@
             <li *ngIf="isAdmin" class="nested__item"><a [routerLink]="['/memo/staff']" routerLinkActive="nested__link--active" class="nested__link">Staff Memos</a></li>
           </ul>
         </div>
+      </li> -->
       <li class="sidebar__item" routerLinkActive #apla="routerLinkActive">
         <a class="sidebar__link" [ngClass]="{'drop': activeDropdown == 'Appraisal', 'sidebar__link--active': apla.isActive}" (click)="changeDropdown('Appraisal')">
           <mat-icon aria-hidden="false" aria-label="Example home icon">assessment</mat-icon>

@@ -12,11 +12,20 @@ export interface DashboardState {
 }
 
 const initialState: DashboardState = {
-  clients: null,
+  clients: [],
   sales: [],
-  stages: null,
-  stats: null,
-  opportunities: null,
+  stages: {
+    data: [],
+    colors: [],
+    labels: []
+  },
+  stats: {
+    clients: 0,
+    contacts: 0,
+    opportunities: 0,
+    sales: 0
+  },
+  opportunities: [],
   monthlySales: []
 };
 
@@ -31,9 +40,9 @@ const dashboardReducer = createReducer(
   on(DashboardApiActions.loadSalesSuccess, (state, action) => ({ ...state, sales: action.sales})),
   on(DashboardApiActions.loadSalesFailure, state => ({...state, sales: []})),
   on(DashboardApiActions.loadStatsSuccess, (state, action) => ({ ...state, stats: action.stats})),
-  on(DashboardApiActions.loadStatsFailure, state => ({...state, stats: null})),
+  on(DashboardApiActions.loadStatsFailure, state => ({...state, stats: state.stats})),
   on(DashboardApiActions.loadStagesSuccess, (state, action) => ({ ...state, stages: action.stages})),
-  on(DashboardApiActions.loadStagesFailure, state => ({...state, stages: null})),
+  on(DashboardApiActions.loadStagesFailure, state => ({...state, stages: state.stages})),
   on(DashboardApiActions.loadMonthlySalesSuccess, (state, action) => ({ ...state, monthlySales: action.monthlySales})),
   on(DashboardApiActions.loadMonthlySalesFailure, state => ({...state, monthlySales: []}))
 );

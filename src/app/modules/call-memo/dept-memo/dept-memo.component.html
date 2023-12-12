@@ -46,7 +46,9 @@
             <ng-container matColumnDef="task">
               <th mat-header-cell *matHeaderCellDef> Tasks </th>
               <td mat-cell *matCellDef="let element">
-                <span style="display: inline-block; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; max-width: 35rem;">{{element.name}}</span>
+                <a [routerLink]="['/memo/department', deptInput.value, element.memoTaskId, filter.startTime, filter.endTime]">
+                  <span>{{element.name}}</span>
+                </a>
               </td>
             </ng-container>
 
@@ -140,7 +142,9 @@
           <ng-container matColumnDef="task">
             <th mat-header-cell *matHeaderCellDef> Tasks </th>
             <td mat-cell *matCellDef="let element">
-              <span style="display: inline-block; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; max-width: 20rem;">{{element.name}}</span>
+              <a [routerLink]="['/memo/department', deptInput.value, element.memoTaskId, filter.startTime, filter.endTime]">
+                <span>{{element.name}}</span>
+              </a>
             </td>
           </ng-container>
 

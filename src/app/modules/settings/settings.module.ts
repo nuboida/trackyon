@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { SettingsRoutingModule } from './settings-routing.module';
-import { SharedModule } from '@shared/index';
 import { OemCreateComponent } from './oem/oem-create/oem-create.component';
 import { OemContactCreateComponent } from './oem/oem-contact-create/oem-contact-create.component';
 import { StaffCreateComponent } from './staff/staff-create/staff-create.component';
@@ -12,6 +11,7 @@ import { ProjectCreateComponent } from './project/project-create/project-create.
 import { DepartmentCreateComponent } from './department/department-create/department-create.component';
 import { StaffDetailsComponent } from './staff/staff-details/staff-details.component';
 import { TerminateDateComponent } from './staff/terminateDate/terminateDate.component';
+import { SharedModule } from '@shared/shared.module';
 
 
 @NgModule({

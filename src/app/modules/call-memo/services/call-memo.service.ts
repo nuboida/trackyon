@@ -107,7 +107,7 @@ export class CallMemoService {
   addAppraisal(request: UpdateScoreRequest): Observable<DetailSubmitResponse> {
     const queryRequest: UpdateScoreRequest = {
       ...request,
-      scoreDate: formatAPIDate(new Date(request.scoreDate)),
+      scoreDate: formatAPIDate(new Date(String(request.scoreDate))),
     };
     return this.api.post<DetailSubmitResponse>(`memotasksdetails/taskdetails/update-score`, queryRequest);
   }
@@ -115,7 +115,7 @@ export class CallMemoService {
   addStaffAppraisal(request: UpdateScoreRequest): Observable<DetailSubmitResponse> {
     const queryRequest: UpdateScoreRequest = {
       ...request,
-      scoreDate: formatAPIDate(new Date(request.scoreDate)),
+      scoreDate: formatAPIDate(new Date(String(request.scoreDate))),
     };
     return this.api.post<DetailSubmitResponse>(`memotaskstaffdetail/taskstaffdetails/update-score`, queryRequest);
   }

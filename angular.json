@@ -3,36 +3,18 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "TrackingSystem": {
+    "TrackingSystem-Frontend": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss",
-          "skipTests": true
-        },
-        "@schematics/angular:class": {
-          "skipTests": true
+          "standalone": false
         },
         "@schematics/angular:directive": {
-          "skipTests": true
-        },
-        "@schematics/angular:guard": {
-          "skipTests": true
-        },
-        "@schematics/angular:interceptor": {
-          "skipTests": true
-        },
-        "@schematics/angular:module": {
-          "skipTests": true
+          "standalone": false
         },
         "@schematics/angular:pipe": {
-          "skipTests": true
-        },
-        "@schematics/angular:service": {
-          "skipTests": true
-        },
-        "@schematics/angular:application": {
-          "strict": true
+          "standalone": false
         }
       },
       "root": "",
@@ -40,18 +22,22 @@
       "prefix": "olla",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": "dist/TrackingSystem",
             "index": "src/index.html",
-            "main": "src/main.ts",
-            "polyfills": "src/polyfills.ts",
+            "browser": "src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
             "tsConfig": "tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
             "aot": true,
             "allowedCommonJsDependencies": [
               "file-saver",
               "overlayscrollbars",
-              "chart.js"
+              "chart.js",
+              "exceljs"
             ],
             "assets": [
               "src/favicon.ico",
@@ -59,7 +45,7 @@
               "src/web.config"
             ],
             "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -73,12 +59,9 @@
                 }
               ],
               "optimization": true,
-              "outputHashing": "all",
               "sourceMap": false,
               "namedChunks": false,
               "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
               "budgets": [
                 {
                   "type": "initial",
@@ -90,40 +73,50 @@
                   "maximumWarning": "2kb",
                   "maximumError": "4kb"
                 }
-              ]
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
             }
-          }
+          },
+          "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "browserTarget": "TrackingSystem:build"
-          },
           "configurations": {
             "production": {
-              "browserTarget": "TrackingSystem:build:production"
+              "buildTarget": "TrackingSystem-Frontend:build:production"
+            },
+            "development": {
+              "buildTarget": "TrackingSystem-Frontend:build:development"
             }
-          }
+          },
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "TrackingSystem:build"
+            "buildTarget": "TrackingSystem-Frontend:build"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "src/test.ts",
-            "polyfills": "src/polyfills.ts",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
             "tsConfig": "tsconfig.spec.json",
-            "karmaConfig": "karma.conf.js",
+            "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
               "src/assets"
             ],
             "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -156,6 +149,5 @@
         }
       }
     }
-  },
-  "defaultProject": "TrackingSystem"
+  }
 }

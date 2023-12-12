@@ -1,6 +1,6 @@
-import { Component, ChangeDetectionStrategy, Input, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { ChartOptions, ChartType } from 'chart.js';
+import { ChartData, ChartOptions, ChartType } from 'chart.js';
 import { DashboardService } from '../dashboard.service';
 import ChartDataLabels from 'chartjs-plugin-datalabels'
 
@@ -14,13 +14,9 @@ import ChartDataLabels from 'chartjs-plugin-datalabels'
       </div>
       <div *ngIf="!loading" style="display: block">
         <canvas baseChart height="330"
-        [data]="chartData"
-        [labels]="chartLabels"
-        [chartType]="type"
+        [data]="pieChartData"
+        [type]="type"
         [options]="options"
-        [plugins]="plugins"
-        [colors]="chartColor"
-        [legend]="legend"
         [plugins]="chartDataLabels"
         >
       </canvas>
@@ -39,9 +35,10 @@ import ChartDataLabels from 'chartjs-plugin-datalabels'
 })
 export class IndividualPiechartComponent implements OnInit {
 
-  @Input() staffId: string;
-  @Input() staffName: string;
-  chartData: number[];
+  @Input() staffId!: string;
+  @Input() staffName!: string;
+  data: number[] = [];
+  pieChartData!: ChartData<'pie'>
   chartLabels!: string[];
   chartColor!: any[];
   loading = true;
@@ -49,18 +46,16 @@ export class IndividualPiechartComponent implements OnInit {
 
   options: ChartOptions = {
     responsive: true,
-    legend: {
-      position: 'bottom'
-    },
     plugins: {
+      legend: {
+        position: 'bottom'
+      },
       datalabels: {
         color: 'white',
         font: {
           size: 24
         },
-        formatter: function (value, context) {
-          return `${value}`
-        }
+
       }
     }
   };
@@ -69,6 +64,7 @@ export class IndividualPiechartComponent implements OnInit {
   legend = true;
   plugins: any[] = [];
   constructor(private dashboardService: DashboardService) {}
+
 
   ngOnInit(): void {
     this.getChartData();
@@ -79,9 +75,18 @@ export class IndividualPiechartComponent implements OnInit {
     this.dashboardService.getIndividualStages(this.staffId).pipe(untilDestroyed(this))
     .subscribe({
       next: (res) => {
-        this.chartData = res.map((c) => c.number);
+        this.data = res.map((c) => c.number);
         this.chartLabels = res.map((c) => c.stageName);
-        this.chartColor = [{ backgroundColor: res.map((c) => c.stageColor) }]
+        this.chartColor = res.map((c) => c.stageColor);
+        this.pieChartData = {
+          labels: this.chartLabels,
+          datasets: [
+            {
+              data: this.data,
+              backgroundColor: this.chartColor
+            }
+          ]
+        }
       },
       error: () => {
 
@@ -89,6 +94,6 @@ export class IndividualPiechartComponent implements OnInit {
       complete: () => {
         this.loading = false;
       }
-    })
+    });
   }
 }

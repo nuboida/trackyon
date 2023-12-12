@@ -95,7 +95,7 @@ export class CallMemoService {
     return this.api.post<GlobalResponse>(CallMemoRoutes.CreateTask, requestTask);
   }
 
-  editTask(request: EditTask): Observable<GlobalResponse> {
+  editTask(request: any): Observable<GlobalResponse> {
     return this.api.post<GlobalResponse>(CallMemoRoutes.EditTask, request);
   }
 }

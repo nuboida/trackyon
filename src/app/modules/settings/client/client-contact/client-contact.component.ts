@@ -28,15 +28,15 @@ export class ClientContactComponent implements OnInit, AfterViewInit {
   addToolTip = 'New Contact';
   dataSource = new MatTableDataSource<ClientContactResponse>([]);
   loading = false;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(private clientService: ClientService, public dialog: MatDialog,
               private toast: HotToastService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.route.data.pipe(untilDestroyed(this)).subscribe(result => this.dataSource.data = result.data);
+    this.route.data.pipe(untilDestroyed(this)).subscribe(result => this.dataSource.data = result['data']);
     this.route.params.pipe(untilDestroyed(this)).subscribe(params => {
-      this.clientId = params.id as string;
+      this.clientId = params['id'] as string;
       this.getClientInfo();
     });
   }

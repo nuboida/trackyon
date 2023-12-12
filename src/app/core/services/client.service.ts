@@ -8,13 +8,14 @@ import { GlobalResponse } from '@app/models/response.model';
 import { Observable } from 'rxjs';
 import { ApiService } from './api.service';
 import { AuthService } from './auth.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable()
 export class ClientService {
 
   companyId!: string;
 
-  constructor(private api: ApiService, private auth: AuthService) {
+  constructor(private api: ApiService, private auth: AuthService, private jwt: JwtHelperService) {
     this.auth.user$.subscribe(
       user => this.companyId = user?.companyId
     );

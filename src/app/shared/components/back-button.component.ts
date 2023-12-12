@@ -14,8 +14,8 @@ import { Router } from '@angular/router';
 })
 export class BackButtonComponent {
 
-  @Input() route: string;
-  @Input() toolTip: string;
+  @Input() route!: string;
+  @Input() toolTip!: string;
   constructor(private router: Router) { }
 
   return(): void {

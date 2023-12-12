@@ -30,5 +30,5 @@ import { DashboardOpportunity } from '../dashboard.model';
 export class OpportunitiesLatestComponent {
 
   count = Array(5).fill('');
-  @Input() opportunities: DashboardOpportunity[];
+  @Input() opportunities!: DashboardOpportunity[] | null;
 }

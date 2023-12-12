@@ -12,8 +12,11 @@ import { of } from 'rxjs';
 import { formatDistanceStrict } from 'date-fns';
 import { CallMemoDetailComponent } from './components/call-memo-detail/call-memo-detail.component';
 import { ExcelRequest } from '@app/models/excel.model';
-import { ExcelService } from '@app/services/excel.service';
-import { CalendarOptions } from '@fullcalendar/angular';
+// import { ExcelService } from '@app/services/excel.service';
+import { CalendarOptions } from '@fullcalendar/core';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import interactionPlugin from '@fullcalendar/interaction';
+import bootstrapPlugin from '@fullcalendar/bootstrap';
 
 @UntilDestroy()
 @Component({
@@ -37,9 +40,14 @@ export class CallMemoComponent implements OnInit, AfterViewInit {
   };
   displayedColumns: string[] = ['position', 'staff', 'date', 'status', 'button'];
   dataSource = new MatTableDataSource<CallMemoResponse>([]);
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   calendarOptions: CalendarOptions = {
+    plugins: [
+      dayGridPlugin,
+      interactionPlugin,
+      bootstrapPlugin
+    ],
     headerToolbar: {
       left: 'dayGridMonth,dayGridWeek,dayGridDay',
       center: 'title',
@@ -50,7 +58,11 @@ export class CallMemoComponent implements OnInit, AfterViewInit {
     themeSystem: 'bootstrap',
   };
 
-  constructor(public dialog: MatDialog, private store: Store<State>, private excel: ExcelService) { }
+  constructor(
+    public dialog: MatDialog,
+    private store: Store<State>,
+    //private excel: ExcelService
+    ) { }
 
   ngOnInit(): void {
 
@@ -87,7 +99,7 @@ export class CallMemoComponent implements OnInit, AfterViewInit {
   viewMemo(memoId: string): void {
     const memo = {...this.dataSource.data.find(x => x.callMemoId === memoId)};
 
-    memo.memoActivities = memo.memoActivities.map(x => {
+    memo.memoActivities = memo.memoActivities?.map(x => {
       const activities = {...x};
       activities.duration = formatDistanceStrict(new Date(x.assignmentStartTime), new Date(x.assignmentEndTime));
       return activities;
@@ -99,7 +111,7 @@ export class CallMemoComponent implements OnInit, AfterViewInit {
     });
   }
 
-  exportExcel(): void {
+  /* exportExcel(): void {
     const data: any[] = [];
 
     this.dataSource.data.forEach((d) => {
@@ -124,5 +136,5 @@ export class CallMemoComponent implements OnInit, AfterViewInit {
     };
 
     this.excel.exportExcel(request);
-  }
+  } */
 }

@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
-import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
-import { Label, Color } from 'ng2-charts';
+import { ChartOptions, ChartType, ChartData } from 'chart.js';
+
 
 @Component({
   selector: 'olla-sales-barchart',
@@ -11,13 +11,10 @@ import { Label, Color } from 'ng2-charts';
       </div>
       <div class="chart" style="display: block;">
         <canvas baseChart height="100"
-          [datasets]="barChartData"
-          [labels]="barChartLabels"
-          [colors]="barChartColors"
+          [data]="barChartData"
           [options]="barChartOptions"
           [plugins]="barChartPlugins"
-          [legend]="barChartLegend"
-          [chartType]="barChartType">
+          >
         </canvas>
       </div>
     </mat-card>
@@ -33,16 +30,28 @@ import { Label, Color } from 'ng2-charts';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SalesBarchartComponent {
-
+  @Input() data!: number[] | null;
   barChartOptions: ChartOptions = {
     responsive: true,
+    plugins: {
+      legend: {
+        display: true
+      }
+    }
   };
-  @Input() barChartLabels: Label[] = months;
+
   barChartType: ChartType = 'bar';
-  barChartLegend = true;
   barChartPlugins: any[] = [];
-  barChartColors: Color[] = [{backgroundColor: Array(12).fill('#4e73df')}];
-  @Input() barChartData: ChartDataSets[];
+  barChartColors = [{backgroundColor: Array(12).fill('#4e73df')}];
+  public barChartData: ChartData<'bar'> = {
+    labels: months,
+    datasets: [
+      {
+        data: this.data || [],
+        backgroundColor: Array(12).fill('#4e73df')
+      }
+    ]
+  }
 }
 
 const months = [

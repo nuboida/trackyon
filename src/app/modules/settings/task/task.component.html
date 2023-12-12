@@ -68,7 +68,7 @@
 [btnText]="btnText" [cardText]="cardText" [imageSrc]="imageSrc"></olla-blank-page-card>
 </ng-template>
 
-<div class="row mx-2 my-1" *ngIf="deptInput.value > 0">
+<div class="row mx-2 my-1" *ngIf="deptInput.value! > 0">
   <div class="col-md-3">
     <mat-form-field appearance="outline" class="w-100">
       <mat-label>Filter By</mat-label>

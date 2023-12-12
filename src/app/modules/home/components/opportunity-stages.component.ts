@@ -42,6 +42,6 @@ import { DashboardOpportunity, DashboardStage } from '../dashboard.model';
 export class OpportunitiesStagesComponent {
 
   count = Array(5).fill('');
-  @Input() stages: DashboardStage[];
-  @Input() totalStages: number;
+  @Input() stages!: DashboardStage[];
+  @Input() totalStages!: number;
 }

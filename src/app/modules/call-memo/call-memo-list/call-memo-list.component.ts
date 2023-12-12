@@ -30,15 +30,20 @@ export class CallMemoListComponent implements OnInit, AfterViewInit {
   staff$!: Observable<StaffResponse[]>;
   displayedColumns: string[] = ['position', 'staff', 'date', 'button'];
   dataSource = new MatTableDataSource<CallMemoResponse>([]);
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   filter: CallMemoFilterRequest = {
     staffs: [],
     startTime: new Date(),
     endTime: new Date()
   };
-  constructor(public dialog: MatDialog, private staffService: StaffService, private store: Store<State>,
-              private toast: HotToastService, private excel: ExcelService) { }
+  constructor(
+    public dialog: MatDialog,
+    private staffService: StaffService,
+    private store: Store<State>,
+    private toast: HotToastService,
+    private excel: ExcelService
+    ) { }
 
   ngOnInit(): void {
     this.staff$ = this.staffService.getStaffs();
@@ -61,7 +66,7 @@ export class CallMemoListComponent implements OnInit, AfterViewInit {
   viewMemo(memoId: string): void {
     const memo = {...this.dataSource.data.find(x => x.callMemoId === memoId)};
 
-    memo.memoActivities = memo.memoActivities.map(x => {
+    memo.memoActivities = memo.memoActivities?.map(x => {
       const activities = {...x};
       activities.duration = formatDistanceStrict(new Date(x.assignmentStartTime), new Date(x.assignmentEndTime));
       return activities;

@@ -25,13 +25,13 @@ export class OemComponent implements OnInit, AfterViewInit {
   addToolTip = 'New OEM';
   dataSource = new MatTableDataSource<OemResponse>([]);
   loading = false;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(private oemService: OemService, public dialog: MatDialog,
               private toast: HotToastService, private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.route.data.pipe(untilDestroyed(this)).subscribe(result => this.dataSource.data = result.data);
+    this.route.data.pipe(untilDestroyed(this)).subscribe(result => this.dataSource.data = result['data']);
   }
 
   ngAfterViewInit(): void {

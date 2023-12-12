@@ -17,7 +17,7 @@ export class ClassificationCreateComponent implements OnInit {
 
   loading = false;
   form!: FormGroup;
-  id: number;
+  id!: number;
 
   nameCtrl = new FormControl('', Validators.required);
 

@@ -1,10 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
-import { formatAPIDate } from '@app/helpers/date.helper';
 import { ErrorResponse } from '@app/models/error.model';
-import { MemoTaskStaffDetailRequest, MemoTaskStaffDetailsResponse } from '@modules/call-memo/models/call-memo-response.model';
+import { MemoTaskStaffDetailsResponse } from '@modules/call-memo/models/call-memo-response.model';
 import { CallMemoService } from '@modules/call-memo/services/call-memo.service';
 import { HotToastService } from '@ngneat/hot-toast';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';

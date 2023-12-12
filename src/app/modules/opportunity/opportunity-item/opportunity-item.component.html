@@ -13,49 +13,49 @@
         <div class="row">
           <div class="col-xl-3 col-6 mb-3">
             <h6 class="text-muted">CLIENT:</h6>
-            <p>{{opportunity?.client}}</p>
+            <p>{{opportunity.client}}</p>
             <h6 class="text-muted">CONTACT:</h6>
-            <p>{{opportunity?.clientContact}}</p>
+            <p>{{opportunity.clientContact}}</p>
             <h6 class="text-muted">TYPE:</h6>
-            <p>{{opportunity?.businessType}}</p>
+            <p>{{opportunity.businessType}}</p>
             <h6 class="text-muted">OEM:</h6>
-            <p>{{opportunity?.oemNames || 'None'}}</p>
+            <p>{{opportunity.oemNames || 'None'}}</p>
             <h6 class="text-muted">OPENED BY:</h6>
-            <p>{{opportunity?.staff}}</p>
+            <p>{{opportunity.staff}}</p>
 
           </div>
           <div class="col-xl-3 col-6 mb-3">
             <h6 class="text-muted">SELLING PRICE:</h6>
-            <p>{{opportunity?.sellingPrice |currency}}</p>
+            <p>{{opportunity.sellingPrice |currency}}</p>
             <h6 class="text-muted">COST PRICE:</h6>
-            <p>{{opportunity?.costPrice |currency}}</p>
+            <p>{{opportunity.costPrice |currency}}</p>
             <h6 class="text-muted">AMOUNT PAID:</h6>
-            <p>{{opportunity?.amountPaid |currency:'₦' }}</p>
+            <p>{{opportunity.amountPaid |currency:'₦' }}</p>
             <h6 class="text-muted">RATE:</h6>
-            <p>{{opportunity?.rate}}</p>
+            <p>{{opportunity.rate}}</p>
             <h6 class="text-muted">DATE RECEIVED:</h6>
-            <p>{{(opportunity?.datePaymentReceived |date:'mediumDate') || 'None'}}</p>
+            <p>{{(opportunity.datePaymentReceived |date:'mediumDate') || 'None'}}</p>
           </div>
           <div class="col-xl-3 col-6">
             <h6 class="text-muted">OPENED ON:</h6>
-            <p>{{opportunity?.createdDate |date:'mediumDate'}}</p>
+            <p>{{opportunity.createdDate |date:'mediumDate'}}</p>
             <h6 class="text-muted">CLOSURE DATE:</h6>
-            <p>{{(opportunity?.expectedClosingDate |date:'mediumDate') || 'None'}}</p>
+            <p>{{(opportunity.expectedClosingDate |date:'mediumDate') || 'None'}}</p>
             <h6 class="text-muted">DELIVERY STATUS:</h6>
-            <p>{{opportunity?.deliveryStatus}}</p>
+            <p>{{opportunity.deliveryStatus}}</p>
             <h6 class="text-muted">DELIVERY DATE:</h6>
-            <p>{{(opportunity?.dateOfDelivery |date:'mediumDate') || 'None'}}</p>
+            <p>{{(opportunity.dateOfDelivery |date:'mediumDate') || 'None'}}</p>
           </div>
           <div class="col-xl-3 col-6">
             <h6 class="text-muted">STAGE:</h6>
-            <p>{{opportunity?.stage}}</p>
+            <p>{{opportunity.stage}}</p>
             <h6 class="text-muted">PERCENTAGE:</h6>
-            <p>{{opportunity?.stagePercentage}}</p>
+            <p>{{opportunity.stagePercentage}}</p>
             <h6 class="text-muted">SUPPORT:</h6>
-            <p>{{opportunity?.teamNames || 'None'}}</p>
+            <p>{{opportunity.teamNames || 'None'}}</p>
             <h6 class="text-muted">DESCRIPTION:</h6>
             <p class="overview">
-              {{opportunity?.description}}
+              {{opportunity.description}}
             </p>
           </div>
 

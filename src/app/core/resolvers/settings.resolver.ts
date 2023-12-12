@@ -1,8 +1,10 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {
   Router, Resolve,
   RouterStateSnapshot,
-  ActivatedRouteSnapshot
+  ActivatedRouteSnapshot,
+  ResolveFn,
+  ActivatedRoute
 } from '@angular/router';
 import { ProjectResponse, TaskResponse } from '@app/models/call-memo.model';
 import { ClientContactResponse, ClientResponse } from '@app/models/client.model';
@@ -18,7 +20,7 @@ import { OpportunityService } from '@app/services/opportunity.service';
 import { StaffService } from '@app/services/staff.service';
 import { Observable, of } from 'rxjs';
 
-@Injectable({
+/* @Injectable({
   providedIn: 'root'
 })
 export class ClientListResolver implements Resolve<ClientResponse[]> {
@@ -28,9 +30,17 @@ export class ClientListResolver implements Resolve<ClientResponse[]> {
     const clients = this.clientService.getClients();
     return clients;
   }
-}
+} */
 
-@Injectable({
+export const ClientListResolver: ResolveFn<Observable<ClientResponse[]>> = (
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot) => {
+    const clientService = inject(ClientService);
+    const clients = clientService.getClients();
+    return clients;
+  }
+
+/* @Injectable({
   providedIn: 'root'
 })
 export class ClientContactListResolver implements Resolve<ClientContactResponse[]> {
@@ -41,22 +51,27 @@ export class ClientContactListResolver implements Resolve<ClientContactResponse[
     const contacts = this.clientService.getClientContacts(id);
     return contacts;
   }
+} */
+
+export const ClientContactListResolver: ResolveFn<Observable<ClientContactResponse[]>> = (
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot
+) => {
+  const contacts = inject(ClientService).getClientContacts(route.paramMap.get('id')!);
+  return contacts;
 }
 
 
-@Injectable({
-  providedIn: 'root'
-})
-export class OemListResolver implements Resolve<OemResponse[]> {
-  constructor(private oemService: OemService) {}
-
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<OemResponse[]> {
-    const clients = this.oemService.getOems();
-    return clients;
-  }
+export const OemListResolver: ResolveFn<Observable<OemResponse[]>> = (
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot
+) => {
+  const oemService = inject(OemService);
+  const clients = oemService.getOems();
+  return clients
 }
 
-@Injectable({
+/* @Injectable({
   providedIn: 'root'
 })
 export class OemContactListResolver implements Resolve<OemContactResponse[]> {
@@ -67,9 +82,19 @@ export class OemContactListResolver implements Resolve<OemContactResponse[]> {
     const contacts = this.oemService.getOemContacts(id);
     return contacts;
   }
+} */
+
+export const OemContactListResolver: ResolveFn<Observable<OemContactResponse[]>> = (
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot
+) => {
+  const id = route.paramMap.get('id') as string;
+  const oemService = inject(OemService);
+  const contacts = oemService.getOemContacts(id);
+  return contacts;
 }
 
-@Injectable({
+/* @Injectable({
   providedIn: 'root'
 })
 export class ClassificationListResolver implements Resolve<ClassificationResponse[]> {
@@ -79,21 +104,27 @@ export class ClassificationListResolver implements Resolve<ClassificationRespons
     const classifications = this.opptService.getClassifications();
     return classifications;
   }
+} */
+
+export const ClassificationListResolver: ResolveFn<Observable<ClassificationResponse[]>> = (
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot
+) => {
+  const opptService = inject(OpportunityService);
+  const classifications = opptService.getClassifications();
+  return classifications;
 }
 
-@Injectable({
-  providedIn: 'root'
-})
-export class ProjectListResolver implements Resolve<ProjectResponse[]> {
-  constructor(private memoService: CallMemoService) {}
-
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<ProjectResponse[]> {
-    const projects = this.memoService.getProjects();
-    return projects;
-  }
+export const ProjectListResolver: ResolveFn<Observable<ProjectResponse[]>> = (
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot
+) => {
+  const memoService= inject(CallMemoService);
+  const projects = memoService.getProjects();
+  return projects;
 }
 
-@Injectable({
+/* @Injectable({
   providedIn: 'root'
 })
 export class TaskListResolver implements Resolve<TaskResponse[]> {
@@ -103,28 +134,32 @@ export class TaskListResolver implements Resolve<TaskResponse[]> {
     const tasks = this.memoService.getTasks();
     return tasks;
   }
-}
-@Injectable({
-  providedIn: 'root'
-})
-export class DepartmentListResolver implements Resolve<DepartmentResponse[]> {
-  constructor(private departmentService: DepartmentService) {}
+} */
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<DepartmentResponse[]> {
-    const departments = this.departmentService.getDepartments();
-    return departments;
-  }
+export const TaskListResolver: ResolveFn<Observable<TaskResponse[]>> = (
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot
+) => {
+  const memoService = inject(CallMemoService)
+  const tasks = memoService.getTasks();
+  return tasks;
 }
 
+export const DepartmentListResolver: ResolveFn<Observable<DepartmentResponse[]>> = (
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot
+) => {
+  const departmentService = inject(DepartmentService);
+  const departments = departmentService.getDepartments();
+  return departments;
+}
 
-@Injectable({
-  providedIn: 'root'
-})
-export class StaffListResolver implements Resolve<StaffResponse[]> {
-  constructor(private staffService: StaffService) {}
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<StaffResponse[]> {
-    const staffs = this.staffService.getStaffs();
-    return staffs;
-  }
+export const StaffListResolver: ResolveFn<Observable<StaffResponse[]>> = (
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot
+) => {
+  const staffService = inject(StaffService);
+  const staffs = staffService.getStaffs();
+  return staffs;
 }

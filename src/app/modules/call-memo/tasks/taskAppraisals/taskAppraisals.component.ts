@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { CallMemoService } from '@app/services/call-memo.service';
 import { CallMemoService as AppraisalService } from "@modules/call-memo/services/call-memo.service"
-import { MemoTaskDetailsResponse, MemoTaskStaffDetailsResponse } from '@modules/call-memo/models/call-memo-response.model';
+import { MemoTaskStaffDetailsResponse } from '@modules/call-memo/models/call-memo-response.model';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { CreateAppraisalComponent } from '../components/create-appraisal/create-appraisal.component';
 import { ErrorResponse } from '@app/models/error.model';
@@ -21,7 +21,6 @@ export class TaskAppraisalsComponent implements OnInit {
   returnRoute = "/memo/tasks";
   toolTip = "Back to Tasks";
   data = this.route.snapshot.data;
-  currentAppraisals!: MemoTaskDetailsResponse;
   memoTaskId!: string;
   staffId!: string;
   memoTaskDetails!: MemoTaskStaffDetailsResponse[];
@@ -37,11 +36,10 @@ export class TaskAppraisalsComponent implements OnInit {
    private memoService: CallMemoService,
    private appraisalService: AppraisalService,
    private dialog: MatDialog,
-   private router: Router,
    private toast: HotToastService
     ) {
-    this.memoTaskId = this.route.snapshot.paramMap.get("id");
-    this.staffId = this.route.snapshot.paramMap.get("staffId");
+    this.memoTaskId = this.route.snapshot.paramMap.get("id")!;
+    this.staffId = this.route.snapshot.paramMap.get("staffId")!;
   }
 
   ngOnInit() {
@@ -57,7 +55,7 @@ export class TaskAppraisalsComponent implements OnInit {
       );
   }
 
-  getStaffTaskByDate(staffId = this.data.data.staff, startTime = this.data.data.startDate, endTime = this.data.data.endDate): void {
+  getStaffTaskByDate(staffId = this.data['data'].staff, startTime = this.data['data'].startDate, endTime = this.data['data'].endDate): void {
     this.loading = true;
     this.appraisalService.getMemoTaskStaffDetails({staffId, startTime, endTime})
     .pipe(untilDestroyed(this)).subscribe(

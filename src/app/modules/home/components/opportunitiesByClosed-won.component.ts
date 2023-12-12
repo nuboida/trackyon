@@ -74,7 +74,7 @@ import { OpportunityResponse } from '@app/models/opportunity.model';
   `,
 })
 export class OpportunitiesWonComponent implements OnInit {
-  @Input() opportunities: OpportunityResponse[];
+  @Input() opportunities!: OpportunityResponse[];
   displayedColumns: string[] = ['position', 'client', 'opportunity', 'price', 'cost', 'margin', 'status', 'date', 'staff'];
   dataSource = new MatTableDataSource<OpportunityResponse>([]);
 

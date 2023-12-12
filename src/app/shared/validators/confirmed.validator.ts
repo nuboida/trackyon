@@ -6,7 +6,7 @@ export class ValidatePasswordMatch {
       const password = control.get('password');
       const confirmPassword = control.get('confirm');
 
-      if (confirmPassword?.errors && !confirmPassword.errors.confirmedValidator) {
+      if (confirmPassword?.errors && !confirmPassword.errors['confirmedValidator']) {
           return null;
       }
 

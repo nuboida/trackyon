@@ -10,7 +10,7 @@ import { selectRouteParams } from 'src/app/state/router.selectors';
 import { closeActivity, loadActivities, loadOpportunity, loadOpportunityFiles, uploadFile } from '../state/actions/opportunity-item-page.actions';
 import { Observable, of } from 'rxjs';
 import { ExcelRequest } from '@app/models/excel.model';
-import { ExcelService } from '@app/services/excel.service';
+//import { ExcelService } from '@app/services/excel.service';
 
 @UntilDestroy()
 @Component({
@@ -34,16 +34,16 @@ export class OpportunityItemComponent implements OnInit {
   activitiesColumns = [
     'position', 'activity', 'scheduled', 'stage',
     'staff',  'created', 'status', 'action'];
-  activitiesData: ActivityResponse[];
+  activitiesData!: ActivityResponse[];
 
   constructor(public dialog: MatDialog, private store: Store<State>, private toast: HotToastService,
-    private excel: ExcelService
+    //private excel: ExcelService
     ) {}
 
   ngOnInit(): void {
 
     this.store.select(selectRouteParams).pipe(untilDestroyed(this)).subscribe(data => {
-      this.opportunityId = data.id;
+      this.opportunityId = data['id'];
       if (this.opportunityId) {
         this.store.dispatch(loadOpportunity({ opportunityId: this.opportunityId }));
         this.store.dispatch(loadActivities({ opportunityId: this.opportunityId }));
@@ -138,6 +138,6 @@ export class OpportunityItemComponent implements OnInit {
         'Stage', 'Staff', 'Created', 'Status'
       ]
     };
-    this.excel.exportExcel(request);
+   // this.excel.exportExcel(request);
   }
 }

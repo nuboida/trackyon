@@ -47,7 +47,7 @@ export class TasksComponent implements OnInit, AfterViewInit {
   staffTask: FormControl = new FormControl('');
   memoTaskDetails: MemoTaskStaffDetailsResponse[] = [];
   selectedStaff!: string;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(
     private staffService: StaffService,

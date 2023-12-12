@@ -37,8 +37,8 @@ export class StaffComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.route.data.pipe(untilDestroyed(this)).subscribe(result => {
-      this.activeDataSource.data = result.data.filter((c: StaffResponse) => c.active);
-      this.inactiveDataSource.data = result.data.filter((c: StaffResponse) => !c.active);
+      this.activeDataSource.data = result['data'].filter((c: StaffResponse) => c.active);
+      this.inactiveDataSource.data = result['data'].filter((c: StaffResponse) => !c.active);
     });
   }
 

@@ -14,7 +14,7 @@ export class VerifyEmailComponent implements OnInit {
 
   loading = true;
   success = false;
-  errorMessage: string;
+  errorMessage!: string;
   request: VerifyEmailRequest = {
     email: '',
     token: ''
@@ -25,13 +25,13 @@ export class VerifyEmailComponent implements OnInit {
 
     this.route.queryParams.pipe(untilDestroyed(this)).subscribe(
       params => {
-        if (!params.token || !params.email) {
+        if (!params['token'] || !params['email']) {
           this.loading = false;
           this.errorMessage = 'Invalid Request';
           return;
         }
-        this.request.token = params.token;
-        this.request.email = params.email;
+        this.request.token = params['token'];
+        this.request.email = params['email'];
         this.verifyEmail();
       }
     );

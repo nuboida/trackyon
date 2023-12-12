@@ -24,11 +24,11 @@ export class ProfileComponent implements OnInit {
     newPassword: ''
   };
 
-  staff: LoginResponse;
-  role: string;
+  staff!: LoginResponse;
+  role!: string;
   date = new Date();
 
-  form: FormGroup;
+  form!: FormGroup;
   constructor(private fb: FormBuilder, private auth: AuthService,
               private toast: HotToastService, private staffService: StaffService) { }
 
@@ -60,8 +60,8 @@ export class ProfileComponent implements OnInit {
   change(): void {
 
     this.loading = true;
-    this.request.currentPassword = this.form.get('currentPassword').value;
-    this.request.newPassword = this.form.get('password').value;
+    this.request.currentPassword = this.form.get('currentPassword')?.value;
+    this.request.newPassword = this.form.get('password')?.value;
     this.auth.changePassword(this.request).pipe(untilDestroyed(this))
     .subscribe(
       () => {

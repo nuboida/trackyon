@@ -9,7 +9,10 @@ export class ApiService {
   constructor(private http: HttpClient) { }
 
   get<T>(path: string, params: HttpParams = new HttpParams()): Observable<T> {
-    return this.http.get<T>(`${environment.api_url}${path}`, { params });
+    return this.http.get<T>(`${environment.api_url}${path}`, { params, headers: {
+      "Content-Type": 'application/json',
+      "Authorization": `Bearer ${sessionStorage.getItem('token')}`
+    } });
   }
 
   put<T>(path: string, body: object = {}): Observable<T> {
